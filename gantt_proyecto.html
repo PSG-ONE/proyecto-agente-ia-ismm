@@ -621,7 +621,7 @@
 <body>
     <div class="header">
         <h1>📊 Proyecto Agente IA - ISMM (Gantt Dinámico)</h1>
-        <p>Cronograma Interactivo | 20 Febrero - 09 Abril 2026 (Fases 1-7)</p>
+        <p>Cronograma Interactivo | 20 Febrero - 23 Abril 2026 (Fases 1-7)</p>
     </div>
 
     <div class="controls">
@@ -644,7 +644,7 @@
             <div class="stat-label">Fases del Proyecto</div>
         </div>
         <div class="stat-card" style="border-left-color: #a855f7;">
-            <div class="stat-number" style="color: #a855f7;" id="totalTasks">61</div>
+            <div class="stat-number" style="color: #a855f7;" id="totalTasks">42</div>
             <div class="stat-label">Tareas Totales</div>
         </div>
         <div class="stat-card" style="border-left-color: #fbbf24;">
@@ -742,45 +742,70 @@
     <script>
         // Datos de las tareas (WBS renumerado desde 1.0)
         let tasks = [
-            // FASE 1: META API - WHATSAPP
-            { wbs: '1.0', name: 'FASE 1: INTEGRACIÓN META API', status: 'pending', duration: '7d', resources: 'Equipo', start: '2026-02-20', end: '2026-02-28', phase: 'fase3', isPhase: true },
-            { wbs: '1.1', name: 'Verificación número telefónico', status: 'pending', duration: '1d', resources: 'P1', start: '2026-02-20', end: '2026-02-20', phase: 'fase3' },
-            { wbs: '1.2', name: 'Validación portafolio empresarial', status: 'pending', duration: '1d', resources: 'P2', start: '2026-02-21', end: '2026-02-21', phase: 'fase3' },
-            { wbs: '1.3', name: 'Preparación documentación', status: 'pending', duration: '1d', resources: 'P1', start: '2026-02-24', end: '2026-02-24', phase: 'fase3' },
-            { wbs: '1.4', name: 'Envío y seguimiento verificación', status: 'pending', duration: '2d', resources: 'P2', start: '2026-02-25', end: '2026-02-26', phase: 'fase3' },
-            { wbs: '1.5', name: 'Creación app Meta Developers', status: 'pending', duration: '1d', resources: 'P1', start: '2026-02-27', end: '2026-02-27', phase: 'fase3' },
-            { wbs: '1.6', name: 'Configuración credenciales', status: 'pending', duration: '1d', resources: 'P1', start: '2026-02-27', end: '2026-02-27', phase: 'fase3' },
-            { wbs: '1.7', name: 'Configuración webhook', status: 'pending', duration: '1d', resources: 'P2', start: '2026-02-28', end: '2026-02-28', phase: 'fase3' },
-            { wbs: '1.8', name: 'Pruebas envío/recepción', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-02-28', end: '2026-02-28', phase: 'fase3' },
+            // FASE 1: INTEGRACIÓN CON META API (WhatsApp Business)
+            { wbs: '1.0', name: 'FASE 1: INTEGRACIÓN CON META API', status: 'pending', duration: '7d', resources: 'Equipo', start: '2026-02-20', end: '2026-02-28', phase: 'fase3', isPhase: true },
+            { wbs: '1.1', name: 'Verificación del número telefónico en Meta', status: 'pending', duration: '1d', resources: 'P1', start: '2026-02-20', end: '2026-02-20', phase: 'fase3' },
+            { wbs: '1.2', name: 'Validación del portafolio empresarial Meta', status: 'pending', duration: '1d', resources: 'P2', start: '2026-02-21', end: '2026-02-21', phase: 'fase3' },
+            { wbs: '1.3', name: 'Gestión de documentación para verificación', status: 'pending', duration: '1d', resources: 'P1', start: '2026-02-24', end: '2026-02-24', phase: 'fase3' },
+            { wbs: '1.4', name: 'Creación de App en Meta for Developers', status: 'pending', duration: '1d', resources: 'P2', start: '2026-02-25', end: '2026-02-25', phase: 'fase3' },
+            { wbs: '1.5', name: 'Configuración de credenciales y tokens de acceso', status: 'pending', duration: '1d', resources: 'P1', start: '2026-02-26', end: '2026-02-26', phase: 'fase3' },
+            { wbs: '1.6', name: 'Pruebas de conexión con WhatsApp Business API', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-02-27', end: '2026-02-27', phase: 'fase3' },
             { wbs: 'H1', name: '💎 WhatsApp API Verificado', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-02-28', end: '2026-02-28', phase: 'fase3', isMilestone: true },
 
-            // FASE 2: CHATWOOT
-            { wbs: '2.0', name: 'FASE 2: CHATWOOT', status: 'pending', duration: '5d', resources: 'Equipo', start: '2026-03-03', end: '2026-03-07', phase: 'fase4', isPhase: true },
-            { wbs: '2.1', name: 'Instalación Chatwoot', status: 'pending', duration: '2d', resources: 'P1', start: '2026-03-03', end: '2026-03-04', phase: 'fase4' },
-            { wbs: '2.2', name: 'Configuración canales', status: 'pending', duration: '2d', resources: 'P2', start: '2026-03-05', end: '2026-03-06', phase: 'fase4' },
-            { wbs: '2.3', name: 'Pruebas integración', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-03-07', end: '2026-03-07', phase: 'fase4' },
-            { wbs: 'H2', name: '💎 Chatwoot Operativo', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-03-07', end: '2026-03-07', phase: 'fase4', isMilestone: true },
+            // FASE 2: CONFIGURACIÓN DE CHATWOOT
+            { wbs: '2.0', name: 'FASE 2: CONFIGURACIÓN DE CHATWOOT', status: 'pending', duration: '7d', resources: 'Equipo', start: '2026-03-03', end: '2026-03-11', phase: 'fase4', isPhase: true },
+            { wbs: '2.1', name: 'Instalación y configuración de Chatwoot', status: 'pending', duration: '2d', resources: 'P1', start: '2026-03-03', end: '2026-03-04', phase: 'fase4' },
+            { wbs: '2.2', name: 'Integración de Chatwoot con WhatsApp Business API', status: 'pending', duration: '2d', resources: 'P2', start: '2026-03-05', end: '2026-03-06', phase: 'fase4' },
+            { wbs: '2.3', name: 'Configuración de equipos, usuarios y roles', status: 'pending', duration: '1d', resources: 'P1', start: '2026-03-07', end: '2026-03-07', phase: 'fase4' },
+            { wbs: '2.4', name: 'Personalización de interfaz y etiquetas', status: 'pending', duration: '1d', resources: 'P2', start: '2026-03-10', end: '2026-03-10', phase: 'fase4' },
+            { wbs: '2.5', name: 'Pruebas de funcionamiento de bandeja de entrada', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-03-11', end: '2026-03-11', phase: 'fase4' },
+            { wbs: 'H2', name: '💎 Chatwoot Operativo', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-03-11', end: '2026-03-11', phase: 'fase4', isMilestone: true },
 
-            // FASE 3: AGENTE IA
-            { wbs: '3.0', name: 'FASE 3: AGENTE IA', status: 'pending', duration: '10d', resources: 'Equipo', start: '2026-03-10', end: '2026-03-21', phase: 'fase5', isPhase: true },
-            { wbs: '3.1', name: 'Desarrollo agente IA', status: 'pending', duration: '10d', resources: 'Ambos', start: '2026-03-10', end: '2026-03-21', phase: 'fase5' },
-            { wbs: 'H3', name: '💎 Agente IA Funcional', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-03-21', end: '2026-03-21', phase: 'fase5', isMilestone: true },
+            // FASE 3: DESARROLLO E INTEGRACIÓN DEL AGENTE IA
+            { wbs: '3.0', name: 'FASE 3: DESARROLLO E INTEGRACIÓN DEL AGENTE IA', status: 'pending', duration: '10d', resources: 'Equipo', start: '2026-03-12', end: '2026-03-25', phase: 'fase5', isPhase: true },
+            { wbs: '3.1', name: 'Selección de plataforma de IA', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-03-12', end: '2026-03-12', phase: 'fase5' },
+            { wbs: '3.2', name: 'Estructuración de base de conocimiento', status: 'pending', duration: '2d', resources: 'P1', start: '2026-03-13', end: '2026-03-14', phase: 'fase5' },
+            { wbs: '3.3', name: 'Entrenamiento del agente con datos estructurados', status: 'pending', duration: '2d', resources: 'P2', start: '2026-03-17', end: '2026-03-18', phase: 'fase5' },
+            { wbs: '3.4', name: 'Configuración de intents y entidades conversacionales', status: 'pending', duration: '2d', resources: 'P1', start: '2026-03-19', end: '2026-03-20', phase: 'fase5' },
+            { wbs: '3.5', name: 'Desarrollo de lógica de flujos conversacionales', status: 'pending', duration: '2d', resources: 'P2', start: '2026-03-21', end: '2026-03-24', phase: 'fase5' },
+            { wbs: '3.6', name: 'Integración del agente IA con Chatwoot vía API', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-03-25', end: '2026-03-25', phase: 'fase5' },
+            { wbs: '3.7', name: 'Configuración de respuestas automáticas y escalamiento', status: 'pending', duration: '1d', resources: 'P1', start: '2026-03-25', end: '2026-03-25', phase: 'fase5' },
+            { wbs: 'H3', name: '💎 Agente IA Funcional', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-03-25', end: '2026-03-25', phase: 'fase5', isMilestone: true },
 
-            // FASE 4: ZOHO CRM
-            { wbs: '4.0', name: 'FASE 4: ZOHO CRM', status: 'pending', duration: '5d', resources: 'Equipo', start: '2026-03-24', end: '2026-03-28', phase: 'fase6', isPhase: true },
-            { wbs: 'H4', name: '💎 Zoho CRM Integrado', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-03-28', end: '2026-03-28', phase: 'fase6', isMilestone: true },
+            // FASE 4: INTEGRACIÓN CON ZOHO CRM
+            { wbs: '4.0', name: 'FASE 4: INTEGRACIÓN CON ZOHO CRM', status: 'pending', duration: '6d', resources: 'Equipo', start: '2026-03-26', end: '2026-04-02', phase: 'fase6', isPhase: true },
+            { wbs: '4.1', name: 'Evaluación del API de Zoho CRM', status: 'pending', duration: '1d', resources: 'P1', start: '2026-03-26', end: '2026-03-26', phase: 'fase6' },
+            { wbs: '4.2', name: 'Configuración de webhooks y endpoints', status: 'pending', duration: '1d', resources: 'P2', start: '2026-03-27', end: '2026-03-27', phase: 'fase6' },
+            { wbs: '4.3', name: 'Desarrollo de sincronización de leads y contactos', status: 'pending', duration: '2d', resources: 'P1', start: '2026-03-28', end: '2026-03-31', phase: 'fase6' },
+            { wbs: '4.4', name: 'Mapeo de campos entre sistemas', status: 'pending', duration: '1d', resources: 'P2', start: '2026-04-01', end: '2026-04-01', phase: 'fase6' },
+            { wbs: '4.5', name: 'Pruebas de integración bidireccional', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-04-02', end: '2026-04-02', phase: 'fase6' },
+            { wbs: 'H4', name: '💎 Zoho CRM Integrado', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-04-02', end: '2026-04-02', phase: 'fase6', isMilestone: true },
 
-            // FASE 5: PRUEBAS Y QA
-            { wbs: '5.0', name: 'FASE 5: PRUEBAS Y QA', status: 'pending', duration: '5d', resources: 'Equipo', start: '2026-03-31', end: '2026-04-04', phase: 'fase7', isPhase: true },
-            { wbs: 'H5', name: '💎 Sistema Validado', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-04-04', end: '2026-04-04', phase: 'fase7', isMilestone: true },
+            // FASE 5: PRUEBAS Y CONTROL DE CALIDAD
+            { wbs: '5.0', name: 'FASE 5: PRUEBAS Y CONTROL DE CALIDAD', status: 'pending', duration: '7d', resources: 'Equipo', start: '2026-04-03', end: '2026-04-11', phase: 'fase7', isPhase: true },
+            { wbs: '5.1', name: 'Diseño de casos de prueba', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-04-03', end: '2026-04-03', phase: 'fase7' },
+            { wbs: '5.2', name: 'Pruebas unitarias de cada componente', status: 'pending', duration: '2d', resources: 'P1', start: '2026-04-04', end: '2026-04-07', phase: 'fase7' },
+            { wbs: '5.3', name: 'Pruebas de integración end-to-end', status: 'pending', duration: '2d', resources: 'P2', start: '2026-04-08', end: '2026-04-09', phase: 'fase7' },
+            { wbs: '5.4', name: 'Pruebas de carga y estrés del sistema', status: 'pending', duration: '1d', resources: 'P1', start: '2026-04-10', end: '2026-04-10', phase: 'fase7' },
+            { wbs: '5.5', name: 'Pruebas de usuario con casos reales', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-04-11', end: '2026-04-11', phase: 'fase7' },
+            { wbs: '5.6', name: 'Corrección de errores y ajustes', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-04-11', end: '2026-04-11', phase: 'fase7' },
+            { wbs: 'H5', name: '💎 Sistema Validado', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-04-11', end: '2026-04-11', phase: 'fase7', isMilestone: true },
 
-            // FASE 6: CAPACITACIÓN
-            { wbs: '6.0', name: 'FASE 6: CAPACITACIÓN', status: 'pending', duration: '2d', resources: 'Equipo', start: '2026-04-07', end: '2026-04-08', phase: 'fase8', isPhase: true },
-            { wbs: 'H6', name: '💎 Equipo Capacitado', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-04-08', end: '2026-04-08', phase: 'fase8', isMilestone: true },
+            // FASE 6: CAPACITACIÓN Y DOCUMENTACIÓN
+            { wbs: '6.0', name: 'FASE 6: CAPACITACIÓN Y DOCUMENTACIÓN', status: 'pending', duration: '4d', resources: 'Equipo', start: '2026-04-14', end: '2026-04-17', phase: 'fase8', isPhase: true },
+            { wbs: '6.1', name: 'Creación de manual de usuario del sistema', status: 'pending', duration: '1d', resources: 'P1', start: '2026-04-14', end: '2026-04-14', phase: 'fase8' },
+            { wbs: '6.2', name: 'Documentación técnica de arquitectura', status: 'pending', duration: '1d', resources: 'P2', start: '2026-04-15', end: '2026-04-15', phase: 'fase8' },
+            { wbs: '6.3', name: 'Capacitación al equipo administrativo y de ventas', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-04-16', end: '2026-04-16', phase: 'fase8' },
+            { wbs: '6.4', name: 'Sesión de preguntas y respuestas', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-04-17', end: '2026-04-17', phase: 'fase8' },
+            { wbs: 'H6', name: '💎 Equipo Capacitado', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-04-17', end: '2026-04-17', phase: 'fase8', isMilestone: true },
 
-            // FASE 7: DESPLIEGUE
-            { wbs: '7.0', name: 'FASE 7: DESPLIEGUE', status: 'pending', duration: '1d', resources: 'Equipo', start: '2026-04-09', end: '2026-04-09', phase: 'fase9', isPhase: true },
-            { wbs: 'H7', name: '💎 GO-LIVE PRODUCCIÓN', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-04-09', end: '2026-04-09', phase: 'fase9', isMilestone: true }
+            // FASE 7: DESPLIEGUE Y PUESTA EN PRODUCCIÓN
+            { wbs: '7.0', name: 'FASE 7: DESPLIEGUE Y PUESTA EN PRODUCCIÓN', status: 'pending', duration: '4d', resources: 'Equipo', start: '2026-04-18', end: '2026-04-23', phase: 'fase9', isPhase: true },
+            { wbs: '7.1', name: 'Configuración final del entorno de producción', status: 'pending', duration: '1d', resources: 'P1', start: '2026-04-18', end: '2026-04-18', phase: 'fase9' },
+            { wbs: '7.2', name: 'Migración de datos y configuraciones', status: 'pending', duration: '1d', resources: 'P2', start: '2026-04-21', end: '2026-04-21', phase: 'fase9' },
+            { wbs: '7.3', name: 'Lanzamiento oficial del agente IA', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-04-22', end: '2026-04-22', phase: 'fase9' },
+            { wbs: '7.4', name: 'Monitoreo post-lanzamiento (48 horas intensivo)', status: 'pending', duration: '2d', resources: 'Ambos', start: '2026-04-22', end: '2026-04-23', phase: 'fase9' },
+            { wbs: 'H7', name: '💎 GO-LIVE PRODUCCIÓN', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-04-23', end: '2026-04-23', phase: 'fase9', isMilestone: true }
         ];
 
         // Equipo del proyecto
