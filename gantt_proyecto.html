@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto Agente IA - Gantt Dinámico (Fase 3-9)</title>
+    <title>Proyecto Agente IA - Gantt Dinámico (Fases 1-7)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -40,63 +40,80 @@
         }
 
         .controls {
-            background: #111111;
-            padding: 20px 40px;
             display: flex;
-            gap: 15px;
-            align-items: center;
-            border-bottom: 2px solid #1a1a1a;
+            gap: 12px;
+            padding: 20px 40px;
+            background: #111111;
+            border-bottom: 1px solid #1a1a1a;
             flex-wrap: wrap;
+            align-items: center;
         }
 
         .btn {
-            padding: 10px 20px;
-            background: linear-gradient(135deg, #00d9ff 0%, #a855f7 100%);
-            color: white;
+            padding: 10px 18px;
+            background: linear-gradient(135deg, #00d9ff 0%, #00b8d9 100%);
+            color: #0a0a0a;
             border: none;
             border-radius: 6px;
-            font-size: 13px;
             font-weight: 600;
+            font-size: 13px;
             cursor: pointer;
             transition: all 0.2s;
         }
 
         .btn:hover {
-            background: linear-gradient(135deg, #00b8d9 0%, #8b3fd7 100%);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 217, 255, 0.4);
         }
 
         .btn-secondary {
-            background: #00d9ff;
+            background: linear-gradient(135deg, #a855f7 0%, #8b3fd7 100%);
+            color: white;
         }
 
         .btn-secondary:hover {
-            background: #00b8d9;
+            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
         }
 
         .btn-danger {
-            background: #a855f7;
+            background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+            color: white;
         }
 
         .btn-danger:hover {
-            background: #8b3fd7;
+            box-shadow: 0 4px 12px rgba(245, 101, 101, 0.4);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            padding: 30px 40px;
+            background: #111111;
+        }
+
+        .stat-card {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .toolbar {
-            background: #111111;
             padding: 15px 40px;
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            border-bottom: 1px solid #1a1a1a;
-            flex-wrap: wrap;
-        }
-
-        .toolbar-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
             background: #1a1a1a;
             border-radius: 6px;
             font-size: 13px;
@@ -108,14 +125,14 @@
         }
 
         .task-list {
-            width: 550px;
+            width: 900px;
             background: #111111;
             border-right: 2px solid #1a1a1a;
         }
 
         .task-list-header {
             display: grid;
-            grid-template-columns: 50px 180px 90px 80px 120px;
+            grid-template-columns: 50px 200px 130px 80px 150px 110px 110px;
             background: #1a1a1a;
             padding: 12px 20px;
             font-size: 11px;
@@ -131,7 +148,7 @@
 
         .task-row {
             display: grid;
-            grid-template-columns: 50px 180px 90px 80px 120px;
+            grid-template-columns: 50px 200px 130px 80px 150px 110px 110px;
             padding: 14px 20px;
             border-bottom: 1px solid #2d3142;
             font-size: 13px;
@@ -200,6 +217,33 @@
             border: 1px solid #a855f7;
         }
 
+        /* Campos editables inline */
+        .editable-select,
+        .editable-date {
+            background: #0a0a0a;
+            border: 1px solid #2d3142;
+            border-radius: 4px;
+            padding: 6px 8px;
+            color: #e4e6eb;
+            font-size: 12px;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .editable-select:hover,
+        .editable-date:hover {
+            border-color: #00d9ff;
+            background: #1a1a1a;
+        }
+
+        .editable-select:focus,
+        .editable-date:focus {
+            outline: none;
+            border-color: #00d9ff;
+            box-shadow: 0 0 0 2px rgba(0, 217, 255, 0.2);
+        }
+
         .timeline {
             flex: 1;
             background: #0a0a0a;
@@ -207,7 +251,6 @@
         }
 
         .timeline-header {
-            display: flex;
             background: #1a1a1a;
             border-bottom: 2px solid #00d9ff;
             position: sticky;
@@ -215,14 +258,35 @@
             z-index: 10;
         }
 
-        .month-header {
-            padding: 12px;
+        .timeline-months {
+            display: flex;
+            border-bottom: 1px solid #2d3142;
+        }
+
+        .timeline-month {
+            padding: 10px 0;
             text-align: center;
             font-size: 12px;
             font-weight: 600;
             color: #00d9ff;
-            border-right: 1px solid #1a1a1a;
-            min-width: 200px;
+            border-right: 1px solid #2d3142;
+        }
+
+        .timeline-days {
+            display: flex;
+        }
+
+        .timeline-day {
+            width: 40px;
+            padding: 8px 0;
+            text-align: center;
+            font-size: 11px;
+            color: #9ca3af;
+            border-right: 1px solid #2d3142;
+        }
+
+        .timeline-day.weekend {
+            background: rgba(168, 85, 247, 0.05);
         }
 
         .timeline-grid {
@@ -230,9 +294,10 @@
         }
 
         .timeline-row {
-            height: 48px;
-            border-bottom: 1px solid #1a1a1a;
+            display: flex;
             position: relative;
+            height: 51px;
+            border-bottom: 1px solid #2d3142;
         }
 
         .timeline-row.phase {
@@ -240,10 +305,19 @@
             border-bottom: 2px solid #00d9ff;
         }
 
+        .timeline-cell {
+            width: 40px;
+            border-right: 1px solid #1a1a1a;
+        }
+
+        .timeline-cell.weekend {
+            background: rgba(168, 85, 247, 0.03);
+        }
+
         .bar {
             position: absolute;
-            height: 24px;
-            top: 12px;
+            height: 28px;
+            top: 11px;
             border-radius: 6px;
             display: flex;
             align-items: center;
@@ -253,62 +327,24 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
             transition: all 0.3s;
             cursor: pointer;
+            user-select: none;
         }
 
         .bar:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
         }
 
-        .bar-label {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* Colores por fase - Gradientes ZCOD3 */
-        .fase3 {
-            background: linear-gradient(90deg, #00d9ff 0%, #00b8d9 100%);
-        }
-
-        .fase4 {
-            background: linear-gradient(90deg, #00b8d9 0%, #0097b3 100%);
-        }
-
-        .fase5 {
-            background: linear-gradient(90deg, #0097b3 0%, #7c3aed 100%);
-        }
-
-        .fase6 {
-            background: linear-gradient(90deg, #7c3aed 0%, #a855f7 100%);
-        }
-
-        .fase7 {
-            background: linear-gradient(90deg, #a855f7 0%, #c084fc 100%);
-        }
-
-        .fase8 {
-            background: linear-gradient(90deg, #c084fc 0%, #a855f7 100%);
-        }
-
-        .fase9 {
-            background: linear-gradient(90deg, #a855f7 0%, #00d9ff 100%);
-            color: white;
-        }
-
-        .hito {
-            background: linear-gradient(135deg, #00d9ff 0%, #a855f7 100%);
-            color: white;
-        }
-
-        /* Estados en barras */
         .bar.completed {
             opacity: 0.6;
         }
 
         .bar.progress {
-            background: linear-gradient(90deg, currentColor 0%, currentColor 50%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.3) 100%);
-            background-size: 20px 100%;
+            background: repeating-linear-gradient(45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(255, 255, 255, 0.1) 10px,
+                    rgba(255, 255, 255, 0.1) 20px);
             animation: progress-animation 1s linear infinite;
         }
 
@@ -318,68 +354,73 @@
             }
 
             100% {
-                background-position: 20px 0;
+                background-position: 40px 0;
             }
         }
 
+        .fase3 {
+            background: linear-gradient(135deg, #00d9ff 0%, #00b8d9 100%);
+            color: #0a0a0a;
+        }
+
+        .fase4 {
+            background: linear-gradient(135deg, #a855f7 0%, #8b3fd7 100%);
+            color: white;
+        }
+
+        .fase5 {
+            background: linear-gradient(135deg, #00d9ff 0%, #a855f7 100%);
+            color: white;
+        }
+
+        .fase6 {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #0a0a0a;
+        }
+
+        .fase7 {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .fase8 {
+            background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+            color: white;
+        }
+
+        .fase9 {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+        }
+
         .milestone-marker {
-            width: 0;
-            height: 0;
-            border-left: 12px solid transparent;
-            border-right: 12px solid transparent;
-            border-top: 20px solid #a855f7;
             position: absolute;
-            top: 14px;
-            filter: drop-shadow(0 2px 8px rgba(168, 85, 247, 0.6));
+            width: 20px;
+            height: 20px;
+            background: #fbbf24;
+            transform: rotate(45deg);
+            top: 15px;
+            box-shadow: 0 2px 8px rgba(251, 191, 36, 0.5);
+            cursor: pointer;
         }
 
         .milestone-label {
             position: absolute;
-            top: 36px;
-            left: -40px;
+            top: -20px;
+            left: -10px;
             font-size: 10px;
             font-weight: 700;
-            color: #a855f7;
+            color: #fbbf24;
             white-space: nowrap;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
-            padding: 30px 40px;
-            background: #111111;
-            border-bottom: 2px solid #1a1a1a;
-        }
-
-        .stat-card {
-            background: #1a1a1a;
-            padding: 20px;
-            border-radius: 12px;
-            border-left: 4px solid #00d9ff;
-        }
-
-        .stat-number {
-            font-size: 32px;
-            font-weight: 700;
-            color: #00d9ff;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: #9ca3af;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         .legend {
             display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
+            gap: 20px;
             padding: 20px 40px;
             background: #111111;
-            border-bottom: 2px solid #1a1a1a;
+            flex-wrap: wrap;
+            border-top: 1px solid #1a1a1a;
         }
 
         .legend-item {
@@ -390,18 +431,25 @@
         }
 
         .legend-color {
-            width: 16px;
-            height: 16px;
-            border-radius: 4px;
+            width: 24px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        .legend-color.hito {
+            width: 12px;
+            height: 12px;
+            background: #fbbf24;
+            transform: rotate(45deg);
         }
 
         .footer {
-            background: #111111;
-            padding: 20px 40px;
             text-align: center;
-            font-size: 12px;
-            color: #9ca3af;
-            border-top: 2px solid #1a1a1a;
+            padding: 30px;
+            background: #111111;
+            color: #6b7280;
+            font-size: 13px;
+            border-top: 1px solid #1a1a1a;
         }
 
         .footer a {
@@ -410,7 +458,6 @@
         }
 
         .footer a:hover {
-            color: #a855f7;
             text-decoration: underline;
         }
 
@@ -418,13 +465,14 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            padding: 15px 25px;
-            background: linear-gradient(135deg, #00d9ff 0%, #a855f7 100%);
+            background: #1a1a1a;
             color: white;
+            padding: 15px 25px;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 217, 255, 0.4);
+            border-left: 4px solid #00d9ff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             z-index: 1000;
-            animation: slideIn 0.3s ease-out;
+            animation: slideIn 0.3s ease;
         }
 
         @keyframes slideIn {
@@ -572,7 +620,7 @@
 
 <body>
     <div class="header">
-        <h1>🤖 Proyecto Agente IA - ISMM (Gantt Dinámico)</h1>
+        <h1>📊 Proyecto Agente IA - ISMM (Gantt Dinámico)</h1>
         <p>Cronograma Interactivo | 20 Febrero - 09 Abril 2026 (Fases 1-7)</p>
     </div>
 
@@ -581,14 +629,13 @@
         <button class="btn btn-secondary" onclick="exportProgress()">💾 Exportar Progreso</button>
         <button class="btn btn-danger" onclick="resetProgress()">🔄 Resetear Todo</button>
         <button class="btn" onclick="openTeamModal()">👥 Gestionar Equipo</button>
-        <button class="btn" onclick="openDatesModal()">📅 Configurar Fechas</button>
         <span style="margin-left: auto; font-size: 12px; color: #9ca3af;">
-            💡 Haz clic en los badges de estado para cambiarlos
+            💡 Haz clic en los badges de estado para cambiarlos | Edita fechas y asignaciones directamente
         </span>
     </div>
 
     <div class="stats">
-        <div class="stat-card">
+        <div class="stat-card" style="border-left-color: #00d9ff;">
             <div class="stat-number">35</div>
             <div class="stat-label">Días Laborables</div>
         </div>
@@ -600,18 +647,25 @@
             <div class="stat-number" style="color: #a855f7;" id="totalTasks">61</div>
             <div class="stat-label">Tareas Totales</div>
         </div>
-        <div class="stat-card" style="border-left-color: #c084fc;">
-            <div class="stat-number" style="color: #c084fc;">7</div>
+        <div class="stat-card" style="border-left-color: #fbbf24;">
+            <div class="stat-number" style="color: #fbbf24;">7</div>
             <div class="stat-label">Hitos (H1-H7)</div>
         </div>
-        <div class="stat-card" style="border-left-color: #00d9ff;">
-            <div class="stat-number" style="color: #00d9ff;" id="completedTasks">0</div>
+        <div class="stat-card" style="border-left-color: #10b981;">
+            <div class="stat-number" style="color: #10b981;" id="completedTasks">0</div>
             <div class="stat-label">Tareas Completadas</div>
         </div>
-        <div class="stat-card" style="border-left-color: #a855f7;">
-            <div class="stat-number" style="color: #a855f7;" id="progressPercent">0%</div>
+        <div class="stat-card" style="border-left-color: #ec4899;">
+            <div class="stat-number" style="color: #ec4899;" id="progressPercent">0%</div>
             <div class="stat-label">Progreso General</div>
         </div>
+    </div>
+
+    <div class="toolbar">
+        <strong>Estado de Tareas:</strong>
+        <span style="margin-left: 15px;">⬜ Pendiente: <span id="pendingCount">20</span></span>
+        <span style="margin-left: 15px;">🔄 En progreso: <span id="progressCount">0</span></span>
+        <span style="margin-left: 15px;">✅ Completado: <span id="completedCount">0</span></span>
     </div>
 
     <div class="legend">
@@ -641,16 +695,6 @@
         </div>
     </div>
 
-    <div class="toolbar">
-        <div class="toolbar-item">📅 Inicio: 20/02/2026</div>
-        <div class="toolbar-item">🎯 Fin: 09/04/2026</div>
-        <div class="toolbar-item">👥 Equipo: 2 personas</div>
-        <div class="toolbar-item">⏱️ 560 horas totales</div>
-        <div class="toolbar-item" id="pendingCount">⬜ Pendiente: 61</div>
-        <div class="toolbar-item" id="progressCount">🔄 En progreso: 0</div>
-        <div class="toolbar-item" id="completedCount">✅ Completado: 0</div>
-    </div>
-
     <div class="gantt-container">
         <div class="task-list">
             <div class="task-list-header">
@@ -658,16 +702,14 @@
                 <div>TAREA</div>
                 <div>ESTADO</div>
                 <div>DURACIÓN</div>
-                <div>RECURSOS</div>
+                <div>ASIGNADO</div>
+                <div>INICIO</div>
+                <div>FIN</div>
             </div>
-            <div id="taskList"></div>
+            <div id="taskListBody"></div>
         </div>
         <div class="timeline">
-            <div class="timeline-header">
-                <div class="month-header">FEBRERO 2026</div>
-                <div class="month-header">MARZO 2026</div>
-                <div class="month-header">ABRIL 2026</div>
-            </div>
+            <div class="timeline-header" id="timelineHeader"></div>
             <div class="timeline-grid" id="timelineGrid"></div>
         </div>
     </div>
@@ -697,182 +739,317 @@
         </div>
     </div>
 
-    <!-- Modal Configurar Fechas -->
-    <div id="datesModal" class="modal">
-        <div class="modal-content">
-            <h2>📅 Configurar Fechas del Proyecto</h2>
-            <label>Fecha de Inicio</label>
-            <input type="date" id="projectStartDate" value="2026-02-20">
-            <label>Fecha de Fin</label>
-            <input type="date" id="projectEndDate" value="2026-04-09">
-            <div class="modal-buttons">
-                <button class="btn-save" onclick="saveDates()">💾 Guardar</button>
-                <button class="btn-cancel" onclick="closeDatesModal()">❌ Cancelar</button>
-            </div>
-        </div>
-    </div>
-
     <script>
         // Datos de las tareas (WBS renumerado desde 1.0)
         let tasks = [
-            // FASE 1 (antes Fase 3)
-            { wbs: '1.0', name: 'FASE 1: INTEGRACIÓN META API', duration: '7d', start: 0, length: 7, resource: 'Equipo', type: 'phase', class: 'fase3', status: 'pending' },
-            { wbs: '1.1', name: 'Verificación número telefónico', duration: '1d', start: 0, length: 1, resource: 'P1', type: 'task', class: 'fase3', status: 'pending' },
-            { wbs: '1.2', name: 'Validación portafolio empresarial', duration: '1d', start: 0, length: 1, resource: 'P2', type: 'task', class: 'fase3', status: 'pending' },
-            { wbs: '1.3', name: 'Preparación documentación', duration: '1d', start: 1, length: 1, resource: 'P1', type: 'task', class: 'fase3', status: 'pending' },
-            { wbs: '1.4', name: 'Envío y seguimiento verificación', duration: '2d', start: 4, length: 2, resource: 'P2', type: 'task', class: 'fase3', status: 'pending' },
-            { wbs: '1.5', name: 'Creación app Meta Developers', duration: '1d', start: 4, length: 1, resource: 'P1', type: 'task', class: 'fase3', status: 'pending' },
-            { wbs: '1.6', name: 'Configuración credenciales', duration: '1d', start: 5, length: 1, resource: 'P1', type: 'task', class: 'fase3', status: 'pending' },
-            { wbs: '1.7', name: 'Configuración webhooks', duration: '1d', start: 6, length: 1, resource: 'P2', type: 'task', class: 'fase3', status: 'pending' },
-            { wbs: '1.8', name: 'Pruebas conexión WhatsApp API', duration: '1d', start: 6, length: 1, resource: 'Ambos', type: 'task', class: 'fase3', status: 'pending' },
-            { wbs: '1.9', name: 'Documentación credenciales', duration: '0.5d', start: 7, length: 0.5, resource: 'P1', type: 'task', class: 'fase3', status: 'pending' },
-            { wbs: 'H1', name: '💎 H1: WhatsApp API Verificado', duration: '0d', start: 7, length: 0, resource: '', type: 'milestone', class: 'hito', status: 'pending' },
+            // FASE 1: META API - WHATSAPP
+            { wbs: '1.0', name: 'FASE 1: INTEGRACIÓN META API', status: 'pending', duration: '7d', resources: 'Equipo', start: '2026-02-20', end: '2026-02-28', phase: 'fase3', isPhase: true },
+            { wbs: '1.1', name: 'Verificación número telefónico', status: 'pending', duration: '1d', resources: 'P1', start: '2026-02-20', end: '2026-02-20', phase: 'fase3' },
+            { wbs: '1.2', name: 'Validación portafolio empresarial', status: 'pending', duration: '1d', resources: 'P2', start: '2026-02-21', end: '2026-02-21', phase: 'fase3' },
+            { wbs: '1.3', name: 'Preparación documentación', status: 'pending', duration: '1d', resources: 'P1', start: '2026-02-24', end: '2026-02-24', phase: 'fase3' },
+            { wbs: '1.4', name: 'Envío y seguimiento verificación', status: 'pending', duration: '2d', resources: 'P2', start: '2026-02-25', end: '2026-02-26', phase: 'fase3' },
+            { wbs: '1.5', name: 'Creación app Meta Developers', status: 'pending', duration: '1d', resources: 'P1', start: '2026-02-27', end: '2026-02-27', phase: 'fase3' },
+            { wbs: '1.6', name: 'Configuración credenciales', status: 'pending', duration: '1d', resources: 'P1', start: '2026-02-27', end: '2026-02-27', phase: 'fase3' },
+            { wbs: '1.7', name: 'Configuración webhook', status: 'pending', duration: '1d', resources: 'P2', start: '2026-02-28', end: '2026-02-28', phase: 'fase3' },
+            { wbs: '1.8', name: 'Pruebas envío/recepción', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-02-28', end: '2026-02-28', phase: 'fase3' },
+            { wbs: 'H1', name: '💎 WhatsApp API Verificado', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-02-28', end: '2026-02-28', phase: 'fase3', isMilestone: true },
 
-            // FASE 2 (antes Fase 4)
-            { wbs: '2.0', name: 'FASE 2: CONFIGURACIÓN CHATWOOT', duration: '5d', start: 9, length: 5, resource: 'Equipo', type: 'phase', class: 'fase4', status: 'pending' },
-            { wbs: '2.1', name: 'Instalación Chatwoot', duration: '1.5d', start: 9, length: 1.5, resource: 'P2', type: 'task', class: 'fase4', status: 'pending' },
-            { wbs: '2.2', name: 'Configuración inicial', duration: '0.5d', start: 9, length: 0.5, resource: 'P1', type: 'task', class: 'fase4', status: 'pending' },
-            { wbs: '2.3', name: 'Integración WhatsApp API', duration: '1d', start: 11, length: 1, resource: 'P1', type: 'task', class: 'fase4', status: 'pending' },
-            { wbs: 'H2', name: '💎 H2: Chatwoot Operativo', duration: '0d', start: 13, length: 0, resource: '', type: 'milestone', class: 'hito', status: 'pending' },
+            // FASE 2: CHATWOOT
+            { wbs: '2.0', name: 'FASE 2: CHATWOOT', status: 'pending', duration: '5d', resources: 'Equipo', start: '2026-03-03', end: '2026-03-07', phase: 'fase4', isPhase: true },
+            { wbs: '2.1', name: 'Instalación Chatwoot', status: 'pending', duration: '2d', resources: 'P1', start: '2026-03-03', end: '2026-03-04', phase: 'fase4' },
+            { wbs: '2.2', name: 'Configuración canales', status: 'pending', duration: '2d', resources: 'P2', start: '2026-03-05', end: '2026-03-06', phase: 'fase4' },
+            { wbs: '2.3', name: 'Pruebas integración', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-03-07', end: '2026-03-07', phase: 'fase4' },
+            { wbs: 'H2', name: '💎 Chatwoot Operativo', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-03-07', end: '2026-03-07', phase: 'fase4', isMilestone: true },
 
-            // FASE 3 (antes Fase 5)
-            { wbs: '3.0', name: 'FASE 3: DESARROLLO AGENTE IA', duration: '10d', start: 14, length: 10, resource: 'Equipo', type: 'phase', class: 'fase5', status: 'pending' },
-            { wbs: '3.1', name: 'Evaluación plataformas IA', duration: '1d', start: 14, length: 1, resource: 'Ambos', type: 'task', class: 'fase5', status: 'pending' },
-            { wbs: 'H3', name: '💎 H3: Agente IA Funcional', duration: '0d', start: 24, length: 0, resource: '', type: 'milestone', class: 'hito', status: 'pending' },
+            // FASE 3: AGENTE IA
+            { wbs: '3.0', name: 'FASE 3: AGENTE IA', status: 'pending', duration: '10d', resources: 'Equipo', start: '2026-03-10', end: '2026-03-21', phase: 'fase5', isPhase: true },
+            { wbs: '3.1', name: 'Desarrollo agente IA', status: 'pending', duration: '10d', resources: 'Ambos', start: '2026-03-10', end: '2026-03-21', phase: 'fase5' },
+            { wbs: 'H3', name: '💎 Agente IA Funcional', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-03-21', end: '2026-03-21', phase: 'fase5', isMilestone: true },
 
-            // FASE 4 (antes Fase 6)
-            { wbs: '4.0', name: 'FASE 4: INTEGRACIÓN ZOHO CRM', duration: '5d', start: 25, length: 5, resource: 'Equipo', type: 'phase', class: 'fase6', status: 'pending' },
-            { wbs: 'H4', name: '💎 H4: Zoho CRM Integrado', duration: '0d', start: 29, length: 0, resource: '', type: 'milestone', class: 'hito', status: 'pending' },
+            // FASE 4: ZOHO CRM
+            { wbs: '4.0', name: 'FASE 4: ZOHO CRM', status: 'pending', duration: '5d', resources: 'Equipo', start: '2026-03-24', end: '2026-03-28', phase: 'fase6', isPhase: true },
+            { wbs: 'H4', name: '💎 Zoho CRM Integrado', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-03-28', end: '2026-03-28', phase: 'fase6', isMilestone: true },
 
-            // FASE 5 (antes Fase 7)
-            { wbs: '5.0', name: 'FASE 5: PRUEBAS Y QA', duration: '5d', start: 30, length: 5, resource: 'Equipo', type: 'phase', class: 'fase7', status: 'pending' },
-            { wbs: 'H5', name: '💎 H5: Sistema Validado', duration: '0d', start: 34, length: 0, resource: '', type: 'milestone', class: 'hito', status: 'pending' },
+            // FASE 5: PRUEBAS Y QA
+            { wbs: '5.0', name: 'FASE 5: PRUEBAS Y QA', status: 'pending', duration: '5d', resources: 'Equipo', start: '2026-03-31', end: '2026-04-04', phase: 'fase7', isPhase: true },
+            { wbs: 'H5', name: '💎 Sistema Validado', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-04-04', end: '2026-04-04', phase: 'fase7', isMilestone: true },
 
-            // FASE 6 (antes Fase 8)
-            { wbs: '6.0', name: 'FASE 6: CAPACITACIÓN', duration: '3d', start: 35, length: 3, resource: 'Equipo', type: 'phase', class: 'fase8', status: 'pending' },
-            { wbs: 'H6', name: '💎 H6: Equipo Capacitado', duration: '0d', start: 37, length: 0, resource: '', type: 'milestone', class: 'hito', status: 'pending' },
+            // FASE 6: CAPACITACIÓN
+            { wbs: '6.0', name: 'FASE 6: CAPACITACIÓN', status: 'pending', duration: '2d', resources: 'Equipo', start: '2026-04-07', end: '2026-04-08', phase: 'fase8', isPhase: true },
+            { wbs: 'H6', name: '💎 Equipo Capacitado', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-04-08', end: '2026-04-08', phase: 'fase8', isMilestone: true },
 
-            // FASE 7 (antes Fase 9)
-            { wbs: '7.0', name: 'FASE 7: DESPLIEGUE', duration: '2d', start: 37, length: 2, resource: 'Equipo', type: 'phase', class: 'fase9', status: 'pending' },
-            { wbs: 'H7', name: '💎 H7: GO-LIVE PRODUCCIÓN', duration: '0d', start: 38, length: 0, resource: '', type: 'milestone', class: 'hito', status: 'pending' }
+            // FASE 7: DESPLIEGUE
+            { wbs: '7.0', name: 'FASE 7: DESPLIEGUE', status: 'pending', duration: '1d', resources: 'Equipo', start: '2026-04-09', end: '2026-04-09', phase: 'fase9', isPhase: true },
+            { wbs: 'H7', name: '💎 GO-LIVE PRODUCCIÓN', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-04-09', end: '2026-04-09', phase: 'fase9', isMilestone: true }
         ];
 
-        // Gestión de equipo
+        // Equipo del proyecto
         let teamMembers = [
             { id: 'P1', name: 'Persona 1', role: 'Desarrollador' },
             { id: 'P2', name: 'Persona 2', role: 'Desarrollador' },
             { id: 'Ambos', name: 'Equipo Completo', role: 'Equipo' }
         ];
 
-        // Cargar estado guardado
-        function loadSavedState() {
-            const saved = localStorage.getItem('gantt_tasks');
-            if (saved) {
-                const savedTasks = JSON.parse(saved);
-                tasks.forEach((task, index) => {
-                    if (savedTasks[index] && savedTasks[index].wbs === task.wbs) {
-                        task.status = savedTasks[index].status;
-                    }
-                });
+        // Cargar datos guardados
+        function loadSavedData() {
+            const savedTasks = localStorage.getItem('gantt_tasks');
+            const savedTeam = localStorage.getItem('gantt_team');
+
+            if (savedTasks) {
+                tasks = JSON.parse(savedTasks);
+            }
+
+            if (savedTeam) {
+                teamMembers = JSON.parse(savedTeam);
             }
         }
 
-        // Guardar estado
-        function saveState() {
+        // Guardar datos
+        function saveData() {
             localStorage.setItem('gantt_tasks', JSON.stringify(tasks));
+            localStorage.setItem('gantt_team', JSON.stringify(teamMembers));
         }
 
         // Cambiar estado de tarea
         function toggleStatus(index) {
+            const task = tasks[index];
+            if (task.isPhase || task.isMilestone) return;
+
             const statusCycle = ['pending', 'progress', 'completed'];
-            const currentIndex = statusCycle.indexOf(tasks[index].status);
-            const nextIndex = (currentIndex + 1) % statusCycle.length;
-            tasks[index].status = statusCycle[nextIndex];
+            const currentIndex = statusCycle.indexOf(task.status);
+            task.status = statusCycle[(currentIndex + 1) % statusCycle.length];
 
-            saveState();
+            saveData();
             renderGantt();
-            showNotification('Estado actualizado');
+            updateStats();
+            showNotification(`Estado actualizado: ${task.name}`);
         }
 
-        // Obtener badge de estado
-        function getStatusBadge(status, index) {
-            const badges = {
-                'pending': `<span class="status-badge status-pending" onclick="toggleStatus(${index})">⬜ Pendiente</span>`,
-                'progress': `<span class="status-badge status-progress" onclick="toggleStatus(${index})">🔄 En progreso</span>`,
-                'completed': `<span class="status-badge status-completed" onclick="toggleStatus(${index})">✅ Completado</span>`
-            };
-            return badges[status] || badges['pending'];
+        // Cambiar asignado
+        function changeAssignee(index, newAssignee) {
+            tasks[index].resources = newAssignee;
+            saveData();
+            showNotification(`Asignado actualizado: ${tasks[index].name}`);
         }
 
-        // Calcular estadísticas
-        function updateStats() {
-            const total = tasks.filter(t => t.type === 'task' || t.type === 'milestone').length;
-            const completed = tasks.filter(t => (t.type === 'task' || t.type === 'milestone') && t.status === 'completed').length;
-            const inProgress = tasks.filter(t => (t.type === 'task' || t.type === 'milestone') && t.status === 'progress').length;
-            const pending = total - completed - inProgress;
-            const percent = Math.round((completed / total) * 100);
+        // Cambiar fecha
+        function changeDate(index, field, newDate) {
+            tasks[index][field] = newDate;
+            saveData();
+            renderGantt();
+            showNotification(`Fecha actualizada: ${tasks[index].name}`);
+        }
 
-            document.getElementById('totalTasks').textContent = total;
-            document.getElementById('completedTasks').textContent = completed;
-            document.getElementById('progressPercent').textContent = percent + '%';
-            document.getElementById('pendingCount').textContent = `⬜ Pendiente: ${pending}`;
-            document.getElementById('progressCount').textContent = `🔄 En progreso: ${inProgress}`;
-            document.getElementById('completedCount').textContent = `✅ Completado: ${completed}`;
+        // Calcular días laborables
+        function getWorkingDays(startDate, endDate) {
+            let count = 0;
+            let current = new Date(startDate);
+            const end = new Date(endDate);
+
+            while (current <= end) {
+                const day = current.getDay();
+                if (day !== 0 && day !== 6) count++;
+                current.setDate(current.getDate() + 1);
+            }
+
+            return count;
+        }
+
+        // Generar timeline dinámico
+        function generateTimeline() {
+            // Encontrar rango de fechas
+            let minDate = new Date(tasks[0].start);
+            let maxDate = new Date(tasks[0].end);
+
+            tasks.forEach(task => {
+                const start = new Date(task.start);
+                const end = new Date(task.end);
+                if (start < minDate) minDate = start;
+                if (end > maxDate) maxDate = end;
+            });
+
+            // Generar días
+            const days = [];
+            let current = new Date(minDate);
+
+            while (current <= maxDate) {
+                days.push(new Date(current));
+                current.setDate(current.getDate() + 1);
+            }
+
+            return days;
         }
 
         // Renderizar Gantt
         function renderGantt() {
-            const taskList = document.getElementById('taskList');
-            const timelineGrid = document.getElementById('timelineGrid');
+            const days = generateTimeline();
 
-            taskList.innerHTML = '';
-            timelineGrid.innerHTML = '';
+            // Renderizar header del timeline
+            renderTimelineHeader(days);
 
-            tasks.forEach((task, index) => {
-                // Task list row
-                const row = document.createElement('div');
-                row.className = `task-row ${task.type}`;
-                row.innerHTML = `
-                    <div>${task.wbs}</div>
-                    <div class="task-name ${task.type === 'task' ? 'task-indent' : ''}">${task.name}</div>
-                    <div>${getStatusBadge(task.status, index)}</div>
-                    <div>${task.duration}</div>
-                    <div>${task.resource}</div>
-                `;
-                taskList.appendChild(row);
+            // Renderizar lista de tareas
+            renderTaskList();
 
-                // Timeline row
-                const timelineRow = document.createElement('div');
-                timelineRow.className = `timeline-row ${task.type}`;
+            // Renderizar grid del timeline
+            renderTimelineGrid(days);
+        }
 
-                if (task.type === 'milestone') {
-                    const marker = document.createElement('div');
-                    marker.className = 'milestone-marker';
-                    marker.style.left = `${task.start * 15}px`;
-                    marker.title = task.name;
+        // Renderizar header del timeline
+        function renderTimelineHeader(days) {
+            const header = document.getElementById('timelineHeader');
 
-                    const label = document.createElement('div');
-                    label.className = 'milestone-label';
-                    label.textContent = task.wbs;
-                    label.style.left = `${task.start * 15}px`;
-
-                    timelineRow.appendChild(marker);
-                    timelineRow.appendChild(label);
-                } else if (task.length > 0) {
-                    const bar = document.createElement('div');
-                    bar.className = `bar ${task.class} ${task.status}`;
-                    bar.style.left = `${task.start * 15}px`;
-                    bar.style.width = `${task.length * 15}px`;
-                    bar.innerHTML = `<div class="bar-label">${task.name}</div>`;
-                    bar.title = `${task.name}\nDuración: ${task.duration}\nRecursos: ${task.resource}\nEstado: ${task.status}`;
-                    bar.onclick = () => toggleStatus(index);
-                    timelineRow.appendChild(bar);
+            // Agrupar por mes
+            const months = {};
+            days.forEach(day => {
+                const monthKey = `${day.getFullYear()}-${day.getMonth()}`;
+                if (!months[monthKey]) {
+                    months[monthKey] = {
+                        name: day.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' }),
+                        days: []
+                    };
                 }
-
-                timelineGrid.appendChild(timelineRow);
+                months[monthKey].days.push(day);
             });
 
-            updateStats();
+            // Renderizar meses
+            let monthsHTML = '<div class="timeline-months">';
+            Object.values(months).forEach(month => {
+                monthsHTML += `<div class="timeline-month" style="width: ${month.days.length * 40}px">${month.name}</div>`;
+            });
+            monthsHTML += '</div>';
+
+            // Renderizar días
+            let daysHTML = '<div class="timeline-days">';
+            days.forEach(day => {
+                const dayNum = day.getDate();
+                const isWeekend = day.getDay() === 0 || day.getDay() === 6;
+                daysHTML += `<div class="timeline-day ${isWeekend ? 'weekend' : ''}">${dayNum.toString().padStart(2, '0')}</div>`;
+            });
+            daysHTML += '</div>';
+
+            header.innerHTML = monthsHTML + daysHTML;
+        }
+
+        // Renderizar lista de tareas
+        function renderTaskList() {
+            const tbody = document.getElementById('taskListBody');
+
+            tbody.innerHTML = tasks.map((task, index) => {
+                const statusClass = `status-${task.status}`;
+                const statusIcon = task.status === 'pending' ? '⬜' : task.status === 'progress' ? '🔄' : '✅';
+                const statusText = task.status === 'pending' ? 'Pendiente' : task.status === 'progress' ? 'En progreso' : 'Completado';
+
+                const rowClass = task.isPhase ? 'phase' : task.isMilestone ? 'milestone' : '';
+
+                // Opciones de asignado
+                const assigneeOptions = teamMembers.map(m =>
+                    `<option value="${m.id}" ${task.resources === m.id ? 'selected' : ''}>${m.name}</option>`
+                ).join('');
+
+                return `
+                    <div class="task-row ${rowClass}">
+                        <div>${task.wbs}</div>
+                        <div class="task-name ${task.isPhase || task.isMilestone ? '' : 'task-indent'}">
+                            ${task.name}
+                        </div>
+                        <div>
+                            ${task.isPhase || task.isMilestone ? '' : `
+                                <span class="status-badge ${statusClass}" onclick="toggleStatus(${index})">
+                                    ${statusIcon} ${statusText}
+                                </span>
+                            `}
+                        </div>
+                        <div>${task.duration}</div>
+                        <div>
+                            ${task.isPhase || task.isMilestone ? task.resources : `
+                                <select class="editable-select" onchange="changeAssignee(${index}, this.value)">
+                                    ${assigneeOptions}
+                                </select>
+                            `}
+                        </div>
+                        <div>
+                            ${task.isPhase || task.isMilestone ? '' : `
+                                <input type="date" class="editable-date" value="${task.start}" 
+                                    onchange="changeDate(${index}, 'start', this.value)">
+                            `}
+                        </div>
+                        <div>
+                            ${task.isPhase || task.isMilestone ? '' : `
+                                <input type="date" class="editable-date" value="${task.end}" 
+                                    onchange="changeDate(${index}, 'end', this.value)">
+                            `}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Renderizar grid del timeline
+        function renderTimelineGrid(days) {
+            const grid = document.getElementById('timelineGrid');
+            const minDate = days[0];
+
+            grid.innerHTML = tasks.map((task, index) => {
+                const rowClass = task.isPhase ? 'phase' : '';
+
+                // Calcular posición de la barra
+                const startDate = new Date(task.start);
+                const endDate = new Date(task.end);
+                const startDay = Math.floor((startDate - minDate) / (1000 * 60 * 60 * 24));
+                const duration = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+
+                const left = startDay * 40;
+                const width = duration * 40;
+
+                // Renderizar celdas
+                let cellsHTML = '';
+                days.forEach(day => {
+                    const isWeekend = day.getDay() === 0 || day.getDay() === 6;
+                    cellsHTML += `<div class="timeline-cell ${isWeekend ? 'weekend' : ''}"></div>`;
+                });
+
+                // Renderizar barra o hito
+                let barHTML = '';
+                if (task.isMilestone) {
+                    barHTML = `
+                        <div class="milestone-marker" style="left: ${left}px;">
+                            <div class="milestone-label">${task.wbs}</div>
+                        </div>
+                    `;
+                } else {
+                    const statusClass = task.status === 'completed' ? 'completed' : task.status === 'progress' ? 'progress' : '';
+                    barHTML = `
+                        <div class="bar ${task.phase} ${statusClass}" 
+                            style="left: ${left}px; width: ${width}px;"
+                            onclick="toggleStatus(${index})">
+                            ${task.name}
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div class="timeline-row ${rowClass}">
+                        ${cellsHTML}
+                        ${barHTML}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Actualizar estadísticas
+        function updateStats() {
+            const totalTasks = tasks.filter(t => !t.isPhase && !t.isMilestone).length;
+            const completed = tasks.filter(t => !t.isPhase && !t.isMilestone && t.status === 'completed').length;
+            const progress = tasks.filter(t => !t.isPhase && !t.isMilestone && t.status === 'progress').length;
+            const pending = tasks.filter(t => !t.isPhase && !t.isMilestone && t.status === 'pending').length;
+            const percent = Math.round((completed / totalTasks) * 100);
+
+            document.getElementById('totalTasks').textContent = totalTasks;
+            document.getElementById('completedTasks').textContent = completed;
+            document.getElementById('progressPercent').textContent = percent + '%';
+            document.getElementById('pendingCount').textContent = pending;
+            document.getElementById('progressCount').textContent = progress;
+            document.getElementById('completedCount').textContent = completed;
         }
 
         // Mostrar notificación
@@ -884,38 +1061,44 @@
 
             setTimeout(() => {
                 notification.remove();
-            }, 2000);
+            }, 3000);
         }
 
         // Exportar progreso
         function exportProgress() {
-            const data = tasks.map(t => ({
-                wbs: t.wbs,
-                name: t.name,
-                status: t.status
-            }));
+            const data = {
+                tasks: tasks,
+                team: teamMembers,
+                exportDate: new Date().toISOString()
+            };
 
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'gantt_progress.json';
+            a.download = `gantt-progress-${new Date().toISOString().split('T')[0]}.json`;
             a.click();
+            URL.revokeObjectURL(url);
 
-            showNotification('Progreso exportado');
+            showNotification('✅ Progreso exportado correctamente');
         }
 
         // Resetear progreso
         function resetProgress() {
-            if (confirm('¿Estás seguro de que quieres resetear todo el progreso?')) {
-                tasks.forEach(task => task.status = 'pending');
-                saveState();
+            if (confirm('¿Estás seguro de resetear todas las tareas a "Pendiente"?')) {
+                tasks.forEach(task => {
+                    if (!task.isPhase && !task.isMilestone) {
+                        task.status = 'pending';
+                    }
+                });
+                saveData();
                 renderGantt();
-                showNotification('Progreso reseteado');
+                updateStats();
+                showNotification('🔄 Progreso reseteado');
             }
         }
 
-        // Cargar desde CSV (placeholder)
+        // Cargar desde CSV
         function loadFromCSV() {
             showNotification('Función en desarrollo - Por ahora usa el CSV manualmente');
         }
@@ -968,6 +1151,7 @@
             localStorage.setItem('gantt_team', JSON.stringify(teamMembers));
             showNotification(`✅ ${name} agregado al equipo`);
             renderTeamList();
+            renderGantt();
             document.getElementById('memberId').value = '';
             document.getElementById('memberName').value = '';
             document.getElementById('memberRole').value = '';
@@ -981,62 +1165,14 @@
                 localStorage.setItem('gantt_team', JSON.stringify(teamMembers));
                 showNotification(`❌ ${member.name} eliminado`);
                 renderTeamList();
-            }
-        }
-
-        // Abrir modal de fechas
-        function openDatesModal() {
-            const saved = localStorage.getItem('gantt_dates');
-            if (saved) {
-                const dates = JSON.parse(saved);
-                document.getElementById('projectStartDate').value = dates.start;
-                document.getElementById('projectEndDate').value = dates.end;
-            }
-            document.getElementById('datesModal').classList.add('active');
-        }
-
-        // Cerrar modal de fechas
-        function closeDatesModal() {
-            document.getElementById('datesModal').classList.remove('active');
-        }
-
-        // Guardar fechas
-        function saveDates() {
-            const start = document.getElementById('projectStartDate').value;
-            const end = document.getElementById('projectEndDate').value;
-
-            if (!start || !end) {
-                showNotification('❌ Completa ambas fechas');
-                return;
-            }
-
-            if (new Date(start) >= new Date(end)) {
-                showNotification('❌ La fecha de inicio debe ser anterior a la de fin');
-                return;
-            }
-
-            localStorage.setItem('gantt_dates', JSON.stringify({ start, end }));
-            showNotification('✅ Fechas actualizadas');
-            closeDatesModal();
-
-            // Actualizar el header
-            const startFormatted = new Date(start).toLocaleDateString('es-ES', { day: '2-digit', month: 'long' });
-            const endFormatted = new Date(end).toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' });
-            document.querySelector('.header p').textContent = `Cronograma Interactivo | ${startFormatted} - ${endFormatted} (Fases 1-7)`;
-        }
-
-        // Cargar equipo guardado
-        function loadTeam() {
-            const saved = localStorage.getItem('gantt_team');
-            if (saved) {
-                teamMembers = JSON.parse(saved);
+                renderGantt();
             }
         }
 
         // Inicializar
-        loadTeam();
-        loadSavedState();
+        loadSavedData();
         renderGantt();
+        updateStats();
     </script>
 </body>
 
