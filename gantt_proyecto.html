@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto Agente IA - Gantt Profesional</title>
+    <title>Proyecto Agente IA - Gantt Profesional (Fase 3-9)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -196,41 +196,33 @@
         }
 
         /* Colores por fase */
-        .fase1 {
+        .fase3 {
             background: #667eea;
         }
 
-        .fase2 {
+        .fase4 {
             background: #48bb78;
         }
 
-        .fase3 {
+        .fase5 {
             background: #ed8936;
         }
 
-        .fase4 {
+        .fase6 {
             background: #9f7aea;
         }
 
-        .fase5 {
+        .fase7 {
             background: #f56565;
         }
 
-        .fase6 {
+        .fase8 {
             background: #38b2ac;
         }
 
-        .fase7 {
+        .fase9 {
             background: #ecc94b;
             color: #1a1d29;
-        }
-
-        .fase8 {
-            background: #4299e1;
-        }
-
-        .fase9 {
-            background: #ed64a6;
         }
 
         .hito {
@@ -320,37 +312,31 @@
 <body>
     <div class="header">
         <h1>🤖 Proyecto Agente IA - ISMM Escuela de Gastronomía</h1>
-        <p>Cronograma de Implementación | 03 Febrero - 09 Abril 2026</p>
+        <p>Cronograma de Implementación | 20 Febrero - 09 Abril 2026 (Fases 3-9)</p>
     </div>
 
     <div class="stats">
         <div class="stat-card">
-            <div class="stat-number">47</div>
+            <div class="stat-number">35</div>
             <div class="stat-label">Días Laborables</div>
         </div>
         <div class="stat-card" style="border-left-color: #48bb78;">
-            <div class="stat-number" style="color: #48bb78;">9</div>
+            <div class="stat-number" style="color: #48bb78;">7</div>
             <div class="stat-label">Fases del Proyecto</div>
         </div>
         <div class="stat-card" style="border-left-color: #ed8936;">
-            <div class="stat-number" style="color: #ed8936;">96</div>
+            <div class="stat-number" style="color: #ed8936;">61</div>
             <div class="stat-label">Tareas Totales</div>
         </div>
         <div class="stat-card" style="border-left-color: #ffd700;">
-            <div class="stat-number" style="color: #ffd700;">9</div>
+            <div class="stat-number" style="color: #ffd700;">7</div>
             <div class="stat-label">Hitos Principales</div>
         </div>
     </div>
 
     <div class="legend">
         <div class="legend-item">
-            <div class="legend-color fase1"></div><span>Fase 1: Planificación</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color fase2"></div><span>Fase 2: Preparación de Datos</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color fase3"></div><span>Fase 3: Meta API</span>
+            <div class="legend-color fase3"></div><span>Fase 3: Meta API - WhatsApp</span>
         </div>
         <div class="legend-item">
             <div class="legend-color fase4"></div><span>Fase 4: Chatwoot</span>
@@ -362,7 +348,7 @@
             <div class="legend-color fase6"></div><span>Fase 6: Zoho CRM</span>
         </div>
         <div class="legend-item">
-            <div class="legend-color fase7"></div><span>Fase 7: Pruebas</span>
+            <div class="legend-color fase7"></div><span>Fase 7: Pruebas y QA</span>
         </div>
         <div class="legend-item">
             <div class="legend-color fase8"></div><span>Fase 8: Capacitación</span>
@@ -376,9 +362,10 @@
     </div>
 
     <div class="toolbar">
-        <div class="toolbar-item">📅 Vista: Mensual</div>
-        <div class="toolbar-item">📊 Progreso: 0%</div>
+        <div class="toolbar-item">📅 Inicio: 20/02/2026</div>
+        <div class="toolbar-item">🎯 Fin: 09/04/2026</div>
         <div class="toolbar-item">👥 Equipo: 2 personas</div>
+        <div class="toolbar-item">⏱️ 560 horas totales</div>
     </div>
 
     <div class="gantt-container">
@@ -402,62 +389,78 @@
     </div>
 
     <div class="footer">
-        <p>Proyecto Agente IA - ISMM | Desarrollado por Zcod3 | © 2026</p>
+        <p>Proyecto Agente IA - ISMM | Desarrollado por Zcod3 | © 2026 | <a
+                href="https://github.com/PSG-ONE/proyecto-agente-ia-ismm" style="color: #667eea;">GitHub</a></p>
     </div>
 
     <script>
         const tasks = [
-            { wbs: '1', name: 'FASE 1: PLANIFICACIÓN Y ANÁLISIS', duration: '5d', start: 3, length: 5, resource: 'Equipo', type: 'phase', class: 'fase1', progress: 0 },
-            { wbs: '1.1', name: 'Reunión inicial stakeholders', duration: '0.5d', start: 3, length: 0.5, resource: 'Ambos', type: 'task', class: 'fase1', progress: 0 },
-            { wbs: '1.2', name: 'Análisis de requisitos', duration: '2d', start: 4, length: 2, resource: 'Equipo', type: 'task', class: 'fase1', progress: 0 },
-            { wbs: '1.3', name: 'Especificaciones técnicas', duration: '1.5d', start: 5, length: 1.5, resource: 'Persona 2', type: 'task', class: 'fase1', progress: 0 },
-            { wbs: 'H1', name: '💎 Plan de Proyecto Aprobado', duration: '0d', start: 7, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 },
+            // FASE 3: META API - WHATSAPP (7 días)
+            { wbs: '3.0', name: 'FASE 3: INTEGRACIÓN META API', duration: '7d', start: 0, length: 7, resource: 'Equipo', type: 'phase', class: 'fase3', progress: 0 },
+            { wbs: '3.1', name: 'Verificación número telefónico', duration: '1d', start: 0, length: 1, resource: 'P1', type: 'task', class: 'fase3', progress: 0 },
+            { wbs: '3.2', name: 'Validación portafolio empresarial', duration: '1d', start: 0, length: 1, resource: 'P2', type: 'task', class: 'fase3', progress: 0 },
+            { wbs: '3.3', name: 'Preparación documentación', duration: '1d', start: 1, length: 1, resource: 'P1', type: 'task', class: 'fase3', progress: 0 },
+            { wbs: '3.4', name: 'Envío y seguimiento verificación', duration: '2d', start: 4, length: 2, resource: 'P2', type: 'task', class: 'fase3', progress: 0 },
+            { wbs: '3.5', name: 'Creación app Meta Developers', duration: '1d', start: 4, length: 1, resource: 'P1', type: 'task', class: 'fase3', progress: 0 },
+            { wbs: '3.6', name: 'Configuración credenciales', duration: '1d', start: 5, length: 1, resource: 'P1', type: 'task', class: 'fase3', progress: 0 },
+            { wbs: '3.7', name: 'Configuración webhooks', duration: '1d', start: 6, length: 1, resource: 'P2', type: 'task', class: 'fase3', progress: 0 },
+            { wbs: 'H3', name: '💎 WhatsApp API Verificado', duration: '0d', start: 7, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 },
 
-            { wbs: '2', name: 'FASE 2: PREPARACIÓN DE DATOS', duration: '8d', start: 10, length: 8, resource: 'Equipo', type: 'phase', class: 'fase2', progress: 0 },
-            { wbs: '2.1', name: 'Estructuración de carreras', duration: '2d', start: 10, length: 2, resource: 'Persona 1', type: 'task', class: 'fase2', progress: 0 },
-            { wbs: '2.2', name: 'Base de FAQs', duration: '2d', start: 12, length: 2, resource: 'Persona 2', type: 'task', class: 'fase2', progress: 0 },
-            { wbs: '2.3', name: 'Guión conversacional', duration: '3d', start: 14, length: 3, resource: 'Ambos', type: 'task', class: 'fase2', progress: 0 },
-            { wbs: 'H2', name: '💎 Contenido Estructurado', duration: '0d', start: 19, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 },
+            // FASE 4: CHATWOOT (5 días)
+            { wbs: '4.0', name: 'FASE 4: CONFIGURACIÓN CHATWOOT', duration: '5d', start: 9, length: 5, resource: 'Equipo', type: 'phase', class: 'fase4', progress: 0 },
+            { wbs: '4.1', name: 'Instalación Chatwoot', duration: '1.5d', start: 9, length: 1.5, resource: 'P2', type: 'task', class: 'fase4', progress: 0 },
+            { wbs: '4.2', name: 'Integración con WhatsApp API', duration: '1d', start: 11, length: 1, resource: 'P1', type: 'task', class: 'fase4', progress: 0 },
+            { wbs: '4.3', name: 'Configuración equipos y usuarios', duration: '0.5d', start: 11, length: 0.5, resource: 'P2', type: 'task', class: 'fase4', progress: 0 },
+            { wbs: '4.4', name: 'Personalización interfaz', duration: '1d', start: 12, length: 1, resource: 'P2', type: 'task', class: 'fase4', progress: 0 },
+            { wbs: '4.5', name: 'Pruebas bandeja omnicanal', duration: '0.5d', start: 13, length: 0.5, resource: 'Ambos', type: 'task', class: 'fase4', progress: 0 },
+            { wbs: 'H4', name: '💎 Chatwoot Operativo', duration: '0d', start: 13, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 },
 
-            { wbs: '3', name: 'FASE 3: INTEGRACIÓN META API', duration: '7d', start: 20, length: 7, resource: 'Equipo', type: 'phase', class: 'fase3', progress: 0 },
-            { wbs: '3.1', name: 'Verificación de número', duration: '1d', start: 20, length: 1, resource: 'Persona 1', type: 'task', class: 'fase3', progress: 0 },
-            { wbs: '3.2', name: 'Configuración de credenciales', duration: '2d', start: 24, length: 2, resource: 'Persona 1', type: 'task', class: 'fase3', progress: 0 },
-            { wbs: '3.3', name: 'Pruebas de conexión', duration: '1d', start: 27, length: 1, resource: 'Ambos', type: 'task', class: 'fase3', progress: 0 },
-            { wbs: 'H3', name: '💎 WhatsApp API Verificado', duration: '0d', start: 28, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 },
+            // FASE 5: AGENTE IA (10 días)
+            { wbs: '5.0', name: 'FASE 5: DESARROLLO AGENTE IA', duration: '10d', start: 14, length: 10, resource: 'Equipo', type: 'phase', class: 'fase5', progress: 0 },
+            { wbs: '5.1', name: 'Evaluación plataformas IA', duration: '1d', start: 14, length: 1, resource: 'Ambos', type: 'task', class: 'fase5', progress: 0 },
+            { wbs: '5.2', name: 'Selección plataforma', duration: '0.5d', start: 15, length: 0.5, resource: 'P1', type: 'task', class: 'fase5', progress: 0 },
+            { wbs: '5.3', name: 'Estructuración base conocimiento', duration: '1.5d', start: 16, length: 1.5, resource: 'P1', type: 'task', class: 'fase5', progress: 0 },
+            { wbs: '5.4', name: 'Entrenamiento - Carreras', duration: '1d', start: 18, length: 1, resource: 'P1', type: 'task', class: 'fase5', progress: 0 },
+            { wbs: '5.5', name: 'Entrenamiento - Diplomados', duration: '1d', start: 18, length: 1, resource: 'P2', type: 'task', class: 'fase5', progress: 0 },
+            { wbs: '5.6', name: 'Desarrollo flujos conversacionales', duration: '1.5d', start: 19, length: 1.5, resource: 'Ambos', type: 'task', class: 'fase5', progress: 0 },
+            { wbs: '5.7', name: 'Integración con Chatwoot', duration: '1d', start: 21, length: 1, resource: 'P1', type: 'task', class: 'fase5', progress: 0 },
+            { wbs: '5.8', name: 'Sistema logging y monitoreo', duration: '1d', start: 22, length: 1, resource: 'P1', type: 'task', class: 'fase5', progress: 0 },
+            { wbs: '5.9', name: 'Pruebas iniciales agente', duration: '1d', start: 23, length: 1, resource: 'Ambos', type: 'task', class: 'fase5', progress: 0 },
+            { wbs: 'H5', name: '💎 Agente IA Funcional', duration: '0d', start: 24, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 },
 
-            { wbs: '4', name: 'FASE 4: CONFIGURACIÓN CHATWOOT', duration: '5d', start: 31, length: 5, resource: 'Equipo', type: 'phase', class: 'fase4', progress: 0 },
-            { wbs: '4.1', name: 'Instalación de Chatwoot', duration: '1.5d', start: 31, length: 1.5, resource: 'Persona 2', type: 'task', class: 'fase4', progress: 0 },
-            { wbs: '4.2', name: 'Integración con WhatsApp', duration: '1d', start: 33, length: 1, resource: 'Persona 1', type: 'task', class: 'fase4', progress: 0 },
-            { wbs: '4.3', name: 'Configuración de equipos', duration: '1d', start: 34, length: 1, resource: 'Persona 2', type: 'task', class: 'fase4', progress: 0 },
-            { wbs: 'H4', name: '💎 Chatwoot Operativo', duration: '0d', start: 35, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 },
+            // FASE 6: ZOHO CRM (5 días)
+            { wbs: '6.0', name: 'FASE 6: INTEGRACIÓN ZOHO CRM', duration: '5d', start: 25, length: 5, resource: 'Equipo', type: 'phase', class: 'fase6', progress: 0 },
+            { wbs: '6.1', name: 'Evaluación API Zoho', duration: '1d', start: 25, length: 1, resource: 'P1', type: 'task', class: 'fase6', progress: 0 },
+            { wbs: '6.2', name: 'Configuración webhooks', duration: '1d', start: 26, length: 1, resource: 'P2', type: 'task', class: 'fase6', progress: 0 },
+            { wbs: '6.3', name: 'Sincronización de leads', duration: '1.5d', start: 26, length: 1.5, resource: 'P1', type: 'task', class: 'fase6', progress: 0 },
+            { wbs: '6.4', name: 'Mapeo de campos', duration: '1d', start: 27, length: 1, resource: 'P2', type: 'task', class: 'fase6', progress: 0 },
+            { wbs: '6.5', name: 'Pruebas integración', duration: '1d', start: 29, length: 1, resource: 'Ambos', type: 'task', class: 'fase6', progress: 0 },
+            { wbs: 'H6', name: '💎 Zoho CRM Integrado', duration: '0d', start: 29, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 },
 
-            { wbs: '5', name: 'FASE 5: DESARROLLO AGENTE IA', duration: '10d', start: 38, length: 10, resource: 'Equipo', type: 'phase', class: 'fase5', progress: 0 },
-            { wbs: '5.1', name: 'Evaluación de plataformas IA', duration: '1d', start: 38, length: 1, resource: 'Ambos', type: 'task', class: 'fase5', progress: 0 },
-            { wbs: '5.2', name: 'Entrenamiento del agente', duration: '3d', start: 42, length: 3, resource: 'Equipo', type: 'task', class: 'fase5', progress: 0 },
-            { wbs: '5.3', name: 'Integración con Chatwoot', duration: '2d', start: 45, length: 2, resource: 'Persona 1', type: 'task', class: 'fase5', progress: 0 },
-            { wbs: 'H5', name: '💎 Agente IA Funcional', duration: '0d', start: 49, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 },
+            // FASE 7: PRUEBAS Y QA (5 días)
+            { wbs: '7.0', name: 'FASE 7: PRUEBAS Y QA', duration: '5d', start: 30, length: 5, resource: 'Equipo', type: 'phase', class: 'fase7', progress: 0 },
+            { wbs: '7.1', name: 'Diseño casos de prueba', duration: '1d', start: 30, length: 1, resource: 'Ambos', type: 'task', class: 'fase7', progress: 0 },
+            { wbs: '7.2', name: 'Pruebas unitarias', duration: '1d', start: 31, length: 1, resource: 'P1', type: 'task', class: 'fase7', progress: 0 },
+            { wbs: '7.3', name: 'Pruebas integración end-to-end', duration: '1.5d', start: 31, length: 1.5, resource: 'P2', type: 'task', class: 'fase7', progress: 0 },
+            { wbs: '7.4', name: 'Pruebas de carga', duration: '1d', start: 32, length: 1, resource: 'P1', type: 'task', class: 'fase7', progress: 0 },
+            { wbs: '7.5', name: 'UAT con usuarios', duration: '1d', start: 33, length: 1, resource: 'Ambos', type: 'task', class: 'fase7', progress: 0 },
+            { wbs: '7.6', name: 'Corrección errores críticos', duration: '1d', start: 34, length: 1, resource: 'Ambos', type: 'task', class: 'fase7', progress: 0 },
+            { wbs: 'H7', name: '💎 Sistema Validado', duration: '0d', start: 34, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 },
 
-            { wbs: '6', name: 'FASE 6: INTEGRACIÓN ZOHO CRM', duration: '5d', start: 52, length: 5, resource: 'Equipo', type: 'phase', class: 'fase6', progress: 0 },
-            { wbs: '6.1', name: 'Configuración de Zoho', duration: '1d', start: 52, length: 1, resource: 'Persona 2', type: 'task', class: 'fase6', progress: 0 },
-            { wbs: '6.2', name: 'Sincronización de leads', duration: '2d', start: 53, length: 2, resource: 'Persona 1', type: 'task', class: 'fase6', progress: 0 },
-            { wbs: '6.3', name: 'Pruebas de integración', duration: '1d', start: 56, length: 1, resource: 'Ambos', type: 'task', class: 'fase6', progress: 0 },
-            { wbs: 'H6', name: '💎 Zoho CRM Integrado', duration: '0d', start: 56, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 },
+            // FASE 8: CAPACITACIÓN (3 días)
+            { wbs: '8.0', name: 'FASE 8: CAPACITACIÓN', duration: '3d', start: 35, length: 3, resource: 'Equipo', type: 'phase', class: 'fase8', progress: 0 },
+            { wbs: '8.1', name: 'Creación manuales', duration: '1d', start: 35, length: 1, resource: 'P1', type: 'task', class: 'fase8', progress: 0 },
+            { wbs: '8.2', name: 'Documentación técnica', duration: '1d', start: 35, length: 1, resource: 'P2', type: 'task', class: 'fase8', progress: 0 },
+            { wbs: '8.3', name: 'Sesiones capacitación', duration: '0.5d', start: 36, length: 0.5, resource: 'Ambos', type: 'task', class: 'fase8', progress: 0 },
+            { wbs: 'H8', name: '💎 Equipo Capacitado', duration: '0d', start: 36, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 },
 
-            { wbs: '7', name: 'FASE 7: PRUEBAS Y QA', duration: '5d', start: 59, length: 5, resource: 'Equipo', type: 'phase', class: 'fase7', progress: 0 },
-            { wbs: '7.1', name: 'Pruebas unitarias', duration: '1d', start: 59, length: 1, resource: 'Persona 1', type: 'task', class: 'fase7', progress: 0 },
-            { wbs: '7.2', name: 'Pruebas de integración', duration: '2d', start: 60, length: 2, resource: 'Persona 2', type: 'task', class: 'fase7', progress: 0 },
-            { wbs: '7.3', name: 'UAT con usuarios', duration: '1d', start: 62, length: 1, resource: 'Ambos', type: 'task', class: 'fase7', progress: 0 },
-            { wbs: 'H7', name: '💎 Sistema Validado', duration: '0d', start: 63, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 },
-
-            { wbs: '8', name: 'FASE 8: CAPACITACIÓN', duration: '3d', start: 66, length: 3, resource: 'Equipo', type: 'phase', class: 'fase8', progress: 0 },
-            { wbs: '8.1', name: 'Creación de manuales', duration: '1d', start: 66, length: 1, resource: 'Persona 1', type: 'task', class: 'fase8', progress: 0 },
-            { wbs: '8.2', name: 'Sesiones de capacitación', duration: '1d', start: 67, length: 1, resource: 'Ambos', type: 'task', class: 'fase8', progress: 0 },
-            { wbs: 'H8', name: '💎 Equipo Capacitado', duration: '0d', start: 67, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 },
-
-            { wbs: '9', name: 'FASE 9: DESPLIEGUE', duration: '2d', start: 68, length: 2, resource: 'Equipo', type: 'phase', class: 'fase9', progress: 0 },
-            { wbs: '9.1', name: 'Configuración de producción', duration: '0.5d', start: 68, length: 0.5, resource: 'Persona 2', type: 'task', class: 'fase9', progress: 0 },
-            { wbs: '9.2', name: 'Lanzamiento oficial', duration: '0.5d', start: 68.5, length: 0.5, resource: 'Ambos', type: 'task', class: 'fase9', progress: 0 },
-            { wbs: 'H9', name: '💎 GO-LIVE PRODUCCIÓN', duration: '0d', start: 68, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 }
+            // FASE 9: DESPLIEGUE (2 días)
+            { wbs: '9.0', name: 'FASE 9: DESPLIEGUE', duration: '2d', start: 37, length: 2, resource: 'Equipo', type: 'phase', class: 'fase9', progress: 0 },
+            { wbs: '9.1', name: 'Configuración producción', duration: '0.5d', start: 37, length: 0.5, resource: 'P2', type: 'task', class: 'fase9', progress: 0 },
+            { wbs: '9.2', name: 'Migración datos', duration: '0.5d', start: 37, length: 0.5, resource: 'P1', type: 'task', class: 'fase9', progress: 0 },
+            { wbs: '9.3', name: 'Verificación servicios', duration: '0.25d', start: 37.5, length: 0.25, resource: 'Ambos', type: 'task', class: 'fase9', progress: 0 },
+            { wbs: '9.4', name: 'Lanzamiento oficial', duration: '0.25d', start: 37.75, length: 0.25, resource: 'Ambos', type: 'task', class: 'fase9', progress: 0 },
+            { wbs: 'H9', name: '💎 GO-LIVE PRODUCCIÓN', duration: '0d', start: 38, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 }
         ];
 
         const taskList = document.getElementById('taskList');
@@ -482,19 +485,19 @@
             if (task.type === 'milestone') {
                 const marker = document.createElement('div');
                 marker.className = 'milestone-marker';
-                marker.style.left = `${task.start * 10}px`;
+                marker.style.left = `${task.start * 15}px`;
                 marker.title = task.name;
                 timelineRow.appendChild(marker);
             } else if (task.length > 0) {
                 const bar = document.createElement('div');
                 bar.className = `bar ${task.class}`;
-                bar.style.left = `${task.start * 10}px`;
-                bar.style.width = `${task.length * 10}px`;
+                bar.style.left = `${task.start * 15}px`;
+                bar.style.width = `${task.length * 15}px`;
                 bar.innerHTML = `
                     <div class="progress" style="width: ${task.progress}%"></div>
-                    <div class="bar-label">${task.name} ${task.progress > 0 ? task.progress + '%' : ''}</div>
+                    <div class="bar-label">${task.name}</div>
                 `;
-                bar.title = `${task.name}\nInicio: Día ${task.start}\nDuración: ${task.duration}\nRecursos: ${task.resource}`;
+                bar.title = `${task.name}\nDuración: ${task.duration}\nRecursos: ${task.resource}`;
                 timelineRow.appendChild(bar);
             }
 
