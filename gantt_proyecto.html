@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto Agente IA - Gantt Dinámico (Fases 1-7)</title>
+    <title>Proyecto Agente IA - Gantt Profesional</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -17,7 +17,7 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: #0a0a0a;
             color: #e4e6eb;
-            overflow-x: auto;
+            overflow-x: hidden;
         }
 
         .header {
@@ -75,62 +75,25 @@
             box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
         }
 
-        .btn-danger {
-            background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
-            color: white;
-        }
-
-        .btn-danger:hover {
-            box-shadow: 0 4px 12px rgba(245, 101, 101, 0.4);
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            padding: 30px 40px;
-            background: #111111;
-        }
-
-        .stat-card {
-            background: #1a1a1a;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid;
-        }
-
-        .stat-number {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: #9ca3af;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .toolbar {
-            padding: 15px 40px;
-            background: #1a1a1a;
-            border-radius: 6px;
-            font-size: 13px;
-        }
-
-        .gantt-container {
+        .main-container {
             display: flex;
-            min-width: 1400px;
+            height: calc(100vh - 200px);
         }
 
-        .task-list {
-            width: 900px;
+        .gantt-wrapper {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .task-table {
+            width: 830px;
             background: #111111;
-            border-right: 2px solid #1a1a1a;
+            border-right: 2px solid #00d9ff;
+            overflow-y: auto;
         }
 
-        .task-list-header {
+        .task-header {
             display: grid;
             grid-template-columns: 50px 200px 130px 80px 150px 110px 110px;
             background: #1a1a1a;
@@ -168,7 +131,7 @@
         .task-row.milestone {
             background: #1a1a1a;
             font-style: italic;
-            border-left: 4px solid #a855f7;
+            border-left: 4px solid #fbbf24;
         }
 
         .task-name {
@@ -217,8 +180,30 @@
             border: 1px solid #a855f7;
         }
 
-        /* Campos editables inline */
-        .editable-select,
+        /* Editable inline */
+        .editable-input {
+            background: #0a0a0a;
+            border: 1px solid #2d3142;
+            border-radius: 4px;
+            padding: 6px 8px;
+            color: #e4e6eb;
+            font-size: 12px;
+            width: 100%;
+            cursor: text;
+            transition: all 0.2s;
+        }
+
+        .editable-input:hover {
+            border-color: #00d9ff;
+            background: #1a1a1a;
+        }
+
+        .editable-input:focus {
+            outline: none;
+            border-color: #00d9ff;
+            box-shadow: 0 0 0 2px rgba(0, 217, 255, 0.2);
+        }
+
         .editable-date {
             background: #0a0a0a;
             border: 1px solid #2d3142;
@@ -231,23 +216,23 @@
             transition: all 0.2s;
         }
 
-        .editable-select:hover,
         .editable-date:hover {
             border-color: #00d9ff;
             background: #1a1a1a;
         }
 
-        .editable-select:focus,
         .editable-date:focus {
             outline: none;
             border-color: #00d9ff;
             box-shadow: 0 0 0 2px rgba(0, 217, 255, 0.2);
         }
 
-        .timeline {
+        /* Timeline Gantt */
+        .timeline-container {
             flex: 1;
             background: #0a0a0a;
             overflow-x: auto;
+            overflow-y: auto;
         }
 
         .timeline-header {
@@ -358,6 +343,7 @@
             }
         }
 
+        /* Colores por fase */
         .fase3 {
             background: linear-gradient(135deg, #00d9ff 0%, #00b8d9 100%);
             color: #0a0a0a;
@@ -414,20 +400,114 @@
             white-space: nowrap;
         }
 
+        /* Panel de control lateral */
+        .gantt-panel {
+            width: 280px;
+            background: #111111;
+            border-left: 2px solid #00d9ff;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .panel-section {
+            margin-bottom: 25px;
+        }
+
+        .panel-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #00d9ff;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .panel-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: #1a1a1a;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #2d3142;
+        }
+
+        .panel-option:hover {
+            background: #0a0a0a;
+            border-color: #00d9ff;
+        }
+
+        .panel-option.active {
+            background: rgba(0, 217, 255, 0.1);
+            border-color: #00d9ff;
+        }
+
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #00d9ff;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .checkbox.checked {
+            background: #00d9ff;
+        }
+
+        .checkbox.checked::after {
+            content: '✓';
+            color: #0a0a0a;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .panel-label {
+            font-size: 13px;
+            color: #e4e6eb;
+        }
+
+        .zoom-controls {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .zoom-btn {
+            flex: 1;
+            padding: 8px;
+            background: #1a1a1a;
+            border: 1px solid #00d9ff;
+            border-radius: 4px;
+            color: #00d9ff;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .zoom-btn:hover {
+            background: rgba(0, 217, 255, 0.1);
+        }
+
         .legend {
             display: flex;
-            gap: 20px;
-            padding: 20px 40px;
+            gap: 15px;
+            padding: 15px 40px;
             background: #111111;
             flex-wrap: wrap;
             border-top: 1px solid #1a1a1a;
+            font-size: 12px;
         }
 
         .legend-item {
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 12px;
         }
 
         .legend-color {
@@ -441,24 +521,6 @@
             height: 12px;
             background: #fbbf24;
             transform: rotate(45deg);
-        }
-
-        .footer {
-            text-align: center;
-            padding: 30px;
-            background: #111111;
-            color: #6b7280;
-            font-size: 13px;
-            border-top: 1px solid #1a1a1a;
-        }
-
-        .footer a {
-            color: #00d9ff;
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
         }
 
         .notification {
@@ -487,161 +549,55 @@
             }
         }
 
-        @media (max-width: 1200px) {
-            .gantt-container {
-                min-width: 100%;
-            }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            padding: 20px 40px;
+            background: #111111;
         }
 
-        /* Modal para configuración */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
+        .stat-card {
             background: #1a1a1a;
-            padding: 30px;
-            border-radius: 12px;
-            border: 2px solid #00d9ff;
-            max-width: 500px;
-            width: 90%;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid;
         }
 
-        .modal-content h2 {
-            color: #00d9ff;
-            margin-bottom: 20px;
-            font-size: 20px;
-        }
-
-        .modal-content label {
-            display: block;
-            color: #9ca3af;
-            font-size: 12px;
-            margin-bottom: 5px;
-            margin-top: 15px;
-        }
-
-        .modal-content input {
-            width: 100%;
-            padding: 10px;
-            background: #0a0a0a;
-            border: 1px solid #00d9ff;
-            border-radius: 6px;
-            color: white;
-            font-size: 14px;
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .modal-buttons button {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-save {
-            background: #00d9ff;
-            color: #0a0a0a;
-        }
-
-        .btn-save:hover {
-            background: #00b8d9;
-        }
-
-        .btn-cancel {
-            background: #a855f7;
-            color: white;
-        }
-
-        .btn-cancel:hover {
-            background: #8b3fd7;
-        }
-
-        .team-list {
-            margin-top: 15px;
-        }
-
-        .team-member {
-            background: #0a0a0a;
-            padding: 10px;
-            border-radius: 6px;
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
             margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
-        .team-member-info {
-            color: white;
-            font-size: 13px;
-        }
-
-        .team-member-role {
+        .stat-label {
+            font-size: 12px;
             color: #9ca3af;
-            font-size: 11px;
-        }
-
-        .btn-remove {
-            background: #f56565;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 11px;
-            cursor: pointer;
-        }
-
-        .btn-remove:hover {
-            background: #e53e3e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
 
 <body>
     <div class="header">
-        <h1>📊 Proyecto Agente IA - ISMM (Gantt Dinámico)</h1>
+        <h1>📊 Proyecto Agente IA - ISMM (Gantt Profesional)</h1>
         <p>Cronograma Interactivo | 20 Febrero - 23 Abril 2026 (Fases 1-7)</p>
     </div>
 
     <div class="controls">
-        <button class="btn" onclick="loadFromCSV()">📂 Cargar desde CSV</button>
+        <button class="btn" onclick="exportToExcel()">📊 Exportar a Excel</button>
         <button class="btn btn-secondary" onclick="exportProgress()">💾 Exportar Progreso</button>
-        <button class="btn btn-danger" onclick="resetProgress()">🔄 Resetear Todo</button>
-        <button class="btn" onclick="openTeamModal()">👥 Gestionar Equipo</button>
+        <button class="btn" onclick="resetProgress()">🔄 Resetear Todo</button>
         <span style="margin-left: auto; font-size: 12px; color: #9ca3af;">
-            💡 Haz clic en los badges de estado para cambiarlos | Edita fechas y asignaciones directamente
+            💡 Edita directamente en la tabla | Las barras se actualizan automáticamente
         </span>
     </div>
 
     <div class="stats">
         <div class="stat-card" style="border-left-color: #00d9ff;">
-            <div class="stat-number">35</div>
+            <div class="stat-number" style="color: #00d9ff;" id="totalDays">44</div>
             <div class="stat-label">Días Laborables</div>
-        </div>
-        <div class="stat-card" style="border-left-color: #00d9ff;">
-            <div class="stat-number" style="color: #00d9ff;">7</div>
-            <div class="stat-label">Fases del Proyecto</div>
         </div>
         <div class="stat-card" style="border-left-color: #a855f7;">
             <div class="stat-number" style="color: #a855f7;" id="totalTasks">42</div>
@@ -653,189 +609,195 @@
         </div>
         <div class="stat-card" style="border-left-color: #10b981;">
             <div class="stat-number" style="color: #10b981;" id="completedTasks">0</div>
-            <div class="stat-label">Tareas Completadas</div>
+            <div class="stat-label">Completadas</div>
         </div>
         <div class="stat-card" style="border-left-color: #ec4899;">
             <div class="stat-number" style="color: #ec4899;" id="progressPercent">0%</div>
-            <div class="stat-label">Progreso General</div>
+            <div class="stat-label">Progreso</div>
         </div>
     </div>
 
-    <div class="toolbar">
-        <strong>Estado de Tareas:</strong>
-        <span style="margin-left: 15px;">⬜ Pendiente: <span id="pendingCount">20</span></span>
-        <span style="margin-left: 15px;">🔄 En progreso: <span id="progressCount">0</span></span>
-        <span style="margin-left: 15px;">✅ Completado: <span id="completedCount">0</span></span>
-    </div>
-
-    <div class="legend">
-        <div class="legend-item">
-            <div class="legend-color fase3"></div><span>Fase 1: Meta API - WhatsApp</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color fase4"></div><span>Fase 2: Chatwoot</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color fase5"></div><span>Fase 3: Agente IA</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color fase6"></div><span>Fase 4: Zoho CRM</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color fase7"></div><span>Fase 5: Pruebas y QA</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color fase8"></div><span>Fase 6: Capacitación</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color fase9"></div><span>Fase 7: Despliegue</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color hito"></div><span>💎 Hitos H1-H7</span>
-        </div>
-    </div>
-
-    <div class="gantt-container">
-        <div class="task-list">
-            <div class="task-list-header">
-                <div>WBS</div>
-                <div>TAREA</div>
-                <div>ESTADO</div>
-                <div>DURACIÓN</div>
-                <div>ASIGNADO</div>
-                <div>INICIO</div>
-                <div>FIN</div>
+    <div class="main-container">
+        <div class="gantt-wrapper">
+            <div class="task-table">
+                <div class="task-header">
+                    <div>WBS</div>
+                    <div>TAREA</div>
+                    <div>ESTADO</div>
+                    <div>DURACIÓN</div>
+                    <div>ASIGNADO</div>
+                    <div>INICIO</div>
+                    <div>FIN</div>
+                </div>
+                <div id="taskTableBody"></div>
             </div>
-            <div id="taskListBody"></div>
-        </div>
-        <div class="timeline">
-            <div class="timeline-header" id="timelineHeader"></div>
-            <div class="timeline-grid" id="timelineGrid"></div>
-        </div>
-    </div>
 
-    <div class="footer">
-        <p>Proyecto Agente IA - ISMM | Desarrollado por Zcod3 | © 2026 | <a
-                href="https://github.com/PSG-ONE/proyecto-agente-ia-ismm">GitHub</a></p>
-        <p style="margin-top: 8px; font-size: 11px;">Los cambios se guardan automáticamente en tu navegador
-            (localStorage)</p>
-    </div>
+            <div class="timeline-container">
+                <div class="timeline-header" id="timelineHeader"></div>
+                <div class="timeline-grid" id="timelineGrid"></div>
+            </div>
+        </div>
 
-    <!-- Modal Gestionar Equipo -->
-    <div id="teamModal" class="modal">
-        <div class="modal-content">
-            <h2>👥 Gestionar Equipo</h2>
-            <div class="team-list" id="teamList"></div>
-            <label>ID del Miembro</label>
-            <input type="text" id="memberId" placeholder="Ej: P3">
-            <label>Nombre Completo</label>
-            <input type="text" id="memberName" placeholder="Ej: Juan Pérez">
-            <label>Rol</label>
-            <input type="text" id="memberRole" placeholder="Ej: QA Tester">
-            <div class="modal-buttons">
-                <button class="btn-save" onclick="addTeamMember()">➕ Agregar</button>
-                <button class="btn-cancel" onclick="closeTeamModal()">❌ Cerrar</button>
+        <div class="gantt-panel">
+            <div class="panel-section">
+                <div class="panel-title">📊 Opciones de Gantt</div>
+                <div class="panel-option" onclick="toggleOption('criticalPath')">
+                    <div class="checkbox" id="check-criticalPath"></div>
+                    <div class="panel-label">Mostrar ruta crítica</div>
+                </div>
+                <div class="panel-option" onclick="toggleOption('baseline')">
+                    <div class="checkbox" id="check-baseline"></div>
+                    <div class="panel-label">Mostrar baseline</div>
+                </div>
+                <div class="panel-option active" onclick="toggleOption('weekends')">
+                    <div class="checkbox checked" id="check-weekends"></div>
+                    <div class="panel-label">Resaltar fines de semana</div>
+                </div>
+                <div class="panel-option active" onclick="toggleOption('milestones')">
+                    <div class="checkbox checked" id="check-milestones"></div>
+                    <div class="panel-label">Mostrar hitos</div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="panel-title">🔍 Zoom</div>
+                <div class="zoom-controls">
+                    <button class="zoom-btn" onclick="zoomOut()">➖ Alejar</button>
+                    <button class="zoom-btn" onclick="zoomIn()">➕ Acercar</button>
+                </div>
+                <div class="zoom-controls" style="margin-top: 8px;">
+                    <button class="zoom-btn" onclick="fitToScreen()">📐 Ajustar</button>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="panel-title">👥 Equipo</div>
+                <div id="teamList"></div>
+            </div>
+
+            <div class="panel-section">
+                <div class="panel-title">🎨 Leyenda</div>
+                <div class="legend-item" style="margin-bottom: 8px;">
+                    <div class="legend-color fase3"></div><span>Fase 1: Meta API</span>
+                </div>
+                <div class="legend-item" style="margin-bottom: 8px;">
+                    <div class="legend-color fase4"></div><span>Fase 2: Chatwoot</span>
+                </div>
+                <div class="legend-item" style="margin-bottom: 8px;">
+                    <div class="legend-color fase5"></div><span>Fase 3: Agente IA</span>
+                </div>
+                <div class="legend-item" style="margin-bottom: 8px;">
+                    <div class="legend-color fase6"></div><span>Fase 4: Zoho CRM</span>
+                </div>
+                <div class="legend-item" style="margin-bottom: 8px;">
+                    <div class="legend-color fase7"></div><span>Fase 5: Pruebas</span>
+                </div>
+                <div class="legend-item" style="margin-bottom: 8px;">
+                    <div class="legend-color fase8"></div><span>Fase 6: Capacitación</span>
+                </div>
+                <div class="legend-item" style="margin-bottom: 8px;">
+                    <div class="legend-color fase9"></div><span>Fase 7: Despliegue</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color hito"></div><span>💎 Hitos</span>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Datos de las tareas (WBS renumerado desde 1.0)
+        // Datos de las tareas
         let tasks = [
-            // FASE 1: INTEGRACIÓN CON META API (WhatsApp Business)
-            { wbs: '1.0', name: 'FASE 1: INTEGRACIÓN CON META API', status: 'pending', duration: '7d', resources: 'Equipo', start: '2026-02-20', end: '2026-02-28', phase: 'fase3', isPhase: true },
-            { wbs: '1.1', name: 'Verificación del número telefónico en Meta', status: 'pending', duration: '1d', resources: 'P1', start: '2026-02-20', end: '2026-02-20', phase: 'fase3' },
-            { wbs: '1.2', name: 'Validación del portafolio empresarial Meta', status: 'pending', duration: '1d', resources: 'P2', start: '2026-02-21', end: '2026-02-21', phase: 'fase3' },
-            { wbs: '1.3', name: 'Gestión de documentación para verificación', status: 'pending', duration: '1d', resources: 'P1', start: '2026-02-24', end: '2026-02-24', phase: 'fase3' },
-            { wbs: '1.4', name: 'Creación de App en Meta for Developers', status: 'pending', duration: '1d', resources: 'P2', start: '2026-02-25', end: '2026-02-25', phase: 'fase3' },
-            { wbs: '1.5', name: 'Configuración de credenciales y tokens de acceso', status: 'pending', duration: '1d', resources: 'P1', start: '2026-02-26', end: '2026-02-26', phase: 'fase3' },
-            { wbs: '1.6', name: 'Pruebas de conexión con WhatsApp Business API', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-02-27', end: '2026-02-27', phase: 'fase3' },
-            { wbs: 'H1', name: '💎 WhatsApp API Verificado', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-02-28', end: '2026-02-28', phase: 'fase3', isMilestone: true },
+            // FASE 1
+            { wbs: '1.0', name: 'FASE 1: INTEGRACIÓN CON META API', status: 'pending', duration: '7d', assignee: 'Equipo', start: '2026-02-20', end: '2026-02-28', phase: 'fase3', isPhase: true },
+            { wbs: '1.1', name: 'Verificación del número telefónico en Meta', status: 'pending', duration: '1d', assignee: 'Sebastian', start: '2026-02-20', end: '2026-02-20', phase: 'fase3' },
+            { wbs: '1.2', name: 'Validación del portafolio empresarial Meta', status: 'pending', duration: '1d', assignee: 'Jairo', start: '2026-02-21', end: '2026-02-21', phase: 'fase3' },
+            { wbs: '1.3', name: 'Gestión de documentación para verificación', status: 'pending', duration: '1d', assignee: 'Patricia', start: '2026-02-24', end: '2026-02-24', phase: 'fase3' },
+            { wbs: '1.4', name: 'Creación de App en Meta for Developers', status: 'pending', duration: '1d', assignee: 'Sebastian', start: '2026-02-25', end: '2026-02-25', phase: 'fase3' },
+            { wbs: '1.5', name: 'Configuración de credenciales y tokens de acceso', status: 'pending', duration: '1d', assignee: 'Jairo', start: '2026-02-26', end: '2026-02-26', phase: 'fase3' },
+            { wbs: '1.6', name: 'Pruebas de conexión con WhatsApp Business API', status: 'pending', duration: '1d', assignee: 'Equipo', start: '2026-02-27', end: '2026-02-27', phase: 'fase3' },
+            { wbs: 'H1', name: '💎 WhatsApp API Verificado', status: 'pending', duration: '0d', assignee: 'Equipo', start: '2026-02-28', end: '2026-02-28', phase: 'fase3', isMilestone: true },
 
-            // FASE 2: CONFIGURACIÓN DE CHATWOOT
-            { wbs: '2.0', name: 'FASE 2: CONFIGURACIÓN DE CHATWOOT', status: 'pending', duration: '7d', resources: 'Equipo', start: '2026-03-03', end: '2026-03-11', phase: 'fase4', isPhase: true },
-            { wbs: '2.1', name: 'Instalación y configuración de Chatwoot', status: 'pending', duration: '2d', resources: 'P1', start: '2026-03-03', end: '2026-03-04', phase: 'fase4' },
-            { wbs: '2.2', name: 'Integración de Chatwoot con WhatsApp Business API', status: 'pending', duration: '2d', resources: 'P2', start: '2026-03-05', end: '2026-03-06', phase: 'fase4' },
-            { wbs: '2.3', name: 'Configuración de equipos, usuarios y roles', status: 'pending', duration: '1d', resources: 'P1', start: '2026-03-07', end: '2026-03-07', phase: 'fase4' },
-            { wbs: '2.4', name: 'Personalización de interfaz y etiquetas', status: 'pending', duration: '1d', resources: 'P2', start: '2026-03-10', end: '2026-03-10', phase: 'fase4' },
-            { wbs: '2.5', name: 'Pruebas de funcionamiento de bandeja de entrada', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-03-11', end: '2026-03-11', phase: 'fase4' },
-            { wbs: 'H2', name: '💎 Chatwoot Operativo', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-03-11', end: '2026-03-11', phase: 'fase4', isMilestone: true },
+            // FASE 2
+            { wbs: '2.0', name: 'FASE 2: CONFIGURACIÓN DE CHATWOOT', status: 'pending', duration: '7d', assignee: 'Equipo', start: '2026-03-03', end: '2026-03-11', phase: 'fase4', isPhase: true },
+            { wbs: '2.1', name: 'Instalación y configuración de Chatwoot', status: 'pending', duration: '2d', assignee: 'Sebastian', start: '2026-03-03', end: '2026-03-04', phase: 'fase4' },
+            { wbs: '2.2', name: 'Integración de Chatwoot con WhatsApp Business API', status: 'pending', duration: '2d', assignee: 'Jairo', start: '2026-03-05', end: '2026-03-06', phase: 'fase4' },
+            { wbs: '2.3', name: 'Configuración de equipos, usuarios y roles', status: 'pending', duration: '1d', assignee: 'Patricia', start: '2026-03-07', end: '2026-03-07', phase: 'fase4' },
+            { wbs: '2.4', name: 'Personalización de interfaz y etiquetas', status: 'pending', duration: '1d', assignee: 'Sebastian', start: '2026-03-10', end: '2026-03-10', phase: 'fase4' },
+            { wbs: '2.5', name: 'Pruebas de funcionamiento de bandeja de entrada', status: 'pending', duration: '1d', assignee: 'Equipo', start: '2026-03-11', end: '2026-03-11', phase: 'fase4' },
+            { wbs: 'H2', name: '💎 Chatwoot Operativo', status: 'pending', duration: '0d', assignee: 'Equipo', start: '2026-03-11', end: '2026-03-11', phase: 'fase4', isMilestone: true },
 
-            // FASE 3: DESARROLLO E INTEGRACIÓN DEL AGENTE IA
-            { wbs: '3.0', name: 'FASE 3: DESARROLLO E INTEGRACIÓN DEL AGENTE IA', status: 'pending', duration: '10d', resources: 'Equipo', start: '2026-03-12', end: '2026-03-25', phase: 'fase5', isPhase: true },
-            { wbs: '3.1', name: 'Selección de plataforma de IA', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-03-12', end: '2026-03-12', phase: 'fase5' },
-            { wbs: '3.2', name: 'Estructuración de base de conocimiento', status: 'pending', duration: '2d', resources: 'P1', start: '2026-03-13', end: '2026-03-14', phase: 'fase5' },
-            { wbs: '3.3', name: 'Entrenamiento del agente con datos estructurados', status: 'pending', duration: '2d', resources: 'P2', start: '2026-03-17', end: '2026-03-18', phase: 'fase5' },
-            { wbs: '3.4', name: 'Configuración de intents y entidades conversacionales', status: 'pending', duration: '2d', resources: 'P1', start: '2026-03-19', end: '2026-03-20', phase: 'fase5' },
-            { wbs: '3.5', name: 'Desarrollo de lógica de flujos conversacionales', status: 'pending', duration: '2d', resources: 'P2', start: '2026-03-21', end: '2026-03-24', phase: 'fase5' },
-            { wbs: '3.6', name: 'Integración del agente IA con Chatwoot vía API', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-03-25', end: '2026-03-25', phase: 'fase5' },
-            { wbs: '3.7', name: 'Configuración de respuestas automáticas y escalamiento', status: 'pending', duration: '1d', resources: 'P1', start: '2026-03-25', end: '2026-03-25', phase: 'fase5' },
-            { wbs: 'H3', name: '💎 Agente IA Funcional', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-03-25', end: '2026-03-25', phase: 'fase5', isMilestone: true },
+            // FASE 3
+            { wbs: '3.0', name: 'FASE 3: DESARROLLO E INTEGRACIÓN DEL AGENTE IA', status: 'pending', duration: '10d', assignee: 'Equipo', start: '2026-03-12', end: '2026-03-25', phase: 'fase5', isPhase: true },
+            { wbs: '3.1', name: 'Selección de plataforma de IA', status: 'pending', duration: '1d', assignee: 'Equipo', start: '2026-03-12', end: '2026-03-12', phase: 'fase5' },
+            { wbs: '3.2', name: 'Estructuración de base de conocimiento', status: 'pending', duration: '2d', assignee: 'Patricia', start: '2026-03-13', end: '2026-03-14', phase: 'fase5' },
+            { wbs: '3.3', name: 'Entrenamiento del agente con datos estructurados', status: 'pending', duration: '2d', assignee: 'Sebastian', start: '2026-03-17', end: '2026-03-18', phase: 'fase5' },
+            { wbs: '3.4', name: 'Configuración de intents y entidades conversacionales', status: 'pending', duration: '2d', assignee: 'Jairo', start: '2026-03-19', end: '2026-03-20', phase: 'fase5' },
+            { wbs: '3.5', name: 'Desarrollo de lógica de flujos conversacionales', status: 'pending', duration: '2d', assignee: 'Sebastian', start: '2026-03-21', end: '2026-03-24', phase: 'fase5' },
+            { wbs: '3.6', name: 'Integración del agente IA con Chatwoot vía API', status: 'pending', duration: '1d', assignee: 'Equipo', start: '2026-03-25', end: '2026-03-25', phase: 'fase5' },
+            { wbs: '3.7', name: 'Configuración de respuestas automáticas y escalamiento', status: 'pending', duration: '1d', assignee: 'Jairo', start: '2026-03-25', end: '2026-03-25', phase: 'fase5' },
+            { wbs: 'H3', name: '💎 Agente IA Funcional', status: 'pending', duration: '0d', assignee: 'Equipo', start: '2026-03-25', end: '2026-03-25', phase: 'fase5', isMilestone: true },
 
-            // FASE 4: INTEGRACIÓN CON ZOHO CRM
-            { wbs: '4.0', name: 'FASE 4: INTEGRACIÓN CON ZOHO CRM', status: 'pending', duration: '6d', resources: 'Equipo', start: '2026-03-26', end: '2026-04-02', phase: 'fase6', isPhase: true },
-            { wbs: '4.1', name: 'Evaluación del API de Zoho CRM', status: 'pending', duration: '1d', resources: 'P1', start: '2026-03-26', end: '2026-03-26', phase: 'fase6' },
-            { wbs: '4.2', name: 'Configuración de webhooks y endpoints', status: 'pending', duration: '1d', resources: 'P2', start: '2026-03-27', end: '2026-03-27', phase: 'fase6' },
-            { wbs: '4.3', name: 'Desarrollo de sincronización de leads y contactos', status: 'pending', duration: '2d', resources: 'P1', start: '2026-03-28', end: '2026-03-31', phase: 'fase6' },
-            { wbs: '4.4', name: 'Mapeo de campos entre sistemas', status: 'pending', duration: '1d', resources: 'P2', start: '2026-04-01', end: '2026-04-01', phase: 'fase6' },
-            { wbs: '4.5', name: 'Pruebas de integración bidireccional', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-04-02', end: '2026-04-02', phase: 'fase6' },
-            { wbs: 'H4', name: '💎 Zoho CRM Integrado', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-04-02', end: '2026-04-02', phase: 'fase6', isMilestone: true },
+            // FASE 4
+            { wbs: '4.0', name: 'FASE 4: INTEGRACIÓN CON ZOHO CRM', status: 'pending', duration: '6d', assignee: 'Equipo', start: '2026-03-26', end: '2026-04-02', phase: 'fase6', isPhase: true },
+            { wbs: '4.1', name: 'Evaluación del API de Zoho CRM', status: 'pending', duration: '1d', assignee: 'Sebastian', start: '2026-03-26', end: '2026-03-26', phase: 'fase6' },
+            { wbs: '4.2', name: 'Configuración de webhooks y endpoints', status: 'pending', duration: '1d', assignee: 'Jairo', start: '2026-03-27', end: '2026-03-27', phase: 'fase6' },
+            { wbs: '4.3', name: 'Desarrollo de sincronización de leads y contactos', status: 'pending', duration: '2d', assignee: 'Patricia', start: '2026-03-28', end: '2026-03-31', phase: 'fase6' },
+            { wbs: '4.4', name: 'Mapeo de campos entre sistemas', status: 'pending', duration: '1d', assignee: 'Sebastian', start: '2026-04-01', end: '2026-04-01', phase: 'fase6' },
+            { wbs: '4.5', name: 'Pruebas de integración bidireccional', status: 'pending', duration: '1d', assignee: 'Equipo', start: '2026-04-02', end: '2026-04-02', phase: 'fase6' },
+            { wbs: 'H4', name: '💎 Zoho CRM Integrado', status: 'pending', duration: '0d', assignee: 'Equipo', start: '2026-04-02', end: '2026-04-02', phase: 'fase6', isMilestone: true },
 
-            // FASE 5: PRUEBAS Y CONTROL DE CALIDAD
-            { wbs: '5.0', name: 'FASE 5: PRUEBAS Y CONTROL DE CALIDAD', status: 'pending', duration: '7d', resources: 'Equipo', start: '2026-04-03', end: '2026-04-11', phase: 'fase7', isPhase: true },
-            { wbs: '5.1', name: 'Diseño de casos de prueba', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-04-03', end: '2026-04-03', phase: 'fase7' },
-            { wbs: '5.2', name: 'Pruebas unitarias de cada componente', status: 'pending', duration: '2d', resources: 'P1', start: '2026-04-04', end: '2026-04-07', phase: 'fase7' },
-            { wbs: '5.3', name: 'Pruebas de integración end-to-end', status: 'pending', duration: '2d', resources: 'P2', start: '2026-04-08', end: '2026-04-09', phase: 'fase7' },
-            { wbs: '5.4', name: 'Pruebas de carga y estrés del sistema', status: 'pending', duration: '1d', resources: 'P1', start: '2026-04-10', end: '2026-04-10', phase: 'fase7' },
-            { wbs: '5.5', name: 'Pruebas de usuario con casos reales', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-04-11', end: '2026-04-11', phase: 'fase7' },
-            { wbs: '5.6', name: 'Corrección de errores y ajustes', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-04-11', end: '2026-04-11', phase: 'fase7' },
-            { wbs: 'H5', name: '💎 Sistema Validado', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-04-11', end: '2026-04-11', phase: 'fase7', isMilestone: true },
+            // FASE 5
+            { wbs: '5.0', name: 'FASE 5: PRUEBAS Y CONTROL DE CALIDAD', status: 'pending', duration: '7d', assignee: 'Equipo', start: '2026-04-03', end: '2026-04-11', phase: 'fase7', isPhase: true },
+            { wbs: '5.1', name: 'Diseño de casos de prueba', status: 'pending', duration: '1d', assignee: 'Equipo', start: '2026-04-03', end: '2026-04-03', phase: 'fase7' },
+            { wbs: '5.2', name: 'Pruebas unitarias de cada componente', status: 'pending', duration: '2d', assignee: 'Sebastian', start: '2026-04-04', end: '2026-04-07', phase: 'fase7' },
+            { wbs: '5.3', name: 'Pruebas de integración end-to-end', status: 'pending', duration: '2d', assignee: 'Jairo', start: '2026-04-08', end: '2026-04-09', phase: 'fase7' },
+            { wbs: '5.4', name: 'Pruebas de carga y estrés del sistema', status: 'pending', duration: '1d', assignee: 'Patricia', start: '2026-04-10', end: '2026-04-10', phase: 'fase7' },
+            { wbs: '5.5', name: 'Pruebas de usuario con casos reales', status: 'pending', duration: '1d', assignee: 'Equipo', start: '2026-04-11', end: '2026-04-11', phase: 'fase7' },
+            { wbs: '5.6', name: 'Corrección de errores y ajustes', status: 'pending', duration: '1d', assignee: 'Equipo', start: '2026-04-11', end: '2026-04-11', phase: 'fase7' },
+            { wbs: 'H5', name: '💎 Sistema Validado', status: 'pending', duration: '0d', assignee: 'Equipo', start: '2026-04-11', end: '2026-04-11', phase: 'fase7', isMilestone: true },
 
-            // FASE 6: CAPACITACIÓN Y DOCUMENTACIÓN
-            { wbs: '6.0', name: 'FASE 6: CAPACITACIÓN Y DOCUMENTACIÓN', status: 'pending', duration: '4d', resources: 'Equipo', start: '2026-04-14', end: '2026-04-17', phase: 'fase8', isPhase: true },
-            { wbs: '6.1', name: 'Creación de manual de usuario del sistema', status: 'pending', duration: '1d', resources: 'P1', start: '2026-04-14', end: '2026-04-14', phase: 'fase8' },
-            { wbs: '6.2', name: 'Documentación técnica de arquitectura', status: 'pending', duration: '1d', resources: 'P2', start: '2026-04-15', end: '2026-04-15', phase: 'fase8' },
-            { wbs: '6.3', name: 'Capacitación al equipo administrativo y de ventas', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-04-16', end: '2026-04-16', phase: 'fase8' },
-            { wbs: '6.4', name: 'Sesión de preguntas y respuestas', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-04-17', end: '2026-04-17', phase: 'fase8' },
-            { wbs: 'H6', name: '💎 Equipo Capacitado', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-04-17', end: '2026-04-17', phase: 'fase8', isMilestone: true },
+            // FASE 6
+            { wbs: '6.0', name: 'FASE 6: CAPACITACIÓN Y DOCUMENTACIÓN', status: 'pending', duration: '4d', assignee: 'Equipo', start: '2026-04-14', end: '2026-04-17', phase: 'fase8', isPhase: true },
+            { wbs: '6.1', name: 'Creación de manual de usuario del sistema', status: 'pending', duration: '1d', assignee: 'Patricia', start: '2026-04-14', end: '2026-04-14', phase: 'fase8' },
+            { wbs: '6.2', name: 'Documentación técnica de arquitectura', status: 'pending', duration: '1d', assignee: 'Sebastian', start: '2026-04-15', end: '2026-04-15', phase: 'fase8' },
+            { wbs: '6.3', name: 'Capacitación al equipo administrativo y de ventas', status: 'pending', duration: '1d', assignee: 'Equipo', start: '2026-04-16', end: '2026-04-16', phase: 'fase8' },
+            { wbs: '6.4', name: 'Sesión de preguntas y respuestas', status: 'pending', duration: '1d', assignee: 'Equipo', start: '2026-04-17', end: '2026-04-17', phase: 'fase8' },
+            { wbs: 'H6', name: '💎 Equipo Capacitado', status: 'pending', duration: '0d', assignee: 'Equipo', start: '2026-04-17', end: '2026-04-17', phase: 'fase8', isMilestone: true },
 
-            // FASE 7: DESPLIEGUE Y PUESTA EN PRODUCCIÓN
-            { wbs: '7.0', name: 'FASE 7: DESPLIEGUE Y PUESTA EN PRODUCCIÓN', status: 'pending', duration: '4d', resources: 'Equipo', start: '2026-04-18', end: '2026-04-23', phase: 'fase9', isPhase: true },
-            { wbs: '7.1', name: 'Configuración final del entorno de producción', status: 'pending', duration: '1d', resources: 'P1', start: '2026-04-18', end: '2026-04-18', phase: 'fase9' },
-            { wbs: '7.2', name: 'Migración de datos y configuraciones', status: 'pending', duration: '1d', resources: 'P2', start: '2026-04-21', end: '2026-04-21', phase: 'fase9' },
-            { wbs: '7.3', name: 'Lanzamiento oficial del agente IA', status: 'pending', duration: '1d', resources: 'Ambos', start: '2026-04-22', end: '2026-04-22', phase: 'fase9' },
-            { wbs: '7.4', name: 'Monitoreo post-lanzamiento (48 horas intensivo)', status: 'pending', duration: '2d', resources: 'Ambos', start: '2026-04-22', end: '2026-04-23', phase: 'fase9' },
-            { wbs: 'H7', name: '💎 GO-LIVE PRODUCCIÓN', status: 'pending', duration: '0d', resources: 'Equipo', start: '2026-04-23', end: '2026-04-23', phase: 'fase9', isMilestone: true }
+            // FASE 7
+            { wbs: '7.0', name: 'FASE 7: DESPLIEGUE Y PUESTA EN PRODUCCIÓN', status: 'pending', duration: '4d', assignee: 'Equipo', start: '2026-04-18', end: '2026-04-23', phase: 'fase9', isPhase: true },
+            { wbs: '7.1', name: 'Configuración final del entorno de producción', status: 'pending', duration: '1d', assignee: 'Sebastian', start: '2026-04-18', end: '2026-04-18', phase: 'fase9' },
+            { wbs: '7.2', name: 'Migración de datos y configuraciones', status: 'pending', duration: '1d', assignee: 'Jairo', start: '2026-04-21', end: '2026-04-21', phase: 'fase9' },
+            { wbs: '7.3', name: 'Lanzamiento oficial del agente IA', status: 'pending', duration: '1d', assignee: 'Equipo', start: '2026-04-22', end: '2026-04-22', phase: 'fase9' },
+            { wbs: '7.4', name: 'Monitoreo post-lanzamiento (48 horas intensivo)', status: 'pending', duration: '2d', assignee: 'Equipo', start: '2026-04-22', end: '2026-04-23', phase: 'fase9' },
+            { wbs: 'H7', name: '💎 GO-LIVE PRODUCCIÓN', status: 'pending', duration: '0d', assignee: 'Equipo', start: '2026-04-23', end: '2026-04-23', phase: 'fase9', isMilestone: true }
         ];
 
-        // Equipo del proyecto
-        let teamMembers = [
-            { id: 'P1', name: 'Persona 1', role: 'Desarrollador' },
-            { id: 'P2', name: 'Persona 2', role: 'Desarrollador' },
-            { id: 'Ambos', name: 'Equipo Completo', role: 'Equipo' }
-        ];
+        // Opciones del panel
+        let panelOptions = {
+            criticalPath: false,
+            baseline: false,
+            weekends: true,
+            milestones: true
+        };
+
+        let zoomLevel = 40; // Ancho de cada día en píxeles
 
         // Cargar datos guardados
         function loadSavedData() {
-            const savedTasks = localStorage.getItem('gantt_tasks');
-            const savedTeam = localStorage.getItem('gantt_team');
-
+            const savedTasks = localStorage.getItem('gantt_tasks_v2');
             if (savedTasks) {
                 tasks = JSON.parse(savedTasks);
-            }
-
-            if (savedTeam) {
-                teamMembers = JSON.parse(savedTeam);
             }
         }
 
         // Guardar datos
         function saveData() {
-            localStorage.setItem('gantt_tasks', JSON.stringify(tasks));
-            localStorage.setItem('gantt_team', JSON.stringify(teamMembers));
+            localStorage.setItem('gantt_tasks_v2', JSON.stringify(tasks));
         }
 
-        // Cambiar estado de tarea
+        // Cambiar estado
         function toggleStatus(index) {
             const task = tasks[index];
             if (task.isPhase || task.isMilestone) return;
@@ -850,39 +812,23 @@
             showNotification(`Estado actualizado: ${task.name}`);
         }
 
-        // Cambiar asignado
-        function changeAssignee(index, newAssignee) {
-            tasks[index].resources = newAssignee;
+        // Cambiar asignado (inline)
+        function changeAssignee(index, value) {
+            tasks[index].assignee = value;
             saveData();
             showNotification(`Asignado actualizado: ${tasks[index].name}`);
         }
 
         // Cambiar fecha
-        function changeDate(index, field, newDate) {
-            tasks[index][field] = newDate;
+        function changeDate(index, field, value) {
+            tasks[index][field] = value;
             saveData();
             renderGantt();
             showNotification(`Fecha actualizada: ${tasks[index].name}`);
         }
 
-        // Calcular días laborables
-        function getWorkingDays(startDate, endDate) {
-            let count = 0;
-            let current = new Date(startDate);
-            const end = new Date(endDate);
-
-            while (current <= end) {
-                const day = current.getDay();
-                if (day !== 0 && day !== 6) count++;
-                current.setDate(current.getDate() + 1);
-            }
-
-            return count;
-        }
-
-        // Generar timeline dinámico
+        // Generar timeline
         function generateTimeline() {
-            // Encontrar rango de fechas
             let minDate = new Date(tasks[0].start);
             let maxDate = new Date(tasks[0].end);
 
@@ -893,7 +839,6 @@
                 if (end > maxDate) maxDate = end;
             });
 
-            // Generar días
             const days = [];
             let current = new Date(minDate);
 
@@ -908,15 +853,10 @@
         // Renderizar Gantt
         function renderGantt() {
             const days = generateTimeline();
-
-            // Renderizar header del timeline
             renderTimelineHeader(days);
-
-            // Renderizar lista de tareas
-            renderTaskList();
-
-            // Renderizar grid del timeline
+            renderTaskTable();
             renderTimelineGrid(days);
+            renderTeamList();
         }
 
         // Renderizar header del timeline
@@ -939,7 +879,7 @@
             // Renderizar meses
             let monthsHTML = '<div class="timeline-months">';
             Object.values(months).forEach(month => {
-                monthsHTML += `<div class="timeline-month" style="width: ${month.days.length * 40}px">${month.name}</div>`;
+                monthsHTML += `<div class="timeline-month" style="width: ${month.days.length * zoomLevel}px">${month.name}</div>`;
             });
             monthsHTML += '</div>';
 
@@ -948,16 +888,16 @@
             days.forEach(day => {
                 const dayNum = day.getDate();
                 const isWeekend = day.getDay() === 0 || day.getDay() === 6;
-                daysHTML += `<div class="timeline-day ${isWeekend ? 'weekend' : ''}">${dayNum.toString().padStart(2, '0')}</div>`;
+                daysHTML += `<div class="timeline-day ${panelOptions.weekends && isWeekend ? 'weekend' : ''}" style="width: ${zoomLevel}px">${dayNum.toString().padStart(2, '0')}</div>`;
             });
             daysHTML += '</div>';
 
             header.innerHTML = monthsHTML + daysHTML;
         }
 
-        // Renderizar lista de tareas
-        function renderTaskList() {
-            const tbody = document.getElementById('taskListBody');
+        // Renderizar tabla de tareas
+        function renderTaskTable() {
+            const tbody = document.getElementById('taskTableBody');
 
             tbody.innerHTML = tasks.map((task, index) => {
                 const statusClass = `status-${task.status}`;
@@ -965,11 +905,6 @@
                 const statusText = task.status === 'pending' ? 'Pendiente' : task.status === 'progress' ? 'En progreso' : 'Completado';
 
                 const rowClass = task.isPhase ? 'phase' : task.isMilestone ? 'milestone' : '';
-
-                // Opciones de asignado
-                const assigneeOptions = teamMembers.map(m =>
-                    `<option value="${m.id}" ${task.resources === m.id ? 'selected' : ''}>${m.name}</option>`
-                ).join('');
 
                 return `
                     <div class="task-row ${rowClass}">
@@ -986,10 +921,10 @@
                         </div>
                         <div>${task.duration}</div>
                         <div>
-                            ${task.isPhase || task.isMilestone ? task.resources : `
-                                <select class="editable-select" onchange="changeAssignee(${index}, this.value)">
-                                    ${assigneeOptions}
-                                </select>
+                            ${task.isPhase || task.isMilestone ? task.assignee : `
+                                <input type="text" class="editable-input" value="${task.assignee}" 
+                                    onchange="changeAssignee(${index}, this.value)"
+                                    placeholder="Nombre">
                             `}
                         </div>
                         <div>
@@ -1023,31 +958,31 @@
                 const startDay = Math.floor((startDate - minDate) / (1000 * 60 * 60 * 24));
                 const duration = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
 
-                const left = startDay * 40;
-                const width = duration * 40;
+                const left = startDay * zoomLevel;
+                const width = duration * zoomLevel;
 
                 // Renderizar celdas
                 let cellsHTML = '';
                 days.forEach(day => {
                     const isWeekend = day.getDay() === 0 || day.getDay() === 6;
-                    cellsHTML += `<div class="timeline-cell ${isWeekend ? 'weekend' : ''}"></div>`;
+                    cellsHTML += `<div class="timeline-cell ${panelOptions.weekends && isWeekend ? 'weekend' : ''}" style="width: ${zoomLevel}px"></div>`;
                 });
 
                 // Renderizar barra o hito
                 let barHTML = '';
-                if (task.isMilestone) {
+                if (task.isMilestone && panelOptions.milestones) {
                     barHTML = `
                         <div class="milestone-marker" style="left: ${left}px;">
                             <div class="milestone-label">${task.wbs}</div>
                         </div>
                     `;
-                } else {
+                } else if (!task.isPhase && !task.isMilestone) {
                     const statusClass = task.status === 'completed' ? 'completed' : task.status === 'progress' ? 'progress' : '';
                     barHTML = `
                         <div class="bar ${task.phase} ${statusClass}" 
                             style="left: ${left}px; width: ${width}px;"
                             onclick="toggleStatus(${index})">
-                            ${task.name}
+                            ${width > 80 ? task.name : ''}
                         </div>
                     `;
                 }
@@ -1061,20 +996,67 @@
             }).join('');
         }
 
+        // Renderizar lista de equipo
+        function renderTeamList() {
+            const teamList = document.getElementById('teamList');
+            const team = [...new Set(tasks.map(t => t.assignee))].filter(a => a !== 'Equipo');
+
+            teamList.innerHTML = team.map(member => `
+                <div style="padding: 8px; background: #1a1a1a; border-radius: 4px; margin-bottom: 6px; font-size: 12px;">
+                    👤 ${member}
+                </div>
+            `).join('');
+        }
+
+        // Toggle opción del panel
+        function toggleOption(option) {
+            panelOptions[option] = !panelOptions[option];
+            const checkbox = document.getElementById(`check-${option}`);
+            const panel = checkbox.parentElement;
+
+            if (panelOptions[option]) {
+                checkbox.classList.add('checked');
+                panel.classList.add('active');
+            } else {
+                checkbox.classList.remove('checked');
+                panel.classList.remove('active');
+            }
+
+            renderGantt();
+        }
+
+        // Zoom
+        function zoomIn() {
+            if (zoomLevel < 80) {
+                zoomLevel += 10;
+                renderGantt();
+                showNotification('🔍 Zoom aumentado');
+            }
+        }
+
+        function zoomOut() {
+            if (zoomLevel > 20) {
+                zoomLevel -= 10;
+                renderGantt();
+                showNotification('🔍 Zoom reducido');
+            }
+        }
+
+        function fitToScreen() {
+            zoomLevel = 40;
+            renderGantt();
+            showNotification('📐 Ajustado a pantalla');
+        }
+
         // Actualizar estadísticas
         function updateStats() {
             const totalTasks = tasks.filter(t => !t.isPhase && !t.isMilestone).length;
             const completed = tasks.filter(t => !t.isPhase && !t.isMilestone && t.status === 'completed').length;
-            const progress = tasks.filter(t => !t.isPhase && !t.isMilestone && t.status === 'progress').length;
-            const pending = tasks.filter(t => !t.isPhase && !t.isMilestone && t.status === 'pending').length;
             const percent = Math.round((completed / totalTasks) * 100);
 
             document.getElementById('totalTasks').textContent = totalTasks;
             document.getElementById('completedTasks').textContent = completed;
             document.getElementById('progressPercent').textContent = percent + '%';
-            document.getElementById('pendingCount').textContent = pending;
-            document.getElementById('progressCount').textContent = progress;
-            document.getElementById('completedCount').textContent = completed;
         }
 
         // Mostrar notificación
@@ -1093,7 +1075,6 @@
         function exportProgress() {
             const data = {
                 tasks: tasks,
-                team: teamMembers,
                 exportDate: new Date().toISOString()
             };
 
@@ -1105,12 +1086,17 @@
             a.click();
             URL.revokeObjectURL(url);
 
-            showNotification('✅ Progreso exportado correctamente');
+            showNotification('✅ Progreso exportado');
+        }
+
+        // Exportar a Excel
+        function exportToExcel() {
+            showNotification('📊 Función en desarrollo');
         }
 
         // Resetear progreso
         function resetProgress() {
-            if (confirm('¿Estás seguro de resetear todas las tareas a "Pendiente"?')) {
+            if (confirm('¿Resetear todas las tareas a "Pendiente"?')) {
                 tasks.forEach(task => {
                     if (!task.isPhase && !task.isMilestone) {
                         task.status = 'pending';
@@ -1120,77 +1106,6 @@
                 renderGantt();
                 updateStats();
                 showNotification('🔄 Progreso reseteado');
-            }
-        }
-
-        // Cargar desde CSV
-        function loadFromCSV() {
-            showNotification('Función en desarrollo - Por ahora usa el CSV manualmente');
-        }
-
-        // Gestionar equipo - Abrir modal
-        function openTeamModal() {
-            renderTeamList();
-            document.getElementById('teamModal').classList.add('active');
-        }
-
-        // Cerrar modal equipo
-        function closeTeamModal() {
-            document.getElementById('teamModal').classList.remove('active');
-            document.getElementById('memberId').value = '';
-            document.getElementById('memberName').value = '';
-            document.getElementById('memberRole').value = '';
-        }
-
-        // Renderizar lista de equipo
-        function renderTeamList() {
-            const teamList = document.getElementById('teamList');
-            teamList.innerHTML = teamMembers.map((m, index) => `
-                <div class="team-member">
-                    <div>
-                        <div class="team-member-info"><strong>${m.id}:</strong> ${m.name}</div>
-                        <div class="team-member-role">${m.role}</div>
-                    </div>
-                    ${index >= 3 ? `<button class="btn-remove" onclick="removeTeamMember(${index})">❌ Eliminar</button>` : ''}
-                </div>
-            `).join('');
-        }
-
-        // Agregar miembro al equipo
-        function addTeamMember() {
-            const id = document.getElementById('memberId').value.trim();
-            const name = document.getElementById('memberName').value.trim();
-            const role = document.getElementById('memberRole').value.trim();
-
-            if (!id || !name || !role) {
-                showNotification('❌ Completa todos los campos');
-                return;
-            }
-
-            if (teamMembers.find(m => m.id === id)) {
-                showNotification('❌ El ID ya existe');
-                return;
-            }
-
-            teamMembers.push({ id, name, role });
-            localStorage.setItem('gantt_team', JSON.stringify(teamMembers));
-            showNotification(`✅ ${name} agregado al equipo`);
-            renderTeamList();
-            renderGantt();
-            document.getElementById('memberId').value = '';
-            document.getElementById('memberName').value = '';
-            document.getElementById('memberRole').value = '';
-        }
-
-        // Eliminar miembro del equipo
-        function removeTeamMember(index) {
-            const member = teamMembers[index];
-            if (confirm(`¿Eliminar a ${member.name} del equipo?`)) {
-                teamMembers.splice(index, 1);
-                localStorage.setItem('gantt_team', JSON.stringify(teamMembers));
-                showNotification(`❌ ${member.name} eliminado`);
-                renderTeamList();
-                renderGantt();
             }
         }
 
