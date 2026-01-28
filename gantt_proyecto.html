@@ -88,7 +88,7 @@
         }
 
         .task-table {
-            width: 830px;
+            width: 930px;
             background: #111111;
             border-right: 2px solid #00d9ff;
             overflow-y: auto;
@@ -96,7 +96,7 @@
 
         .task-header {
             display: grid;
-            grid-template-columns: 50px 200px 130px 80px 150px 110px 110px;
+            grid-template-columns: 50px 200px 130px 80px 150px 110px 110px 100px;
             background: #1a1a1a;
             padding: 12px 20px;
             font-size: 11px;
@@ -112,7 +112,7 @@
 
         .task-row {
             display: grid;
-            grid-template-columns: 50px 200px 130px 80px 150px 110px 110px;
+            grid-template-columns: 50px 200px 130px 80px 150px 110px 110px 100px;
             padding: 14px 20px;
             border-bottom: 1px solid #2d3142;
             font-size: 13px;
@@ -230,12 +230,62 @@
             box-shadow: 0 0 0 2px rgba(0, 217, 255, 0.2);
         }
 
+        /* Botones de acción */
+        .action-buttons {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+        }
+
+        .action-btn {
+            padding: 4px 8px;
+            border: 1px solid #2d3142;
+            border-radius: 4px;
+            background: #1a1a1a;
+            color: #e4e6eb;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            border-color: #00d9ff;
+            background: rgba(0, 217, 255, 0.1);
+            color: #00d9ff;
+        }
+
+        .action-btn.delete:hover {
+            border-color: #ec4899;
+            background: rgba(236, 72, 153, 0.1);
+            color: #ec4899;
+        }
+
+        .add-task-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #00d9ff 0%, #a855f7 100%);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 10px 0;
+        }
+
+        .add-task-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 217, 255, 0.4);
+        }
+
         /* Timeline Gantt */
         .timeline-container {
             flex: 1;
             background: #0a0a0a;
-            overflow-x: auto;
-            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
         .timeline-header {
@@ -244,6 +294,8 @@
             position: sticky;
             top: 0;
             z-index: 10;
+            overflow-x: auto;
+            flex-shrink: 0;
         }
 
         .timeline-months {
@@ -279,6 +331,9 @@
 
         .timeline-grid {
             position: relative;
+            overflow-y: auto;
+            overflow-x: auto;
+            flex: 1;
         }
 
         .timeline-row {
@@ -539,7 +594,9 @@
                     <div>ASIGNADO</div>
                     <div>INICIO</div>
                     <div>FIN</div>
+                    <div>ACCIONES</div>
                 </div>
+                <button class="add-task-btn" onclick="addNewTask()">➕ Agregar Nueva Tarea</button>
                 <div id="taskTableBody"></div>
             </div>
 
@@ -783,6 +840,12 @@
                                     onchange="changeDate(${index}, 'end', this.value)">
                             `}
                         </div>
+                        <div class="action-buttons">
+                            ${task.isPhase || task.isMilestone ? '' : `
+                                <button class="action-btn" onclick="editTask(${index})" title="Editar">✏️</button>
+                                <button class="action-btn delete" onclick="deleteTask(${index})" title="Eliminar">🗑️</button>
+                            `}
+                        </div>
                     </div>
                 `;
                 }).join('');
@@ -950,6 +1013,77 @@
                     renderGantt();
                     updateStats();
                     showNotification('🔄 Progreso reseteado');
+                }
+            }
+
+            // Agregar nueva tarea
+            function addNewTask() {
+                const taskName = prompt('Nombre de la nueva tarea:');
+                if (!taskName) return;
+
+                const wbs = prompt('WBS (ej: 1.7):', '1.7');
+                if (!wbs) return;
+
+                const assignee = prompt('Asignado a:', 'Sebastian');
+                const duration = prompt('Duración (ej: 2d):', '1d');
+                const startDate = prompt('Fecha de inicio (YYYY-MM-DD):', '2026-02-20');
+                const endDate = prompt('Fecha de fin (YYYY-MM-DD):', '2026-02-20');
+                const phase = prompt('Fase (fase3-fase9):', 'fase3');
+
+                const newTask = {
+                    wbs: wbs,
+                    name: taskName,
+                    status: 'pending',
+                    duration: duration,
+                    assignee: assignee || 'Sin asignar',
+                    start: startDate,
+                    end: endDate,
+                    phase: phase
+                };
+
+                tasks.push(newTask);
+                saveData();
+                renderGantt();
+                updateStats();
+                showNotification('✅ Tarea agregada: ' + taskName);
+            }
+
+            // Editar tarea
+            function editTask(index) {
+                const task = tasks[index];
+
+                const newName = prompt('Nombre de la tarea:', task.name);
+                if (newName !== null) task.name = newName;
+
+                const newWbs = prompt('WBS:', task.wbs);
+                if (newWbs !== null) task.wbs = newWbs;
+
+                const newAssignee = prompt('Asignado a:', task.assignee);
+                if (newAssignee !== null) task.assignee = newAssignee;
+
+                const newDuration = prompt('Duración:', task.duration);
+                if (newDuration !== null) task.duration = newDuration;
+
+                const newStart = prompt('Fecha de inicio (YYYY-MM-DD):', task.start);
+                if (newStart !== null) task.start = newStart;
+
+                const newEnd = prompt('Fecha de fin (YYYY-MM-DD):', task.end);
+                if (newEnd !== null) task.end = newEnd;
+
+                saveData();
+                renderGantt();
+                showNotification('✅ Tarea actualizada: ' + task.name);
+            }
+
+            // Eliminar tarea
+            function deleteTask(index) {
+                const task = tasks[index];
+                if (confirm(`¿Eliminar la tarea "${task.name}"?`)) {
+                    tasks.splice(index, 1);
+                    saveData();
+                    renderGantt();
+                    updateStats();
+                    showNotification('🗑️ Tarea eliminada');
                 }
             }
 
