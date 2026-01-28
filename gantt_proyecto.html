@@ -21,20 +21,22 @@
         }
 
         .header {
-            background: #00d9ff;
+            background: #0a0a0a;
             padding: 30px 40px;
-            box-shadow: 0 4px 20px rgba(0, 217, 255, 0.4);
+            border-bottom: 2px solid #00d9ff;
         }
 
         .header h1 {
             font-size: 24px;
             font-weight: 700;
             margin-bottom: 8px;
+            color: white;
         }
 
         .header p {
             font-size: 14px;
             opacity: 0.9;
+            color: white;
         }
 
         .controls {
@@ -442,6 +444,129 @@
                 min-width: 100%;
             }
         }
+
+        /* Modal para configuración */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid #00d9ff;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .modal-content h2 {
+            color: #00d9ff;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .modal-content label {
+            display: block;
+            color: #9ca3af;
+            font-size: 12px;
+            margin-bottom: 5px;
+            margin-top: 15px;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            background: #0a0a0a;
+            border: 1px solid #00d9ff;
+            border-radius: 6px;
+            color: white;
+            font-size: 14px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-save {
+            background: #00d9ff;
+            color: #0a0a0a;
+        }
+
+        .btn-save:hover {
+            background: #00b8d9;
+        }
+
+        .btn-cancel {
+            background: #a855f7;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background: #8b3fd7;
+        }
+
+        .team-list {
+            margin-top: 15px;
+        }
+
+        .team-member {
+            background: #0a0a0a;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .team-member-info {
+            color: white;
+            font-size: 13px;
+        }
+
+        .team-member-role {
+            color: #9ca3af;
+            font-size: 11px;
+        }
+
+        .btn-remove {
+            background: #f56565;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .btn-remove:hover {
+            background: #e53e3e;
+        }
     </style>
 </head>
 
@@ -455,7 +580,8 @@
         <button class="btn" onclick="loadFromCSV()">📂 Cargar desde CSV</button>
         <button class="btn btn-secondary" onclick="exportProgress()">💾 Exportar Progreso</button>
         <button class="btn btn-danger" onclick="resetProgress()">🔄 Resetear Todo</button>
-        <button class="btn" onclick="manageTeam()">👥 Gestionar Equipo</button>
+        <button class="btn" onclick="openTeamModal()">👥 Gestionar Equipo</button>
+        <button class="btn" onclick="openDatesModal()">📅 Configurar Fechas</button>
         <span style="margin-left: auto; font-size: 12px; color: #9ca3af;">
             💡 Haz clic en los badges de estado para cambiarlos
         </span>
@@ -551,6 +677,39 @@
                 href="https://github.com/PSG-ONE/proyecto-agente-ia-ismm">GitHub</a></p>
         <p style="margin-top: 8px; font-size: 11px;">Los cambios se guardan automáticamente en tu navegador
             (localStorage)</p>
+    </div>
+
+    <!-- Modal Gestionar Equipo -->
+    <div id="teamModal" class="modal">
+        <div class="modal-content">
+            <h2>👥 Gestionar Equipo</h2>
+            <div class="team-list" id="teamList"></div>
+            <label>ID del Miembro</label>
+            <input type="text" id="memberId" placeholder="Ej: P3">
+            <label>Nombre Completo</label>
+            <input type="text" id="memberName" placeholder="Ej: Juan Pérez">
+            <label>Rol</label>
+            <input type="text" id="memberRole" placeholder="Ej: QA Tester">
+            <div class="modal-buttons">
+                <button class="btn-save" onclick="addTeamMember()">➕ Agregar</button>
+                <button class="btn-cancel" onclick="closeTeamModal()">❌ Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Configurar Fechas -->
+    <div id="datesModal" class="modal">
+        <div class="modal-content">
+            <h2>📅 Configurar Fechas del Proyecto</h2>
+            <label>Fecha de Inicio</label>
+            <input type="date" id="projectStartDate" value="2026-02-20">
+            <label>Fecha de Fin</label>
+            <input type="date" id="projectEndDate" value="2026-04-09">
+            <div class="modal-buttons">
+                <button class="btn-save" onclick="saveDates()">💾 Guardar</button>
+                <button class="btn-cancel" onclick="closeDatesModal()">❌ Cancelar</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -761,21 +920,109 @@
             showNotification('Función en desarrollo - Por ahora usa el CSV manualmente');
         }
 
-        // Gestionar equipo
-        function manageTeam() {
-            const teamList = teamMembers.map(m => `${m.id}: ${m.name} (${m.role})`).join('\n');
-            const newMember = prompt(`EQUIPO ACTUAL:\n${teamList}\n\nAgregar nueva persona (formato: ID,Nombre,Rol):\nEjemplo: P3,Juan Pérez,QA Tester`);
+        // Gestionar equipo - Abrir modal
+        function openTeamModal() {
+            renderTeamList();
+            document.getElementById('teamModal').classList.add('active');
+        }
 
-            if (newMember) {
-                const parts = newMember.split(',').map(p => p.trim());
-                if (parts.length === 3) {
-                    teamMembers.push({ id: parts[0], name: parts[1], role: parts[2] });
-                    localStorage.setItem('gantt_team', JSON.stringify(teamMembers));
-                    showNotification(`✅ ${parts[1]} agregado al equipo`);
-                } else {
-                    showNotification('❌ Formato incorrecto. Usa: ID,Nombre,Rol');
-                }
+        // Cerrar modal equipo
+        function closeTeamModal() {
+            document.getElementById('teamModal').classList.remove('active');
+            document.getElementById('memberId').value = '';
+            document.getElementById('memberName').value = '';
+            document.getElementById('memberRole').value = '';
+        }
+
+        // Renderizar lista de equipo
+        function renderTeamList() {
+            const teamList = document.getElementById('teamList');
+            teamList.innerHTML = teamMembers.map((m, index) => `
+                <div class="team-member">
+                    <div>
+                        <div class="team-member-info"><strong>${m.id}:</strong> ${m.name}</div>
+                        <div class="team-member-role">${m.role}</div>
+                    </div>
+                    ${index >= 3 ? `<button class="btn-remove" onclick="removeTeamMember(${index})">❌ Eliminar</button>` : ''}
+                </div>
+            `).join('');
+        }
+
+        // Agregar miembro al equipo
+        function addTeamMember() {
+            const id = document.getElementById('memberId').value.trim();
+            const name = document.getElementById('memberName').value.trim();
+            const role = document.getElementById('memberRole').value.trim();
+
+            if (!id || !name || !role) {
+                showNotification('❌ Completa todos los campos');
+                return;
             }
+
+            if (teamMembers.find(m => m.id === id)) {
+                showNotification('❌ El ID ya existe');
+                return;
+            }
+
+            teamMembers.push({ id, name, role });
+            localStorage.setItem('gantt_team', JSON.stringify(teamMembers));
+            showNotification(`✅ ${name} agregado al equipo`);
+            renderTeamList();
+            document.getElementById('memberId').value = '';
+            document.getElementById('memberName').value = '';
+            document.getElementById('memberRole').value = '';
+        }
+
+        // Eliminar miembro del equipo
+        function removeTeamMember(index) {
+            const member = teamMembers[index];
+            if (confirm(`¿Eliminar a ${member.name} del equipo?`)) {
+                teamMembers.splice(index, 1);
+                localStorage.setItem('gantt_team', JSON.stringify(teamMembers));
+                showNotification(`❌ ${member.name} eliminado`);
+                renderTeamList();
+            }
+        }
+
+        // Abrir modal de fechas
+        function openDatesModal() {
+            const saved = localStorage.getItem('gantt_dates');
+            if (saved) {
+                const dates = JSON.parse(saved);
+                document.getElementById('projectStartDate').value = dates.start;
+                document.getElementById('projectEndDate').value = dates.end;
+            }
+            document.getElementById('datesModal').classList.add('active');
+        }
+
+        // Cerrar modal de fechas
+        function closeDatesModal() {
+            document.getElementById('datesModal').classList.remove('active');
+        }
+
+        // Guardar fechas
+        function saveDates() {
+            const start = document.getElementById('projectStartDate').value;
+            const end = document.getElementById('projectEndDate').value;
+
+            if (!start || !end) {
+                showNotification('❌ Completa ambas fechas');
+                return;
+            }
+
+            if (new Date(start) >= new Date(end)) {
+                showNotification('❌ La fecha de inicio debe ser anterior a la de fin');
+                return;
+            }
+
+            localStorage.setItem('gantt_dates', JSON.stringify({ start, end }));
+            showNotification('✅ Fechas actualizadas');
+            closeDatesModal();
+
+            // Actualizar el header
+            const startFormatted = new Date(start).toLocaleDateString('es-ES', { day: '2-digit', month: 'long' });
+            const endFormatted = new Date(end).toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' });
+            document.querySelector('.header p').textContent = `Cronograma Interactivo | ${startFormatted} - ${endFormatted} (Fases 1-7)`;
         }
 
         // Cargar equipo guardado
