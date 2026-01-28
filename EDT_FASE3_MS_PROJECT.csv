@@ -1,76 +1,76 @@
-WBS,Task Name,Duration,Start Date,Finish Date,Predecessors,Resource Names,Work (hours),Milestone,Notes
-3.0,FASE 3: INTEGRACIÓN META API - WHATSAPP,7d,20/02/2026,28/02/2026,2.0,Equipo,112,No,Fase crítica para comunicación
-3.1,Verificación del número telefónico,1d,20/02/2026,20/02/2026,2.0,Persona 1,8,No,Verificar en Meta Business Suite
-3.2,Validación del portafolio empresarial,1d,20/02/2026,20/02/2026,2.0,Persona 2,8,No,Verificar estado en Meta
-3.3,Preparación de documentación empresarial,1d,21/02/2026,21/02/2026,3.1;3.2,Persona 1,8,No,RUC documentos legales etc
-3.4,Envío y seguimiento de verificación,2d,24/02/2026,25/02/2026,3.3,Persona 2,8,No,Puede tomar 24-48h de espera
-3.5,Creación de app en Meta for Developers,1d,24/02/2026,24/02/2026,3.3,Persona 1,8,No,Configurar app y permisos
-3.6,Configuración de credenciales y tokens,1d,25/02/2026,25/02/2026,3.5,Persona 1,8,No,Access tokens API keys
-3.7,Configuración de webhooks,1d,26/02/2026,26/02/2026,3.6,Persona 2,8,No,Endpoints para recibir mensajes
-3.8,Pruebas de conexión con WhatsApp API,1d,27/02/2026,27/02/2026,3.7,Ambos,16,No,Envío y recepción de mensajes
-3.9,Documentación de credenciales,0.5d,28/02/2026,28/02/2026,3.8,Persona 1,4,No,Guardar en gestor de contraseñas
-H3,HITO: WhatsApp API Verificado,0d,28/02/2026,28/02/2026,3.9,,0,Yes,Conexión WhatsApp funcional
-4.0,FASE 4: CONFIGURACIÓN DE CHATWOOT,5d,03/03/2026,07/03/2026,H3,Equipo,80,No,Plataforma de gestión
-4.1,Instalación de Chatwoot en servidor,1.5d,03/03/2026,04/03/2026,H3,Persona 2,12,No,Cloud o servidor propio
-4.2,Configuración inicial de la plataforma,0.5d,03/03/2026,03/03/2026,H3,Persona 1,4,No,Configuración básica
-4.3,Integración con WhatsApp Business API,1d,05/03/2026,05/03/2026,4.1,Persona 1,8,No,Conectar webhooks de WhatsApp
-4.4,Configuración de equipos y usuarios,0.5d,05/03/2026,05/03/2026,4.1,Persona 2,4,No,Roles: admin agentes supervisores
-4.5,Personalización de interfaz,1d,06/03/2026,06/03/2026,4.3,Persona 2,8,No,Branding colores logo
-4.6,Configuración de etiquetas y categorías,0.5d,06/03/2026,06/03/2026,4.3,Persona 1,4,No,Organización de conversaciones
-4.7,Creación de respuestas rápidas,0.5d,07/03/2026,07/03/2026,4.5;4.6,Persona 1,4,No,Templates de respuestas comunes
-4.8,Configuración de automatizaciones,0.5d,07/03/2026,07/03/2026,4.5;4.6,Persona 2,4,No,Reglas de asignación automática
-4.9,Pruebas de bandeja de entrada omnicanal,0.5d,07/03/2026,07/03/2026,4.7;4.8,Ambos,8,No,Verificar funcionamiento completo
-H4,HITO: Chatwoot Operativo,0d,07/03/2026,07/03/2026,4.9,,0,Yes,Plataforma lista para IA
-5.0,FASE 5: DESARROLLO AGENTE IA,10d,10/03/2026,21/03/2026,H4,Equipo,160,No,Núcleo del sistema
-5.1,Evaluación de plataformas de IA,1d,10/03/2026,10/03/2026,H4,Ambos,16,No,Claude GPT-4 Gemini - análisis
-5.2,Selección y justificación de plataforma,0.5d,11/03/2026,11/03/2026,5.1,Persona 1,4,No,Documento de decisión técnica
-5.3,Configuración de cuenta y API keys,0.5d,11/03/2026,11/03/2026,5.1,Persona 2,4,No,Credenciales de plataforma elegida
-5.4,Estructuración de base de conocimiento,1.5d,12/03/2026,13/03/2026,5.2;5.3,Persona 1,12,No,Formato JSON/DB optimizado para IA
-5.5,Desarrollo de sistema de embeddings,1d,12/03/2026,12/03/2026,5.2;5.3,Persona 2,8,No,Vector database si es necesario
-5.6,Entrenamiento - Carreras profesionales,1d,14/03/2026,14/03/2026,5.4,Persona 1,8,No,Fine-tuning con datos de carreras
-5.7,Entrenamiento - Diplomados,1d,14/03/2026,14/03/2026,5.4,Persona 2,8,No,Fine-tuning con datos de diplomados
-5.8,Entrenamiento - Cursos cortos,1d,17/03/2026,17/03/2026,5.6;5.7,Persona 1,8,No,Fine-tuning con datos de cursos
-5.9,Configuración de intents y entidades,1d,17/03/2026,17/03/2026,5.6;5.7,Persona 2,8,No,NLU: detección de intenciones
-5.10,Desarrollo de flujos conversacionales,1.5d,18/03/2026,19/03/2026,5.8;5.9,Ambos,24,No,Lógica de conversación con contexto
-5.11,Integración del agente con Chatwoot API,1d,19/03/2026,19/03/2026,5.10,Persona 1,8,No,Conexión bidireccional
-5.12,Configuración de reglas de escalamiento,0.5d,20/03/2026,20/03/2026,5.11,Persona 2,4,No,Cuándo pasar a agente humano
-5.13,Sistema de logging y monitoreo,1d,20/03/2026,20/03/2026,5.11,Persona 1,8,No,Registro de conversaciones y métricas
-5.14,Pruebas iniciales del agente,1d,21/03/2026,21/03/2026,5.12;5.13,Ambos,16,No,20+ casos de prueba
-H5,HITO: Agente IA Funcional,0d,21/03/2026,21/03/2026,5.14,,0,Yes,IA respondiendo correctamente
-6.0,FASE 6: INTEGRACIÓN ZOHO CRM,5d,24/03/2026,28/03/2026,H5,Equipo,80,No,Gestión de leads
-6.1,Evaluación del API de Zoho CRM,1d,24/03/2026,24/03/2026,H5,Persona 1,8,No,Documentación y capacidades
-6.2,Configuración de credenciales Zoho,0.5d,24/03/2026,24/03/2026,H5,Persona 2,4,No,OAuth API keys
-6.3,Configuración de webhooks bidireccionales,1d,25/03/2026,25/03/2026,6.2,Persona 2,8,No,Sincronización en tiempo real
-6.4,Desarrollo de sincronización de leads,1.5d,25/03/2026,26/03/2026,6.2,Persona 1,12,No,Creación automática de leads
-6.5,Mapeo de campos entre sistemas,1d,26/03/2026,26/03/2026,6.3;6.4,Persona 2,8,No,Nombre email teléfono programa
-6.6,Implementación de flujo de actualización,1d,27/03/2026,27/03/2026,6.5,Persona 1,8,No,Estados: nuevo contactado interesado
-6.7,Pruebas de integración bidireccional,1d,28/03/2026,28/03/2026,6.6,Ambos,16,No,15+ casos de uso reales
-H6,HITO: Zoho CRM Integrado,0d,28/03/2026,28/03/2026,6.7,,0,Yes,CRM sincronizado
-7.0,FASE 7: PRUEBAS Y CONTROL DE CALIDAD,5d,31/03/2026,04/04/2026,H6,Equipo,80,No,Validación completa
-7.1,Diseño de casos de prueba,1d,31/03/2026,31/03/2026,H6,Ambos,16,No,50+ casos de prueba documentados
-7.2,Pruebas unitarias de componentes,1d,01/04/2026,01/04/2026,7.1,Persona 1,8,No,Cada módulo individualmente
-7.3,Pruebas de integración end-to-end,1.5d,01/04/2026,02/04/2026,7.1,Persona 2,12,No,Flujo completo: WhatsApp→IA→CRM
-7.4,Pruebas de carga y estrés,1d,02/04/2026,02/04/2026,7.2;7.3,Persona 1,8,No,Simular 100+ conversaciones
-7.5,Pruebas de usuario (UAT),1d,03/04/2026,03/04/2026,7.4,Ambos,8,No,10-15 casos con usuarios reales
-7.6,Documentación de errores encontrados,0.5d,03/04/2026,03/04/2026,7.5,Persona 1,4,No,Bug tracking
-7.7,Corrección de errores críticos,1d,04/04/2026,04/04/2026,7.6,Ambos,16,No,Prioridad alta
-7.8,Validación final del sistema,0.5d,04/04/2026,04/04/2026,7.7,Ambos,8,No,Sign-off de calidad
-H7,HITO: Sistema Validado,0d,04/04/2026,04/04/2026,7.8,,0,Yes,QA aprobado
-8.0,FASE 8: CAPACITACIÓN Y DOCUMENTACIÓN,3d,07/04/2026,08/04/2026,H7,Equipo,24,No,Preparación del equipo
-8.1,Creación de manual de usuario,1d,07/04/2026,07/04/2026,H7,Persona 1,8,No,Con capturas de pantalla
-8.2,Documentación técnica de arquitectura,1d,07/04/2026,07/04/2026,H7,Persona 2,8,No,Diagramas y especificaciones
-8.3,Guías de troubleshooting,0.5d,08/04/2026,08/04/2026,8.1;8.2,Persona 1,4,No,Problemas comunes y soluciones
-8.4,Preparación de materiales de capacitación,0.5d,08/04/2026,08/04/2026,8.1;8.2,Persona 2,4,No,Presentaciones y videos
-8.5,Sesión de capacitación - Equipo admin,0.5d,08/04/2026,08/04/2026,8.3;8.4,Ambos,8,No,Capacitación práctica
-8.6,Sesión de capacitación - Equipo ventas,0.5d,08/04/2026,08/04/2026,8.5,Ambos,8,No,Capacitación práctica
-8.7,Sesión de preguntas y resolución de dudas,0.25d,08/04/2026,08/04/2026,8.6,Ambos,4,No,Q&A con el equipo
-8.8,Entrega de materiales digitales,0.25d,08/04/2026,08/04/2026,8.7,Persona 1,2,No,Drive/email con documentación
-H8,HITO: Equipo Capacitado,0d,08/04/2026,08/04/2026,8.8,,0,Yes,Personal entrenado
-9.0,FASE 9: DESPLIEGUE Y PRODUCCIÓN,2d,09/04/2026,09/04/2026,H8,Equipo,24,No,Lanzamiento oficial
-9.1,Configuración final de entorno producción,0.5d,09/04/2026,09/04/2026,H8,Persona 2,4,No,Servidores DNS SSL
-9.2,Migración de datos y configuraciones,0.5d,09/04/2026,09/04/2026,9.1,Persona 1,4,No,Desde ambiente de pruebas
-9.3,Verificación de servicios en producción,0.25d,09/04/2026,09/04/2026,9.2,Ambos,4,No,Health checks de todos los servicios
-9.4,Lanzamiento oficial del agente IA,0.25d,09/04/2026,09/04/2026,9.3,Ambos,4,No,Activación del número de WhatsApp
-9.5,Monitoreo post-lanzamiento (48h),2d,09/04/2026,10/04/2026,9.4,Ambos,16,No,Vigilancia intensiva
-9.6,Ajustes menores si son necesarios,0.5d,09/04/2026,09/04/2026,9.4,Persona 1,4,No,Correcciones rápidas
-H9,HITO: GO-LIVE PRODUCCIÓN,0d,09/04/2026,09/04/2026,9.4,,0,Yes,SISTEMA EN VIVO
+WBS,Task Name,Duration,Start Date,Finish Date,Predecessors,Resource Names,Work (hours),Milestone,Status,Notes
+3.0,FASE 3: INTEGRACIÓN META API - WHATSAPP,7d,20/02/2026,28/02/2026,2.0,Equipo,112,No,⬜ Pendiente,Fase crítica para comunicación
+3.1,Verificación del número telefónico,1d,20/02/2026,20/02/2026,2.0,Persona 1,8,No,⬜ Pendiente,Verificar en Meta Business Suite
+3.2,Validación del portafolio empresarial,1d,20/02/2026,20/02/2026,2.0,Persona 2,8,No,⬜ Pendiente,Verificar estado en Meta
+3.3,Preparación de documentación empresarial,1d,21/02/2026,21/02/2026,3.1;3.2,Persona 1,8,No,⬜ Pendiente,RUC documentos legales etc
+3.4,Envío y seguimiento de verificación,2d,24/02/2026,25/02/2026,3.3,Persona 2,8,No,⬜ Pendiente,Puede tomar 24-48h de espera
+3.5,Creación de app en Meta for Developers,1d,24/02/2026,24/02/2026,3.3,Persona 1,8,No,⬜ Pendiente,Configurar app y permisos
+3.6,Configuración de credenciales y tokens,1d,25/02/2026,25/02/2026,3.5,Persona 1,8,No,⬜ Pendiente,Access tokens API keys
+3.7,Configuración de webhooks,1d,26/02/2026,26/02/2026,3.6,Persona 2,8,No,⬜ Pendiente,Endpoints para recibir mensajes
+3.8,Pruebas de conexión con WhatsApp API,1d,27/02/2026,27/02/2026,3.7,Ambos,16,No,⬜ Pendiente,Envío y recepción de mensajes
+3.9,Documentación de credenciales,0.5d,28/02/2026,28/02/2026,3.8,Persona 1,4,No,⬜ Pendiente,Guardar en gestor de contraseñas
+H1,HITO: WhatsApp API Verificado,0d,28/02/2026,28/02/2026,3.9,,0,Yes,⬜ Pendiente,Conexión WhatsApp funcional
+4.0,FASE 4: CONFIGURACIÓN DE CHATWOOT,5d,03/03/2026,07/03/2026,H1,Equipo,80,No,⬜ Pendiente,Plataforma de gestión
+4.1,Instalación de Chatwoot en servidor,1.5d,03/03/2026,04/03/2026,H1,Persona 2,12,No,⬜ Pendiente,Cloud o servidor propio
+4.2,Configuración inicial de la plataforma,0.5d,03/03/2026,03/03/2026,H1,Persona 1,4,No,⬜ Pendiente,Configuración básica
+4.3,Integración con WhatsApp Business API,1d,05/03/2026,05/03/2026,4.1,Persona 1,8,No,⬜ Pendiente,Conectar webhooks de WhatsApp
+4.4,Configuración de equipos y usuarios,0.5d,05/03/2026,05/03/2026,4.1,Persona 2,4,No,⬜ Pendiente,Roles: admin agentes supervisores
+4.5,Personalización de interfaz,1d,06/03/2026,06/03/2026,4.3,Persona 2,8,No,⬜ Pendiente,Branding colores logo
+4.6,Configuración de etiquetas y categorías,0.5d,06/03/2026,06/03/2026,4.3,Persona 1,4,No,⬜ Pendiente,Organización de conversaciones
+4.7,Creación de respuestas rápidas,0.5d,07/03/2026,07/03/2026,4.5;4.6,Persona 1,4,No,⬜ Pendiente,Templates de respuestas comunes
+4.8,Configuración de automatizaciones,0.5d,07/03/2026,07/03/2026,4.5;4.6,Persona 2,4,No,⬜ Pendiente,Reglas de asignación automática
+4.9,Pruebas de bandeja de entrada omnicanal,0.5d,07/03/2026,07/03/2026,4.7;4.8,Ambos,8,No,⬜ Pendiente,Verificar funcionamiento completo
+H2,HITO: Chatwoot Operativo,0d,07/03/2026,07/03/2026,4.9,,0,Yes,⬜ Pendiente,Plataforma lista para IA
+5.0,FASE 5: DESARROLLO AGENTE IA,10d,10/03/2026,21/03/2026,H2,Equipo,160,No,⬜ Pendiente,Núcleo del sistema
+5.1,Evaluación de plataformas de IA,1d,10/03/2026,10/03/2026,H2,Ambos,16,No,⬜ Pendiente,Claude GPT-4 Gemini - análisis
+5.2,Selección y justificación de plataforma,0.5d,11/03/2026,11/03/2026,5.1,Persona 1,4,No,⬜ Pendiente,Documento de decisión técnica
+5.3,Configuración de cuenta y API keys,0.5d,11/03/2026,11/03/2026,5.1,Persona 2,4,No,⬜ Pendiente,Credenciales de plataforma elegida
+5.4,Estructuración de base de conocimiento,1.5d,12/03/2026,13/03/2026,5.2;5.3,Persona 1,12,No,⬜ Pendiente,Formato JSON/DB optimizado para IA
+5.5,Desarrollo de sistema de embeddings,1d,12/03/2026,12/03/2026,5.2;5.3,Persona 2,8,No,⬜ Pendiente,Vector database si es necesario
+5.6,Entrenamiento - Carreras profesionales,1d,14/03/2026,14/03/2026,5.4,Persona 1,8,No,⬜ Pendiente,Fine-tuning con datos de carreras
+5.7,Entrenamiento - Diplomados,1d,14/03/2026,14/03/2026,5.4,Persona 2,8,No,⬜ Pendiente,Fine-tuning con datos de diplomados
+5.8,Entrenamiento - Cursos cortos,1d,17/03/2026,17/03/2026,5.6;5.7,Persona 1,8,No,⬜ Pendiente,Fine-tuning con datos de cursos
+5.9,Configuración de intents y entidades,1d,17/03/2026,17/03/2026,5.6;5.7,Persona 2,8,No,⬜ Pendiente,NLU: detección de intenciones
+5.10,Desarrollo de flujos conversacionales,1.5d,18/03/2026,19/03/2026,5.8;5.9,Ambos,24,No,⬜ Pendiente,Lógica de conversación con contexto
+5.11,Integración del agente con Chatwoot API,1d,19/03/2026,19/03/2026,5.10,Persona 1,8,No,⬜ Pendiente,Conexión bidireccional
+5.12,Configuración de reglas de escalamiento,0.5d,20/03/2026,20/03/2026,5.11,Persona 2,4,No,⬜ Pendiente,Cuándo pasar a agente humano
+5.13,Sistema de logging y monitoreo,1d,20/03/2026,20/03/2026,5.11,Persona 1,8,No,⬜ Pendiente,Registro de conversaciones y métricas
+5.14,Pruebas iniciales del agente,1d,21/03/2026,21/03/2026,5.12;5.13,Ambos,16,No,⬜ Pendiente,20+ casos de prueba
+H3,HITO: Agente IA Funcional,0d,21/03/2026,21/03/2026,5.14,,0,Yes,⬜ Pendiente,IA respondiendo correctamente
+6.0,FASE 6: INTEGRACIÓN ZOHO CRM,5d,24/03/2026,28/03/2026,H3,Equipo,80,No,⬜ Pendiente,Gestión de leads
+6.1,Evaluación del API de Zoho CRM,1d,24/03/2026,24/03/2026,H3,Persona 1,8,No,⬜ Pendiente,Documentación y capacidades
+6.2,Configuración de credenciales Zoho,0.5d,24/03/2026,24/03/2026,H3,Persona 2,4,No,⬜ Pendiente,OAuth API keys
+6.3,Configuración de webhooks bidireccionales,1d,25/03/2026,25/03/2026,6.2,Persona 2,8,No,⬜ Pendiente,Sincronización en tiempo real
+6.4,Desarrollo de sincronización de leads,1.5d,25/03/2026,26/03/2026,6.2,Persona 1,12,No,⬜ Pendiente,Creación automática de leads
+6.5,Mapeo de campos entre sistemas,1d,26/03/2026,26/03/2026,6.3;6.4,Persona 2,8,No,⬜ Pendiente,Nombre email teléfono programa
+6.6,Implementación de flujo de actualización,1d,27/03/2026,27/03/2026,6.5,Persona 1,8,No,⬜ Pendiente,Estados: nuevo contactado interesado
+6.7,Pruebas de integración bidireccional,1d,28/03/2026,28/03/2026,6.6,Ambos,16,No,⬜ Pendiente,15+ casos de uso reales
+H4,HITO: Zoho CRM Integrado,0d,28/03/2026,28/03/2026,6.7,,0,Yes,⬜ Pendiente,CRM sincronizado
+7.0,FASE 7: PRUEBAS Y CONTROL DE CALIDAD,5d,31/03/2026,04/04/2026,H4,Equipo,80,No,⬜ Pendiente,Validación completa
+7.1,Diseño de casos de prueba,1d,31/03/2026,31/03/2026,H4,Ambos,16,No,⬜ Pendiente,50+ casos de prueba documentados
+7.2,Pruebas unitarias de componentes,1d,01/04/2026,01/04/2026,7.1,Persona 1,8,No,⬜ Pendiente,Cada módulo individualmente
+7.3,Pruebas de integración end-to-end,1.5d,01/04/2026,02/04/2026,7.1,Persona 2,12,No,⬜ Pendiente,Flujo completo: WhatsApp→IA→CRM
+7.4,Pruebas de carga y estrés,1d,02/04/2026,02/04/2026,7.2;7.3,Persona 1,8,No,⬜ Pendiente,Simular 100+ conversaciones
+7.5,Pruebas de usuario (UAT),1d,03/04/2026,03/04/2026,7.4,Ambos,8,No,⬜ Pendiente,10-15 casos con usuarios reales
+7.6,Documentación de errores encontrados,0.5d,03/04/2026,03/04/2026,7.5,Persona 1,4,No,⬜ Pendiente,Bug tracking
+7.7,Corrección de errores críticos,1d,04/04/2026,04/04/2026,7.6,Ambos,16,No,⬜ Pendiente,Prioridad alta
+7.8,Validación final del sistema,0.5d,04/04/2026,04/04/2026,7.7,Ambos,8,No,⬜ Pendiente,Sign-off de calidad
+H5,HITO: Sistema Validado,0d,04/04/2026,04/04/2026,7.8,,0,Yes,⬜ Pendiente,QA aprobado
+8.0,FASE 8: CAPACITACIÓN Y DOCUMENTACIÓN,3d,07/04/2026,08/04/2026,H5,Equipo,24,No,⬜ Pendiente,Preparación del equipo
+8.1,Creación de manual de usuario,1d,07/04/2026,07/04/2026,H5,Persona 1,8,No,⬜ Pendiente,Con capturas de pantalla
+8.2,Documentación técnica de arquitectura,1d,07/04/2026,07/04/2026,H5,Persona 2,8,No,⬜ Pendiente,Diagramas y especificaciones
+8.3,Guías de troubleshooting,0.5d,08/04/2026,08/04/2026,8.1;8.2,Persona 1,4,No,⬜ Pendiente,Problemas comunes y soluciones
+8.4,Preparación de materiales de capacitación,0.5d,08/04/2026,08/04/2026,8.1;8.2,Persona 2,4,No,⬜ Pendiente,Presentaciones y videos
+8.5,Sesión de capacitación - Equipo admin,0.5d,08/04/2026,08/04/2026,8.3;8.4,Ambos,8,No,⬜ Pendiente,Capacitación práctica
+8.6,Sesión de capacitación - Equipo ventas,0.5d,08/04/2026,08/04/2026,8.5,Ambos,8,No,⬜ Pendiente,Capacitación práctica
+8.7,Sesión de preguntas y resolución de dudas,0.25d,08/04/2026,08/04/2026,8.6,Ambos,4,No,⬜ Pendiente,Q&A con el equipo
+8.8,Entrega de materiales digitales,0.25d,08/04/2026,08/04/2026,8.7,Persona 1,2,No,⬜ Pendiente,Drive/email con documentación
+H6,HITO: Equipo Capacitado,0d,08/04/2026,08/04/2026,8.8,,0,Yes,⬜ Pendiente,Personal entrenado
+9.0,FASE 9: DESPLIEGUE Y PRODUCCIÓN,2d,09/04/2026,09/04/2026,H6,Equipo,24,No,⬜ Pendiente,Lanzamiento oficial
+9.1,Configuración final de entorno producción,0.5d,09/04/2026,09/04/2026,H6,Persona 2,4,No,⬜ Pendiente,Servidores DNS SSL
+9.2,Migración de datos y configuraciones,0.5d,09/04/2026,09/04/2026,9.1,Persona 1,4,No,⬜ Pendiente,Desde ambiente de pruebas
+9.3,Verificación de servicios en producción,0.25d,09/04/2026,09/04/2026,9.2,Ambos,4,No,⬜ Pendiente,Health checks de todos los servicios
+9.4,Lanzamiento oficial del agente IA,0.25d,09/04/2026,09/04/2026,9.3,Ambos,4,No,⬜ Pendiente,Activación del número de WhatsApp
+9.5,Monitoreo post-lanzamiento (48h),2d,09/04/2026,10/04/2026,9.4,Ambos,16,No,⬜ Pendiente,Vigilancia intensiva
+9.6,Ajustes menores si son necesarios,0.5d,09/04/2026,09/04/2026,9.4,Persona 1,4,No,⬜ Pendiente,Correcciones rápidas
+H7,HITO: GO-LIVE PRODUCCIÓN,0d,09/04/2026,09/04/2026,9.4,,0,Yes,⬜ Pendiente,SISTEMA EN VIVO
