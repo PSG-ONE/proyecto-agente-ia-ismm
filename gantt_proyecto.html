@@ -44,6 +44,7 @@
             gap: 20px;
             align-items: center;
             border-bottom: 1px solid #2d3142;
+            flex-wrap: wrap;
         }
 
         .toolbar-item {
@@ -68,14 +69,14 @@
         }
 
         .task-list {
-            width: 450px;
+            width: 500px;
             background: #242837;
             border-right: 2px solid #2d3142;
         }
 
         .task-list-header {
             display: grid;
-            grid-template-columns: 50px 200px 80px 120px;
+            grid-template-columns: 50px 180px 70px 80px 120px;
             background: #2d3142;
             padding: 12px 20px;
             font-size: 11px;
@@ -84,11 +85,14 @@
             letter-spacing: 0.5px;
             color: #9ca3af;
             border-bottom: 2px solid #363b4e;
+            position: sticky;
+            top: 0;
+            z-index: 20;
         }
 
         .task-row {
             display: grid;
-            grid-template-columns: 50px 200px 80px 120px;
+            grid-template-columns: 50px 180px 70px 80px 120px;
             padding: 14px 20px;
             border-bottom: 1px solid #2d3142;
             font-size: 13px;
@@ -109,6 +113,7 @@
         .task-row.milestone {
             background: #2a2d3a;
             font-style: italic;
+            border-left: 4px solid #ffd700;
         }
 
         .task-name {
@@ -119,6 +124,31 @@
 
         .task-indent {
             margin-left: 20px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: rgba(156, 163, 175, 0.2);
+            color: #9ca3af;
+        }
+
+        .status-progress {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
+
+        .status-completed {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
         }
 
         .timeline {
@@ -238,11 +268,22 @@
             border-top: 20px solid #ffd700;
             position: absolute;
             top: 14px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .milestone-label {
+            position: absolute;
+            top: 36px;
+            left: -40px;
+            font-size: 10px;
+            font-weight: 700;
+            color: #ffd700;
+            white-space: nowrap;
         }
 
         .stats {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
             padding: 30px 40px;
             background: #242837;
@@ -301,6 +342,15 @@
             border-top: 2px solid #2d3142;
         }
 
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 1200px) {
             .gantt-container {
                 min-width: 100%;
@@ -330,7 +380,11 @@
         </div>
         <div class="stat-card" style="border-left-color: #ffd700;">
             <div class="stat-number" style="color: #ffd700;">7</div>
-            <div class="stat-label">Hitos Principales</div>
+            <div class="stat-label">Hitos (H1-H7)</div>
+        </div>
+        <div class="stat-card" style="border-left-color: #9ca3af;">
+            <div class="stat-number" style="color: #9ca3af;">0%</div>
+            <div class="stat-label">Progreso General</div>
         </div>
     </div>
 
@@ -357,7 +411,7 @@
             <div class="legend-color fase9"></div><span>Fase 9: Despliegue</span>
         </div>
         <div class="legend-item">
-            <div class="legend-color hito"></div><span>💎 Hitos</span>
+            <div class="legend-color hito"></div><span>💎 Hitos H1-H7</span>
         </div>
     </div>
 
@@ -366,6 +420,8 @@
         <div class="toolbar-item">🎯 Fin: 09/04/2026</div>
         <div class="toolbar-item">👥 Equipo: 2 personas</div>
         <div class="toolbar-item">⏱️ 560 horas totales</div>
+        <div class="toolbar-item">⬜ Pendiente: 61 tareas</div>
+        <div class="toolbar-item">✅ Completado: 0 tareas</div>
     </div>
 
     <div class="gantt-container">
@@ -373,6 +429,7 @@
             <div class="task-list-header">
                 <div>WBS</div>
                 <div>TAREA</div>
+                <div>ESTADO</div>
                 <div>DURACIÓN</div>
                 <div>RECURSOS</div>
             </div>
@@ -390,81 +447,112 @@
 
     <div class="footer">
         <p>Proyecto Agente IA - ISMM | Desarrollado por Zcod3 | © 2026 | <a
-                href="https://github.com/PSG-ONE/proyecto-agente-ia-ismm" style="color: #667eea;">GitHub</a></p>
+                href="https://github.com/PSG-ONE/proyecto-agente-ia-ismm">GitHub</a></p>
     </div>
 
     <script>
         const tasks = [
             // FASE 3: META API - WHATSAPP (7 días)
-            { wbs: '3.0', name: 'FASE 3: INTEGRACIÓN META API', duration: '7d', start: 0, length: 7, resource: 'Equipo', type: 'phase', class: 'fase3', progress: 0 },
-            { wbs: '3.1', name: 'Verificación número telefónico', duration: '1d', start: 0, length: 1, resource: 'P1', type: 'task', class: 'fase3', progress: 0 },
-            { wbs: '3.2', name: 'Validación portafolio empresarial', duration: '1d', start: 0, length: 1, resource: 'P2', type: 'task', class: 'fase3', progress: 0 },
-            { wbs: '3.3', name: 'Preparación documentación', duration: '1d', start: 1, length: 1, resource: 'P1', type: 'task', class: 'fase3', progress: 0 },
-            { wbs: '3.4', name: 'Envío y seguimiento verificación', duration: '2d', start: 4, length: 2, resource: 'P2', type: 'task', class: 'fase3', progress: 0 },
-            { wbs: '3.5', name: 'Creación app Meta Developers', duration: '1d', start: 4, length: 1, resource: 'P1', type: 'task', class: 'fase3', progress: 0 },
-            { wbs: '3.6', name: 'Configuración credenciales', duration: '1d', start: 5, length: 1, resource: 'P1', type: 'task', class: 'fase3', progress: 0 },
-            { wbs: '3.7', name: 'Configuración webhooks', duration: '1d', start: 6, length: 1, resource: 'P2', type: 'task', class: 'fase3', progress: 0 },
-            { wbs: 'H3', name: '💎 WhatsApp API Verificado', duration: '0d', start: 7, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 },
+            { wbs: '3.0', name: 'FASE 3: INTEGRACIÓN META API', duration: '7d', start: 0, length: 7, resource: 'Equipo', type: 'phase', class: 'fase3', status: 'pending' },
+            { wbs: '3.1', name: 'Verificación número telefónico', duration: '1d', start: 0, length: 1, resource: 'P1', type: 'task', class: 'fase3', status: 'pending' },
+            { wbs: '3.2', name: 'Validación portafolio empresarial', duration: '1d', start: 0, length: 1, resource: 'P2', type: 'task', class: 'fase3', status: 'pending' },
+            { wbs: '3.3', name: 'Preparación documentación', duration: '1d', start: 1, length: 1, resource: 'P1', type: 'task', class: 'fase3', status: 'pending' },
+            { wbs: '3.4', name: 'Envío y seguimiento verificación', duration: '2d', start: 4, length: 2, resource: 'P2', type: 'task', class: 'fase3', status: 'pending' },
+            { wbs: '3.5', name: 'Creación app Meta Developers', duration: '1d', start: 4, length: 1, resource: 'P1', type: 'task', class: 'fase3', status: 'pending' },
+            { wbs: '3.6', name: 'Configuración credenciales', duration: '1d', start: 5, length: 1, resource: 'P1', type: 'task', class: 'fase3', status: 'pending' },
+            { wbs: '3.7', name: 'Configuración webhooks', duration: '1d', start: 6, length: 1, resource: 'P2', type: 'task', class: 'fase3', status: 'pending' },
+            { wbs: '3.8', name: 'Pruebas conexión WhatsApp API', duration: '1d', start: 6, length: 1, resource: 'Ambos', type: 'task', class: 'fase3', status: 'pending' },
+            { wbs: '3.9', name: 'Documentación credenciales', duration: '0.5d', start: 7, length: 0.5, resource: 'P1', type: 'task', class: 'fase3', status: 'pending' },
+            { wbs: 'H1', name: '💎 H1: WhatsApp API Verificado', duration: '0d', start: 7, length: 0, resource: '', type: 'milestone', class: 'hito', status: 'pending' },
 
             // FASE 4: CHATWOOT (5 días)
-            { wbs: '4.0', name: 'FASE 4: CONFIGURACIÓN CHATWOOT', duration: '5d', start: 9, length: 5, resource: 'Equipo', type: 'phase', class: 'fase4', progress: 0 },
-            { wbs: '4.1', name: 'Instalación Chatwoot', duration: '1.5d', start: 9, length: 1.5, resource: 'P2', type: 'task', class: 'fase4', progress: 0 },
-            { wbs: '4.2', name: 'Integración con WhatsApp API', duration: '1d', start: 11, length: 1, resource: 'P1', type: 'task', class: 'fase4', progress: 0 },
-            { wbs: '4.3', name: 'Configuración equipos y usuarios', duration: '0.5d', start: 11, length: 0.5, resource: 'P2', type: 'task', class: 'fase4', progress: 0 },
-            { wbs: '4.4', name: 'Personalización interfaz', duration: '1d', start: 12, length: 1, resource: 'P2', type: 'task', class: 'fase4', progress: 0 },
-            { wbs: '4.5', name: 'Pruebas bandeja omnicanal', duration: '0.5d', start: 13, length: 0.5, resource: 'Ambos', type: 'task', class: 'fase4', progress: 0 },
-            { wbs: 'H4', name: '💎 Chatwoot Operativo', duration: '0d', start: 13, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 },
+            { wbs: '4.0', name: 'FASE 4: CONFIGURACIÓN CHATWOOT', duration: '5d', start: 9, length: 5, resource: 'Equipo', type: 'phase', class: 'fase4', status: 'pending' },
+            { wbs: '4.1', name: 'Instalación Chatwoot', duration: '1.5d', start: 9, length: 1.5, resource: 'P2', type: 'task', class: 'fase4', status: 'pending' },
+            { wbs: '4.2', name: 'Configuración inicial', duration: '0.5d', start: 9, length: 0.5, resource: 'P1', type: 'task', class: 'fase4', status: 'pending' },
+            { wbs: '4.3', name: 'Integración WhatsApp API', duration: '1d', start: 11, length: 1, resource: 'P1', type: 'task', class: 'fase4', status: 'pending' },
+            { wbs: '4.4', name: 'Configuración equipos', duration: '0.5d', start: 11, length: 0.5, resource: 'P2', type: 'task', class: 'fase4', status: 'pending' },
+            { wbs: '4.5', name: 'Personalización interfaz', duration: '1d', start: 12, length: 1, resource: 'P2', type: 'task', class: 'fase4', status: 'pending' },
+            { wbs: '4.6', name: 'Configuración etiquetas', duration: '0.5d', start: 12, length: 0.5, resource: 'P1', type: 'task', class: 'fase4', status: 'pending' },
+            { wbs: '4.7', name: 'Respuestas rápidas', duration: '0.5d', start: 13, length: 0.5, resource: 'P1', type: 'task', class: 'fase4', status: 'pending' },
+            { wbs: '4.8', name: 'Automatizaciones', duration: '0.5d', start: 13, length: 0.5, resource: 'P2', type: 'task', class: 'fase4', status: 'pending' },
+            { wbs: '4.9', name: 'Pruebas bandeja omnicanal', duration: '0.5d', start: 13, length: 0.5, resource: 'Ambos', type: 'task', class: 'fase4', status: 'pending' },
+            { wbs: 'H2', name: '💎 H2: Chatwoot Operativo', duration: '0d', start: 13, length: 0, resource: '', type: 'milestone', class: 'hito', status: 'pending' },
 
             // FASE 5: AGENTE IA (10 días)
-            { wbs: '5.0', name: 'FASE 5: DESARROLLO AGENTE IA', duration: '10d', start: 14, length: 10, resource: 'Equipo', type: 'phase', class: 'fase5', progress: 0 },
-            { wbs: '5.1', name: 'Evaluación plataformas IA', duration: '1d', start: 14, length: 1, resource: 'Ambos', type: 'task', class: 'fase5', progress: 0 },
-            { wbs: '5.2', name: 'Selección plataforma', duration: '0.5d', start: 15, length: 0.5, resource: 'P1', type: 'task', class: 'fase5', progress: 0 },
-            { wbs: '5.3', name: 'Estructuración base conocimiento', duration: '1.5d', start: 16, length: 1.5, resource: 'P1', type: 'task', class: 'fase5', progress: 0 },
-            { wbs: '5.4', name: 'Entrenamiento - Carreras', duration: '1d', start: 18, length: 1, resource: 'P1', type: 'task', class: 'fase5', progress: 0 },
-            { wbs: '5.5', name: 'Entrenamiento - Diplomados', duration: '1d', start: 18, length: 1, resource: 'P2', type: 'task', class: 'fase5', progress: 0 },
-            { wbs: '5.6', name: 'Desarrollo flujos conversacionales', duration: '1.5d', start: 19, length: 1.5, resource: 'Ambos', type: 'task', class: 'fase5', progress: 0 },
-            { wbs: '5.7', name: 'Integración con Chatwoot', duration: '1d', start: 21, length: 1, resource: 'P1', type: 'task', class: 'fase5', progress: 0 },
-            { wbs: '5.8', name: 'Sistema logging y monitoreo', duration: '1d', start: 22, length: 1, resource: 'P1', type: 'task', class: 'fase5', progress: 0 },
-            { wbs: '5.9', name: 'Pruebas iniciales agente', duration: '1d', start: 23, length: 1, resource: 'Ambos', type: 'task', class: 'fase5', progress: 0 },
-            { wbs: 'H5', name: '💎 Agente IA Funcional', duration: '0d', start: 24, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 },
+            { wbs: '5.0', name: 'FASE 5: DESARROLLO AGENTE IA', duration: '10d', start: 14, length: 10, resource: 'Equipo', type: 'phase', class: 'fase5', status: 'pending' },
+            { wbs: '5.1', name: 'Evaluación plataformas IA', duration: '1d', start: 14, length: 1, resource: 'Ambos', type: 'task', class: 'fase5', status: 'pending' },
+            { wbs: '5.2', name: 'Selección plataforma', duration: '0.5d', start: 15, length: 0.5, resource: 'P1', type: 'task', class: 'fase5', status: 'pending' },
+            { wbs: '5.3', name: 'Configuración API keys', duration: '0.5d', start: 15, length: 0.5, resource: 'P2', type: 'task', class: 'fase5', status: 'pending' },
+            { wbs: '5.4', name: 'Base de conocimiento', duration: '1.5d', start: 16, length: 1.5, resource: 'P1', type: 'task', class: 'fase5', status: 'pending' },
+            { wbs: '5.5', name: 'Sistema embeddings', duration: '1d', start: 16, length: 1, resource: 'P2', type: 'task', class: 'fase5', status: 'pending' },
+            { wbs: '5.6', name: 'Entrenamiento - Carreras', duration: '1d', start: 18, length: 1, resource: 'P1', type: 'task', class: 'fase5', status: 'pending' },
+            { wbs: '5.7', name: 'Entrenamiento - Diplomados', duration: '1d', start: 18, length: 1, resource: 'P2', type: 'task', class: 'fase5', status: 'pending' },
+            { wbs: '5.8', name: 'Entrenamiento - Cursos', duration: '1d', start: 19, length: 1, resource: 'P1', type: 'task', class: 'fase5', status: 'pending' },
+            { wbs: '5.9', name: 'Intents y entidades', duration: '1d', start: 19, length: 1, resource: 'P2', type: 'task', class: 'fase5', status: 'pending' },
+            { wbs: '5.10', name: 'Flujos conversacionales', duration: '1.5d', start: 20, length: 1.5, resource: 'Ambos', type: 'task', class: 'fase5', status: 'pending' },
+            { wbs: '5.11', name: 'Integración Chatwoot', duration: '1d', start: 21, length: 1, resource: 'P1', type: 'task', class: 'fase5', status: 'pending' },
+            { wbs: '5.12', name: 'Reglas escalamiento', duration: '0.5d', start: 22, length: 0.5, resource: 'P2', type: 'task', class: 'fase5', status: 'pending' },
+            { wbs: '5.13', name: 'Logging y monitoreo', duration: '1d', start: 22, length: 1, resource: 'P1', type: 'task', class: 'fase5', status: 'pending' },
+            { wbs: '5.14', name: 'Pruebas iniciales', duration: '1d', start: 23, length: 1, resource: 'Ambos', type: 'task', class: 'fase5', status: 'pending' },
+            { wbs: 'H3', name: '💎 H3: Agente IA Funcional', duration: '0d', start: 24, length: 0, resource: '', type: 'milestone', class: 'hito', status: 'pending' },
 
             // FASE 6: ZOHO CRM (5 días)
-            { wbs: '6.0', name: 'FASE 6: INTEGRACIÓN ZOHO CRM', duration: '5d', start: 25, length: 5, resource: 'Equipo', type: 'phase', class: 'fase6', progress: 0 },
-            { wbs: '6.1', name: 'Evaluación API Zoho', duration: '1d', start: 25, length: 1, resource: 'P1', type: 'task', class: 'fase6', progress: 0 },
-            { wbs: '6.2', name: 'Configuración webhooks', duration: '1d', start: 26, length: 1, resource: 'P2', type: 'task', class: 'fase6', progress: 0 },
-            { wbs: '6.3', name: 'Sincronización de leads', duration: '1.5d', start: 26, length: 1.5, resource: 'P1', type: 'task', class: 'fase6', progress: 0 },
-            { wbs: '6.4', name: 'Mapeo de campos', duration: '1d', start: 27, length: 1, resource: 'P2', type: 'task', class: 'fase6', progress: 0 },
-            { wbs: '6.5', name: 'Pruebas integración', duration: '1d', start: 29, length: 1, resource: 'Ambos', type: 'task', class: 'fase6', progress: 0 },
-            { wbs: 'H6', name: '💎 Zoho CRM Integrado', duration: '0d', start: 29, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 },
+            { wbs: '6.0', name: 'FASE 6: INTEGRACIÓN ZOHO CRM', duration: '5d', start: 25, length: 5, resource: 'Equipo', type: 'phase', class: 'fase6', status: 'pending' },
+            { wbs: '6.1', name: 'Evaluación API Zoho', duration: '1d', start: 25, length: 1, resource: 'P1', type: 'task', class: 'fase6', status: 'pending' },
+            { wbs: '6.2', name: 'Configuración credenciales', duration: '0.5d', start: 25, length: 0.5, resource: 'P2', type: 'task', class: 'fase6', status: 'pending' },
+            { wbs: '6.3', name: 'Webhooks bidireccionales', duration: '1d', start: 26, length: 1, resource: 'P2', type: 'task', class: 'fase6', status: 'pending' },
+            { wbs: '6.4', name: 'Sincronización leads', duration: '1.5d', start: 26, length: 1.5, resource: 'P1', type: 'task', class: 'fase6', status: 'pending' },
+            { wbs: '6.5', name: 'Mapeo de campos', duration: '1d', start: 27, length: 1, resource: 'P2', type: 'task', class: 'fase6', status: 'pending' },
+            { wbs: '6.6', name: 'Flujo actualización', duration: '1d', start: 28, length: 1, resource: 'P1', type: 'task', class: 'fase6', status: 'pending' },
+            { wbs: '6.7', name: 'Pruebas integración', duration: '1d', start: 29, length: 1, resource: 'Ambos', type: 'task', class: 'fase6', status: 'pending' },
+            { wbs: 'H4', name: '💎 H4: Zoho CRM Integrado', duration: '0d', start: 29, length: 0, resource: '', type: 'milestone', class: 'hito', status: 'pending' },
 
             // FASE 7: PRUEBAS Y QA (5 días)
-            { wbs: '7.0', name: 'FASE 7: PRUEBAS Y QA', duration: '5d', start: 30, length: 5, resource: 'Equipo', type: 'phase', class: 'fase7', progress: 0 },
-            { wbs: '7.1', name: 'Diseño casos de prueba', duration: '1d', start: 30, length: 1, resource: 'Ambos', type: 'task', class: 'fase7', progress: 0 },
-            { wbs: '7.2', name: 'Pruebas unitarias', duration: '1d', start: 31, length: 1, resource: 'P1', type: 'task', class: 'fase7', progress: 0 },
-            { wbs: '7.3', name: 'Pruebas integración end-to-end', duration: '1.5d', start: 31, length: 1.5, resource: 'P2', type: 'task', class: 'fase7', progress: 0 },
-            { wbs: '7.4', name: 'Pruebas de carga', duration: '1d', start: 32, length: 1, resource: 'P1', type: 'task', class: 'fase7', progress: 0 },
-            { wbs: '7.5', name: 'UAT con usuarios', duration: '1d', start: 33, length: 1, resource: 'Ambos', type: 'task', class: 'fase7', progress: 0 },
-            { wbs: '7.6', name: 'Corrección errores críticos', duration: '1d', start: 34, length: 1, resource: 'Ambos', type: 'task', class: 'fase7', progress: 0 },
-            { wbs: 'H7', name: '💎 Sistema Validado', duration: '0d', start: 34, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 },
+            { wbs: '7.0', name: 'FASE 7: PRUEBAS Y QA', duration: '5d', start: 30, length: 5, resource: 'Equipo', type: 'phase', class: 'fase7', status: 'pending' },
+            { wbs: '7.1', name: 'Diseño casos prueba', duration: '1d', start: 30, length: 1, resource: 'Ambos', type: 'task', class: 'fase7', status: 'pending' },
+            { wbs: '7.2', name: 'Pruebas unitarias', duration: '1d', start: 31, length: 1, resource: 'P1', type: 'task', class: 'fase7', status: 'pending' },
+            { wbs: '7.3', name: 'Pruebas end-to-end', duration: '1.5d', start: 31, length: 1.5, resource: 'P2', type: 'task', class: 'fase7', status: 'pending' },
+            { wbs: '7.4', name: 'Pruebas de carga', duration: '1d', start: 32, length: 1, resource: 'P1', type: 'task', class: 'fase7', status: 'pending' },
+            { wbs: '7.5', name: 'UAT con usuarios', duration: '1d', start: 33, length: 1, resource: 'Ambos', type: 'task', class: 'fase7', status: 'pending' },
+            { wbs: '7.6', name: 'Documentación errores', duration: '0.5d', start: 33, length: 0.5, resource: 'P1', type: 'task', class: 'fase7', status: 'pending' },
+            { wbs: '7.7', name: 'Corrección errores', duration: '1d', start: 34, length: 1, resource: 'Ambos', type: 'task', class: 'fase7', status: 'pending' },
+            { wbs: '7.8', name: 'Validación final', duration: '0.5d', start: 34, length: 0.5, resource: 'Ambos', type: 'task', class: 'fase7', status: 'pending' },
+            { wbs: 'H5', name: '💎 H5: Sistema Validado', duration: '0d', start: 34, length: 0, resource: '', type: 'milestone', class: 'hito', status: 'pending' },
 
             // FASE 8: CAPACITACIÓN (3 días)
-            { wbs: '8.0', name: 'FASE 8: CAPACITACIÓN', duration: '3d', start: 35, length: 3, resource: 'Equipo', type: 'phase', class: 'fase8', progress: 0 },
-            { wbs: '8.1', name: 'Creación manuales', duration: '1d', start: 35, length: 1, resource: 'P1', type: 'task', class: 'fase8', progress: 0 },
-            { wbs: '8.2', name: 'Documentación técnica', duration: '1d', start: 35, length: 1, resource: 'P2', type: 'task', class: 'fase8', progress: 0 },
-            { wbs: '8.3', name: 'Sesiones capacitación', duration: '0.5d', start: 36, length: 0.5, resource: 'Ambos', type: 'task', class: 'fase8', progress: 0 },
-            { wbs: 'H8', name: '💎 Equipo Capacitado', duration: '0d', start: 36, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 },
+            { wbs: '8.0', name: 'FASE 8: CAPACITACIÓN', duration: '3d', start: 35, length: 3, resource: 'Equipo', type: 'phase', class: 'fase8', status: 'pending' },
+            { wbs: '8.1', name: 'Manual de usuario', duration: '1d', start: 35, length: 1, resource: 'P1', type: 'task', class: 'fase8', status: 'pending' },
+            { wbs: '8.2', name: 'Documentación técnica', duration: '1d', start: 35, length: 1, resource: 'P2', type: 'task', class: 'fase8', status: 'pending' },
+            { wbs: '8.3', name: 'Guías troubleshooting', duration: '0.5d', start: 36, length: 0.5, resource: 'P1', type: 'task', class: 'fase8', status: 'pending' },
+            { wbs: '8.4', name: 'Materiales capacitación', duration: '0.5d', start: 36, length: 0.5, resource: 'P2', type: 'task', class: 'fase8', status: 'pending' },
+            { wbs: '8.5', name: 'Capacitación admin', duration: '0.5d', start: 36, length: 0.5, resource: 'Ambos', type: 'task', class: 'fase8', status: 'pending' },
+            { wbs: '8.6', name: 'Capacitación ventas', duration: '0.5d', start: 36, length: 0.5, resource: 'Ambos', type: 'task', class: 'fase8', status: 'pending' },
+            { wbs: '8.7', name: 'Sesión Q&A', duration: '0.25d', start: 37, length: 0.25, resource: 'Ambos', type: 'task', class: 'fase8', status: 'pending' },
+            { wbs: '8.8', name: 'Entrega materiales', duration: '0.25d', start: 37, length: 0.25, resource: 'P1', type: 'task', class: 'fase8', status: 'pending' },
+            { wbs: 'H6', name: '💎 H6: Equipo Capacitado', duration: '0d', start: 37, length: 0, resource: '', type: 'milestone', class: 'hito', status: 'pending' },
 
             // FASE 9: DESPLIEGUE (2 días)
-            { wbs: '9.0', name: 'FASE 9: DESPLIEGUE', duration: '2d', start: 37, length: 2, resource: 'Equipo', type: 'phase', class: 'fase9', progress: 0 },
-            { wbs: '9.1', name: 'Configuración producción', duration: '0.5d', start: 37, length: 0.5, resource: 'P2', type: 'task', class: 'fase9', progress: 0 },
-            { wbs: '9.2', name: 'Migración datos', duration: '0.5d', start: 37, length: 0.5, resource: 'P1', type: 'task', class: 'fase9', progress: 0 },
-            { wbs: '9.3', name: 'Verificación servicios', duration: '0.25d', start: 37.5, length: 0.25, resource: 'Ambos', type: 'task', class: 'fase9', progress: 0 },
-            { wbs: '9.4', name: 'Lanzamiento oficial', duration: '0.25d', start: 37.75, length: 0.25, resource: 'Ambos', type: 'task', class: 'fase9', progress: 0 },
-            { wbs: 'H9', name: '💎 GO-LIVE PRODUCCIÓN', duration: '0d', start: 38, length: 0, resource: '', type: 'milestone', class: 'hito', progress: 100 }
+            { wbs: '9.0', name: 'FASE 9: DESPLIEGUE', duration: '2d', start: 37, length: 2, resource: 'Equipo', type: 'phase', class: 'fase9', status: 'pending' },
+            { wbs: '9.1', name: 'Configuración producción', duration: '0.5d', start: 37, length: 0.5, resource: 'P2', type: 'task', class: 'fase9', status: 'pending' },
+            { wbs: '9.2', name: 'Migración datos', duration: '0.5d', start: 37, length: 0.5, resource: 'P1', type: 'task', class: 'fase9', status: 'pending' },
+            { wbs: '9.3', name: 'Verificación servicios', duration: '0.25d', start: 37.5, length: 0.25, resource: 'Ambos', type: 'task', class: 'fase9', status: 'pending' },
+            { wbs: '9.4', name: 'Lanzamiento oficial', duration: '0.25d', start: 37.75, length: 0.25, resource: 'Ambos', type: 'task', class: 'fase9', status: 'pending' },
+            { wbs: '9.5', name: 'Monitoreo 48h', duration: '2d', start: 38, length: 2, resource: 'Ambos', type: 'task', class: 'fase9', status: 'pending' },
+            { wbs: '9.6', name: 'Ajustes menores', duration: '0.5d', start: 38, length: 0.5, resource: 'P1', type: 'task', class: 'fase9', status: 'pending' },
+            { wbs: 'H7', name: '💎 H7: GO-LIVE PRODUCCIÓN', duration: '0d', start: 38, length: 0, resource: '', type: 'milestone', class: 'hito', status: 'pending' }
         ];
 
         const taskList = document.getElementById('taskList');
         const timelineGrid = document.getElementById('timelineGrid');
+
+        function getStatusBadge(status) {
+            const badges = {
+                'pending': '<span class="status-badge status-pending">⬜ Pendiente</span>',
+                'progress': '<span class="status-badge status-progress">🔄 En progreso</span>',
+                'completed': '<span class="status-badge status-completed">✅ Completado</span>'
+            };
+            return badges[status] || badges['pending'];
+        }
 
         tasks.forEach(task => {
             // Task list row
@@ -473,6 +561,7 @@
             row.innerHTML = `
                 <div>${task.wbs}</div>
                 <div class="task-name ${task.type === 'task' ? 'task-indent' : ''}">${task.name}</div>
+                <div>${getStatusBadge(task.status)}</div>
                 <div>${task.duration}</div>
                 <div>${task.resource}</div>
             `;
@@ -487,17 +576,21 @@
                 marker.className = 'milestone-marker';
                 marker.style.left = `${task.start * 15}px`;
                 marker.title = task.name;
+
+                const label = document.createElement('div');
+                label.className = 'milestone-label';
+                label.textContent = task.wbs;
+                label.style.left = `${task.start * 15}px`;
+
                 timelineRow.appendChild(marker);
+                timelineRow.appendChild(label);
             } else if (task.length > 0) {
                 const bar = document.createElement('div');
                 bar.className = `bar ${task.class}`;
                 bar.style.left = `${task.start * 15}px`;
                 bar.style.width = `${task.length * 15}px`;
-                bar.innerHTML = `
-                    <div class="progress" style="width: ${task.progress}%"></div>
-                    <div class="bar-label">${task.name}</div>
-                `;
-                bar.title = `${task.name}\nDuración: ${task.duration}\nRecursos: ${task.resource}`;
+                bar.innerHTML = `<div class="bar-label">${task.name}</div>`;
+                bar.title = `${task.name}\nDuración: ${task.duration}\nRecursos: ${task.resource}\nEstado: ${task.status}`;
                 timelineRow.appendChild(bar);
             }
 
