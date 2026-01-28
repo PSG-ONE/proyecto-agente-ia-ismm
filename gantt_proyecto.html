@@ -21,9 +21,9 @@
         }
 
         .header {
-            background: linear-gradient(135deg, #00d9ff 0%, #a855f7 100%);
+            background: #00d9ff;
             padding: 30px 40px;
-            box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 217, 255, 0.4);
         }
 
         .header h1 {
@@ -448,13 +448,14 @@
 <body>
     <div class="header">
         <h1>🤖 Proyecto Agente IA - ISMM (Gantt Dinámico)</h1>
-        <p>Cronograma Interactivo | 20 Febrero - 09 Abril 2026 (Fases 3-9)</p>
+        <p>Cronograma Interactivo | 20 Febrero - 09 Abril 2026 (Fases 1-7)</p>
     </div>
 
     <div class="controls">
         <button class="btn" onclick="loadFromCSV()">📂 Cargar desde CSV</button>
         <button class="btn btn-secondary" onclick="exportProgress()">💾 Exportar Progreso</button>
         <button class="btn btn-danger" onclick="resetProgress()">🔄 Resetear Todo</button>
+        <button class="btn" onclick="manageTeam()">👥 Gestionar Equipo</button>
         <span style="margin-left: auto; font-size: 12px; color: #9ca3af;">
             💡 Haz clic en los badges de estado para cambiarlos
         </span>
@@ -489,25 +490,25 @@
 
     <div class="legend">
         <div class="legend-item">
-            <div class="legend-color fase3"></div><span>Fase 3: Meta API - WhatsApp</span>
+            <div class="legend-color fase3"></div><span>Fase 1: Meta API - WhatsApp</span>
         </div>
         <div class="legend-item">
-            <div class="legend-color fase4"></div><span>Fase 4: Chatwoot</span>
+            <div class="legend-color fase4"></div><span>Fase 2: Chatwoot</span>
         </div>
         <div class="legend-item">
-            <div class="legend-color fase5"></div><span>Fase 5: Agente IA</span>
+            <div class="legend-color fase5"></div><span>Fase 3: Agente IA</span>
         </div>
         <div class="legend-item">
-            <div class="legend-color fase6"></div><span>Fase 6: Zoho CRM</span>
+            <div class="legend-color fase6"></div><span>Fase 4: Zoho CRM</span>
         </div>
         <div class="legend-item">
-            <div class="legend-color fase7"></div><span>Fase 7: Pruebas y QA</span>
+            <div class="legend-color fase7"></div><span>Fase 5: Pruebas y QA</span>
         </div>
         <div class="legend-item">
-            <div class="legend-color fase8"></div><span>Fase 8: Capacitación</span>
+            <div class="legend-color fase8"></div><span>Fase 6: Capacitación</span>
         </div>
         <div class="legend-item">
-            <div class="legend-color fase9"></div><span>Fase 9: Despliegue</span>
+            <div class="legend-color fase9"></div><span>Fase 7: Despliegue</span>
         </div>
         <div class="legend-item">
             <div class="legend-color hito"></div><span>💎 Hitos H1-H7</span>
@@ -553,48 +554,55 @@
     </div>
 
     <script>
-        // Datos de las tareas (se pueden cargar desde CSV)
+        // Datos de las tareas (WBS renumerado desde 1.0)
         let tasks = [
-            // FASE 3
-            { wbs: '3.0', name: 'FASE 3: INTEGRACIÓN META API', duration: '7d', start: 0, length: 7, resource: 'Equipo', type: 'phase', class: 'fase3', status: 'pending' },
-            { wbs: '3.1', name: 'Verificación número telefónico', duration: '1d', start: 0, length: 1, resource: 'P1', type: 'task', class: 'fase3', status: 'pending' },
-            { wbs: '3.2', name: 'Validación portafolio empresarial', duration: '1d', start: 0, length: 1, resource: 'P2', type: 'task', class: 'fase3', status: 'pending' },
-            { wbs: '3.3', name: 'Preparación documentación', duration: '1d', start: 1, length: 1, resource: 'P1', type: 'task', class: 'fase3', status: 'pending' },
-            { wbs: '3.4', name: 'Envío y seguimiento verificación', duration: '2d', start: 4, length: 2, resource: 'P2', type: 'task', class: 'fase3', status: 'pending' },
-            { wbs: '3.5', name: 'Creación app Meta Developers', duration: '1d', start: 4, length: 1, resource: 'P1', type: 'task', class: 'fase3', status: 'pending' },
-            { wbs: '3.6', name: 'Configuración credenciales', duration: '1d', start: 5, length: 1, resource: 'P1', type: 'task', class: 'fase3', status: 'pending' },
-            { wbs: '3.7', name: 'Configuración webhooks', duration: '1d', start: 6, length: 1, resource: 'P2', type: 'task', class: 'fase3', status: 'pending' },
-            { wbs: '3.8', name: 'Pruebas conexión WhatsApp API', duration: '1d', start: 6, length: 1, resource: 'Ambos', type: 'task', class: 'fase3', status: 'pending' },
-            { wbs: '3.9', name: 'Documentación credenciales', duration: '0.5d', start: 7, length: 0.5, resource: 'P1', type: 'task', class: 'fase3', status: 'pending' },
+            // FASE 1 (antes Fase 3)
+            { wbs: '1.0', name: 'FASE 1: INTEGRACIÓN META API', duration: '7d', start: 0, length: 7, resource: 'Equipo', type: 'phase', class: 'fase3', status: 'pending' },
+            { wbs: '1.1', name: 'Verificación número telefónico', duration: '1d', start: 0, length: 1, resource: 'P1', type: 'task', class: 'fase3', status: 'pending' },
+            { wbs: '1.2', name: 'Validación portafolio empresarial', duration: '1d', start: 0, length: 1, resource: 'P2', type: 'task', class: 'fase3', status: 'pending' },
+            { wbs: '1.3', name: 'Preparación documentación', duration: '1d', start: 1, length: 1, resource: 'P1', type: 'task', class: 'fase3', status: 'pending' },
+            { wbs: '1.4', name: 'Envío y seguimiento verificación', duration: '2d', start: 4, length: 2, resource: 'P2', type: 'task', class: 'fase3', status: 'pending' },
+            { wbs: '1.5', name: 'Creación app Meta Developers', duration: '1d', start: 4, length: 1, resource: 'P1', type: 'task', class: 'fase3', status: 'pending' },
+            { wbs: '1.6', name: 'Configuración credenciales', duration: '1d', start: 5, length: 1, resource: 'P1', type: 'task', class: 'fase3', status: 'pending' },
+            { wbs: '1.7', name: 'Configuración webhooks', duration: '1d', start: 6, length: 1, resource: 'P2', type: 'task', class: 'fase3', status: 'pending' },
+            { wbs: '1.8', name: 'Pruebas conexión WhatsApp API', duration: '1d', start: 6, length: 1, resource: 'Ambos', type: 'task', class: 'fase3', status: 'pending' },
+            { wbs: '1.9', name: 'Documentación credenciales', duration: '0.5d', start: 7, length: 0.5, resource: 'P1', type: 'task', class: 'fase3', status: 'pending' },
             { wbs: 'H1', name: '💎 H1: WhatsApp API Verificado', duration: '0d', start: 7, length: 0, resource: '', type: 'milestone', class: 'hito', status: 'pending' },
 
-            // FASE 4
-            { wbs: '4.0', name: 'FASE 4: CONFIGURACIÓN CHATWOOT', duration: '5d', start: 9, length: 5, resource: 'Equipo', type: 'phase', class: 'fase4', status: 'pending' },
-            { wbs: '4.1', name: 'Instalación Chatwoot', duration: '1.5d', start: 9, length: 1.5, resource: 'P2', type: 'task', class: 'fase4', status: 'pending' },
-            { wbs: '4.2', name: 'Configuración inicial', duration: '0.5d', start: 9, length: 0.5, resource: 'P1', type: 'task', class: 'fase4', status: 'pending' },
-            { wbs: '4.3', name: 'Integración WhatsApp API', duration: '1d', start: 11, length: 1, resource: 'P1', type: 'task', class: 'fase4', status: 'pending' },
+            // FASE 2 (antes Fase 4)
+            { wbs: '2.0', name: 'FASE 2: CONFIGURACIÓN CHATWOOT', duration: '5d', start: 9, length: 5, resource: 'Equipo', type: 'phase', class: 'fase4', status: 'pending' },
+            { wbs: '2.1', name: 'Instalación Chatwoot', duration: '1.5d', start: 9, length: 1.5, resource: 'P2', type: 'task', class: 'fase4', status: 'pending' },
+            { wbs: '2.2', name: 'Configuración inicial', duration: '0.5d', start: 9, length: 0.5, resource: 'P1', type: 'task', class: 'fase4', status: 'pending' },
+            { wbs: '2.3', name: 'Integración WhatsApp API', duration: '1d', start: 11, length: 1, resource: 'P1', type: 'task', class: 'fase4', status: 'pending' },
             { wbs: 'H2', name: '💎 H2: Chatwoot Operativo', duration: '0d', start: 13, length: 0, resource: '', type: 'milestone', class: 'hito', status: 'pending' },
 
-            // FASE 5
-            { wbs: '5.0', name: 'FASE 5: DESARROLLO AGENTE IA', duration: '10d', start: 14, length: 10, resource: 'Equipo', type: 'phase', class: 'fase5', status: 'pending' },
-            { wbs: '5.1', name: 'Evaluación plataformas IA', duration: '1d', start: 14, length: 1, resource: 'Ambos', type: 'task', class: 'fase5', status: 'pending' },
+            // FASE 3 (antes Fase 5)
+            { wbs: '3.0', name: 'FASE 3: DESARROLLO AGENTE IA', duration: '10d', start: 14, length: 10, resource: 'Equipo', type: 'phase', class: 'fase5', status: 'pending' },
+            { wbs: '3.1', name: 'Evaluación plataformas IA', duration: '1d', start: 14, length: 1, resource: 'Ambos', type: 'task', class: 'fase5', status: 'pending' },
             { wbs: 'H3', name: '💎 H3: Agente IA Funcional', duration: '0d', start: 24, length: 0, resource: '', type: 'milestone', class: 'hito', status: 'pending' },
 
-            // FASE 6
-            { wbs: '6.0', name: 'FASE 6: INTEGRACIÓN ZOHO CRM', duration: '5d', start: 25, length: 5, resource: 'Equipo', type: 'phase', class: 'fase6', status: 'pending' },
+            // FASE 4 (antes Fase 6)
+            { wbs: '4.0', name: 'FASE 4: INTEGRACIÓN ZOHO CRM', duration: '5d', start: 25, length: 5, resource: 'Equipo', type: 'phase', class: 'fase6', status: 'pending' },
             { wbs: 'H4', name: '💎 H4: Zoho CRM Integrado', duration: '0d', start: 29, length: 0, resource: '', type: 'milestone', class: 'hito', status: 'pending' },
 
-            // FASE 7
-            { wbs: '7.0', name: 'FASE 7: PRUEBAS Y QA', duration: '5d', start: 30, length: 5, resource: 'Equipo', type: 'phase', class: 'fase7', status: 'pending' },
+            // FASE 5 (antes Fase 7)
+            { wbs: '5.0', name: 'FASE 5: PRUEBAS Y QA', duration: '5d', start: 30, length: 5, resource: 'Equipo', type: 'phase', class: 'fase7', status: 'pending' },
             { wbs: 'H5', name: '💎 H5: Sistema Validado', duration: '0d', start: 34, length: 0, resource: '', type: 'milestone', class: 'hito', status: 'pending' },
 
-            // FASE 8
-            { wbs: '8.0', name: 'FASE 8: CAPACITACIÓN', duration: '3d', start: 35, length: 3, resource: 'Equipo', type: 'phase', class: 'fase8', status: 'pending' },
+            // FASE 6 (antes Fase 8)
+            { wbs: '6.0', name: 'FASE 6: CAPACITACIÓN', duration: '3d', start: 35, length: 3, resource: 'Equipo', type: 'phase', class: 'fase8', status: 'pending' },
             { wbs: 'H6', name: '💎 H6: Equipo Capacitado', duration: '0d', start: 37, length: 0, resource: '', type: 'milestone', class: 'hito', status: 'pending' },
 
-            // FASE 9
-            { wbs: '9.0', name: 'FASE 9: DESPLIEGUE', duration: '2d', start: 37, length: 2, resource: 'Equipo', type: 'phase', class: 'fase9', status: 'pending' },
+            // FASE 7 (antes Fase 9)
+            { wbs: '7.0', name: 'FASE 7: DESPLIEGUE', duration: '2d', start: 37, length: 2, resource: 'Equipo', type: 'phase', class: 'fase9', status: 'pending' },
             { wbs: 'H7', name: '💎 H7: GO-LIVE PRODUCCIÓN', duration: '0d', start: 38, length: 0, resource: '', type: 'milestone', class: 'hito', status: 'pending' }
+        ];
+
+        // Gestión de equipo
+        let teamMembers = [
+            { id: 'P1', name: 'Persona 1', role: 'Desarrollador' },
+            { id: 'P2', name: 'Persona 2', role: 'Desarrollador' },
+            { id: 'Ambos', name: 'Equipo Completo', role: 'Equipo' }
         ];
 
         // Cargar estado guardado
@@ -753,7 +761,33 @@
             showNotification('Función en desarrollo - Por ahora usa el CSV manualmente');
         }
 
+        // Gestionar equipo
+        function manageTeam() {
+            const teamList = teamMembers.map(m => `${m.id}: ${m.name} (${m.role})`).join('\n');
+            const newMember = prompt(`EQUIPO ACTUAL:\n${teamList}\n\nAgregar nueva persona (formato: ID,Nombre,Rol):\nEjemplo: P3,Juan Pérez,QA Tester`);
+
+            if (newMember) {
+                const parts = newMember.split(',').map(p => p.trim());
+                if (parts.length === 3) {
+                    teamMembers.push({ id: parts[0], name: parts[1], role: parts[2] });
+                    localStorage.setItem('gantt_team', JSON.stringify(teamMembers));
+                    showNotification(`✅ ${parts[1]} agregado al equipo`);
+                } else {
+                    showNotification('❌ Formato incorrecto. Usa: ID,Nombre,Rol');
+                }
+            }
+        }
+
+        // Cargar equipo guardado
+        function loadTeam() {
+            const saved = localStorage.getItem('gantt_team');
+            if (saved) {
+                teamMembers = JSON.parse(saved);
+            }
+        }
+
         // Inicializar
+        loadTeam();
         loadSavedState();
         renderGantt();
     </script>
