@@ -1,282 +1,162 @@
-# 🤖 Sistema de Consolidación de Base de Datos - Agente IA
+# 🤖 Proyecto Agente IA - ISMM Escuela de Gastronomía
 
-## 📋 Descripción
-
-Este sistema consolida la base de datos de estudiantes de la escuela de gastronomía, transformando **59 hojas de Excel** con diferentes formatos en una base de datos estructurada lista para ser consumida por un agente de IA.
+Sistema de atención automatizada con Inteligencia Artificial para WhatsApp Business, integrado con Chatwoot y Zoho CRM.
 
 ---
 
-## 🚀 Inicio Rápido
+## 📋 INFORMACIÓN DEL PROYECTO
 
-### Ejecutar Todo el Pipeline
+**Cliente:** Instituto Superior de Gastronomía ISMM  
+**Objetivo:** Automatizar la atención de consultas sobre programas académicos vía WhatsApp  
+**Fecha de inicio:** 20 de Febrero de 2026  
+**Fecha de finalización:** 09 de Abril de 2026  
+**Duración:** 35 días laborables (7 semanas)
 
-```bash
-python run_pipeline.py
+---
+
+## 🎯 ALCANCE DEL PROYECTO
+
+El sistema permitirá:
+- ✅ Atención automatizada 24/7 vía WhatsApp
+- ✅ Respuestas inteligentes sobre carreras, diplomados y cursos
+- ✅ Captura automática de leads en Zoho CRM
+- ✅ Escalamiento a agente humano cuando sea necesario
+- ✅ Dashboard de gestión en Chatwoot
+
+---
+
+## 📊 DOCUMENTACIÓN PRINCIPAL
+
+### 📄 **Resumen Ejecutivo**
+- **Archivo:** `RESUMEN_EJECUTIVO_FASE3.md`
+- **Contenido:** Cronograma, hitos, recursos, riesgos, métricas
+
+### 📋 **EDT Completa**
+- **Archivo:** `EDT_COMPLETA_FASE3.md`
+- **Contenido:** 61 tareas detalladas con WBS, fechas, recursos y dependencias
+
+### 📊 **CSV para MS Project**
+- **Archivo:** `EDT_FASE3_MS_PROJECT.csv`
+- **Uso:** Importar directamente a Microsoft Project
+
+### 📈 **Gantt Interactivo**
+- **Archivo:** `gantt_proyecto.html`
+- **Visualización:** Diagrama de Gantt profesional en navegador
+- **Online:** [Ver Gantt en GitHub Pages](https://psg-one.github.io/proyecto-agente-ia-ismm/gantt_proyecto.html)
+
+---
+
+## 🚀 FASES DEL PROYECTO
+
+| Fase | Nombre | Duración | Hito |
+|------|--------|----------|------|
+| **3** | Integración Meta API - WhatsApp | 7 días | WhatsApp API Verificado |
+| **4** | Configuración de Chatwoot | 5 días | Chatwoot Operativo |
+| **5** | Desarrollo Agente IA | 10 días | Agente IA Funcional |
+| **6** | Integración Zoho CRM | 5 días | Zoho CRM Integrado |
+| **7** | Pruebas y Control de Calidad | 5 días | Sistema Validado |
+| **8** | Capacitación y Documentación | 3 días | Equipo Capacitado |
+| **9** | Despliegue y Producción | 2 días | **GO-LIVE** 🚀 |
+
+---
+
+## 🎯 HITOS PRINCIPALES
+
+| Fecha | Hito | Descripción |
+|-------|------|-------------|
+| 28/02/2026 | 💎 WhatsApp API Verificado | Conexión WhatsApp funcional |
+| 07/03/2026 | 💎 Chatwoot Operativo | Plataforma lista para IA |
+| 21/03/2026 | 💎 Agente IA Funcional | IA respondiendo correctamente |
+| 28/03/2026 | 💎 Zoho CRM Integrado | CRM sincronizado |
+| 04/04/2026 | 💎 Sistema Validado | QA aprobado |
+| 08/04/2026 | 💎 Equipo Capacitado | Personal entrenado |
+| **09/04/2026** | **💎 GO-LIVE PRODUCCIÓN** | **Sistema en vivo** 🚀 |
+
+---
+
+## 🛠️ STACK TECNOLÓGICO
+
+### **Comunicación**
+- WhatsApp Business API (Meta)
+- Chatwoot (Plataforma omnicanal)
+
+### **Inteligencia Artificial**
+- Claude API / GPT-4 / Gemini (a definir en Fase 5)
+- Base de conocimiento estructurada
+
+### **CRM**
+- Zoho CRM (Gestión de leads)
+
+### **Infraestructura**
+- Servidor cloud (a definir)
+- Webhooks y APIs REST
+
+---
+
+## 👥 EQUIPO
+
+| Rol | Responsabilidad | Horas |
+|-----|-----------------|-------|
+| **Persona 1** | Desarrollo e integración | 280h |
+| **Persona 2** | Infraestructura y APIs | 280h |
+| **Ambos** | Pruebas y capacitación | 160h |
+
+**Total:** 560 horas de trabajo
+
+---
+
+## 📈 MÉTRICAS DE ÉXITO
+
+| Métrica | Objetivo |
+|---------|----------|
+| Tiempo de respuesta | < 5 segundos |
+| Precisión de respuestas | > 90% |
+| Disponibilidad del sistema | > 99% |
+| Tasa de conversión de leads | > 30% |
+| Satisfacción del usuario | > 4.5/5 |
+
+---
+
+## 📁 ESTRUCTURA DEL REPOSITORIO
+
+```
+proyecto-agente-ia-ismm/
+├── README.md                          # Este archivo
+├── RESUMEN_EJECUTIVO_FASE3.md         # Resumen ejecutivo completo
+├── EDT_COMPLETA_FASE3.md              # EDT detallada en tabla
+├── EDT_FASE3_MS_PROJECT.csv           # CSV para MS Project
+├── gantt_proyecto.html                # Gantt interactivo
+├── GUIA_GITHUB.md                     # Guía de GitHub Pages
+├── PLAN_DESARROLLO_AGENTE.md          # Plan técnico detallado
+└── .gitignore                         # Archivos ignorados
 ```
 
-Este comando ejecutará automáticamente:
-1. Inspección de la base de datos
-2. Consolidación de todas las hojas
-3. Validación de calidad de datos
-4. Extracción a formato JSON
+---
 
-### Ver Estadísticas
+## 🌐 ENLACES ÚTILES
 
-```bash
-python check_json.py
-```
-
-### Ver Ejemplos de Datos
-
-```bash
-python show_examples.py
-```
+- **Repositorio GitHub:** [https://github.com/PSG-ONE/proyecto-agente-ia-ismm](https://github.com/PSG-ONE/proyecto-agente-ia-ismm)
+- **Gantt Interactivo:** [https://psg-one.github.io/proyecto-agente-ia-ismm/gantt_proyecto.html](https://psg-one.github.io/proyecto-agente-ia-ismm/gantt_proyecto.html)
+- **GitHub Pages:** Activado en Settings → Pages
 
 ---
 
-## 📁 Estructura de Archivos
+## 📞 CONTACTO
 
-### Scripts Principales
-
-- `README.md` - Este archivo
-
----
-
-## 📊 Resultados de la Consolidación
-
-- **Total de estudiantes:** 10,423
-- **Con email:** 9,116 (87.5%)
-- **Con teléfono:** 3,687 (35.4%)
-- **Hojas procesadas:** 59
-
-### Distribución por Estado
-
-- Inactivo/Histórico: 6,390 (61.3%)
-- Activo/Futuro: 2,332 (22.4%)
-- Activo: 794 (7.6%)
-- Retirado: 666 (6.4%)
-- Graduado: 241 (2.3%)
+**Proyecto:** Agente IA - ISMM  
+**Desarrollado por:** Zcod3  
+**Año:** 2026
 
 ---
 
-## 🔧 Uso Individual de Scripts
+## 📝 NOTAS
 
-### 1. Inspeccionar Base de Datos
-
-```bash
-python inspect_database.py
-```
-
-Genera `inspection_results.txt` con la estructura de cada hoja.
-
-### 2. Consolidar Hojas
-
-```bash
-python consolidate_database.py
-```
-
-Genera `ESTUDIANTES_CONSOLIDADO.xlsx` con todos los datos unificados.
-
-### 3. Validar Datos
-
-```bash
-python validate_data.py
-```
-
-Valida:
-- Formatos de email
-- Formatos de teléfono (809/829/849)
-- Nombres válidos
-- Programas reconocidos
-- Duplicados
-
-### 4. Extraer a JSON
-
-```bash
-python extract_to_json.py
-```
-
-Genera `estudiantes_database.json` con estructura:
-
-```json
-{
-  "estudiantes": [
-    {
-      "id": "ABC123DEF456",
-      "nombre_completo": "Juan Pérez",
-      "email": "juan@example.com",
-      "telefono": "809-555-1234",
-      "programa": "Cocinero Profesional",
-      "estado": "Activo",
-      "año_ingreso": 2026
-    }
-  ],
-  "metadata": {
-    "total_estudiantes": 10423,
-    "estadisticas": {...}
-  }
-}
-```
+- ✅ Fases 1 y 2 completadas (Planificación y Preparación de Datos)
+- 🚀 Inicio de Fase 3: 20/02/2026
+- 📊 Seguimiento en tiempo real vía Gantt interactivo
+- 🔄 Actualizaciones semanales del progreso
 
 ---
 
-## 🎯 Casos de Uso para el Agente
-
-### 1. Consulta de Estado
-
-**Usuario:** "Hola, soy María García, ¿en qué semestre estoy?"
-
-**Proceso del Agente:**
-1. Buscar en JSON por `nombre_completo: "María García"`
-2. Verificar `estado: "Activo"`
-3. Responder con información del semestre
-
-### 2. Reactivación de Estudiante
-
-**Usuario:** "Me retiré el año pasado, quiero volver"
-
-**Proceso del Agente:**
-1. Buscar por teléfono/email
-2. Encontrar `estado: "Retirado"`
-3. Ofrecer proceso de reincorporación
-
-### 3. Validación de Prospecto
-
-**Usuario:** "Quiero inscribirme en Panadería"
-
-**Proceso del Agente:**
-1. Buscar por email/teléfono
-2. Si existe: "Veo que ya estuviste con nosotros..."
-3. Si no existe: "Perfecto, te registro como nuevo estudiante..."
-
-### 4. Búsqueda Múltiple
-
-El agente puede buscar por:
-- `nombre_completo`
-- `email`
-- `telefono`
-- `cedula`
-- `programa`
-- `estado`
-
----
-
-## 🔄 Proceso de Actualización
-
-### Cuando hay nuevos estudiantes:
-
-1. Actualizar `ESTUDIANTES.xlsx` con nuevos datos
-2. Ejecutar pipeline completo:
-   ```bash
-   python run_pipeline.py
-   ```
-3. Revisar `validation_report.txt` para errores
-4. Subir `estudiantes_database.json` actualizado a Google Sheets/n8n
-
-### Frecuencia Recomendada:
-
-- **Períodos de inscripción:** Semanal
-- **Períodos regulares:** Mensual
-
----
-
-## 🛠️ Integración con n8n
-
-### Opción 1: Google Sheets (Recomendado)
-
-1. Crear script `upload_to_google_sheets.py`
-2. Subir `ESTUDIANTES_CONSOLIDADO.xlsx` a Google Sheets
-3. Configurar credenciales en n8n
-4. Usar nodo "Google Sheets" para consultas
-
-### Opción 2: JSON Directo
-
-1. Subir `estudiantes_database.json` a servidor
-2. Usar nodo "HTTP Request" en n8n
-3. Implementar API REST para consultas
-
-### Opción 3: Base de Datos
-
-1. Importar a PostgreSQL/MySQL
-2. Usar nodo "PostgreSQL" en n8n
-3. Consultas SQL directas
-
----
-
-## ⚠️ Problemas Conocidos
-
-### 1. Programas No Especificados
-
-**Problema:** 9,390 registros (90%) sin programa especificado
-
-**Solución:** Revisar hojas originales y completar información manualmente
-
-### 2. Teléfonos Faltantes
-
-**Problema:** Solo 35% tiene teléfono registrado
-
-**Solución:** Campaña de actualización de datos de contacto
-
-### 3. Cédulas Faltantes
-
-**Problema:** Solo 7% tiene cédula registrada
-
-**Solución:** Solicitar cédula obligatoria en proceso de inscripción
-
----
-
-## 📞 Próximos Pasos
-
-### Esta Semana
-- [ ] Revisar `ESTUDIANTES_CONSOLIDADO.xlsx`
-- [ ] Completar información de programas faltantes
-- [ ] Crear `upload_to_google_sheets.py`
-- [ ] Extraer info de `INFORMACION PARA IA.pdf` a JSON
-
-### Próxima Semana
-- [ ] Subir a Google Sheets
-- [ ] Configurar n8n
-- [ ] Crear workflow de consulta
-- [ ] Integrar base de conocimientos
-
-### Próximas 2 Semanas
-- [ ] Configurar Chatwoot
-- [ ] Crear prompts del sistema
-- [ ] Pruebas end-to-end
-- [ ] Implementar casos de uso
-
----
-
-## 📚 Documentación Adicional
-
-- Ver `PLAN_DESARROLLO_AGENTE.md` para el plan completo
-- Ver `RESUMEN_CONSOLIDACION.md` para resumen ejecutivo
-- Ver archivos de output para detalles técnicos
-
----
-
-## ✅ Estado del Proyecto
-
-**Fase Actual:** 🟢 CONSOLIDACIÓN COMPLETADA
-
-**Próxima Fase:** Integración con n8n y Chatwoot
-
----
-
-## 🤝 Contribución
-
-Para modificar el proceso de consolidación:
-
-1. Editar `consolidate_database.py` para cambiar lógica
-2. Editar `extract_to_json.py` para cambiar estructura JSON
-3. Ejecutar `python run_pipeline.py` para probar cambios
-
----
-
-## 📄 Licencia
-
-Proyecto interno - Escuela de Gastronomía
-
----
-
-**Última actualización:** 2026-01-27
+**Última actualización:** 28/01/2026  
+**Versión:** 2.0
