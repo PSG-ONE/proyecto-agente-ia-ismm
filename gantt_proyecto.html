@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Agente IA - Diagrama de Gantt</title>
+    <script src="https://cdn.jsdelivr.net/npm/frappe-gantt@0.6.1/dist/frappe-gantt.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frappe-gantt@0.6.1/dist/frappe-gantt.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px 40px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9em;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .gantt-container {
+            padding: 40px;
+            overflow-x: auto;
+        }
+
+        .gantt-title {
+            font-size: 1.8em;
+            color: #2d3748;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+
+        .footer p {
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            color: #764ba2;
+        }
+
+        #gantt {
+            margin-top: 20px;
+        }
+
+        .gantt .bar {
+            transition: all 0.3s ease;
+        }
+
+        .gantt .bar:hover {
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .gantt-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Proyecto Agente IA para ISMM</h1>
+            <p>Escuela de Gastronomía - Cronograma de Implementación</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">47</div>
+                <div class="stat-label">Días Laborables</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">9</div>
+                <div class="stat-label">Fases</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">96</div>
+                <div class="stat-label">Tareas Totales</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">9</div>
+                <div class="stat-label">Hitos Clave</div>
+            </div>
+        </div>
+
+        <div class="gantt-container">
+            <h2 class="gantt-title">📊 Diagrama de Gantt Interactivo</h2>
+            
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #667eea;"></div>
+                    <span>Fase 1: Planificación</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #48bb78;"></div>
+                    <span>Fase 2: Preparación de Datos</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ed8936;"></div>
+                    <span>Fase 3: Meta API</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #9f7aea;"></div>
+                    <span>Fase 4: Chatwoot</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f56565;"></div>
+                    <span>Fase 5: Agente IA</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #38b2ac;"></div>
+                    <span>Fase 6: Zoho CRM</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ecc94b;"></div>
+                    <span>Fase 7: Pruebas</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #4299e1;"></div>
+                    <span>Fase 8: Capacitación</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ed64a6;"></div>
+                    <span>Fase 9: Despliegue</span>
+                </div>
+            </div>
+
+            <div id="gantt"></div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Proyecto:</strong> Agente de IA para Escuela de Gastronomía ISMM</p>
+            <p><strong>Fecha de inicio:</strong> 03 de Febrero 2026 | <strong>Fecha de finalización:</strong> 09 de Abril 2026</p>
+            <p>Creado con ❤️ por <a href="#">Zcod3 - Desarrollo de Agentes IA</a></p>
+        </div>
+    </div>
+
+    <script>
+        const tasks = [
+            // FASE 1
+            {
+                id: 'fase1',
+                name: 'FASE 1: PLANIFICACIÓN Y ANÁLISIS',
+                start: '2026-02-03',
+                end: '2026-02-07',
+                progress: 0,
+                custom_class: 'fase1'
+            },
+            {
+                id: 'h1',
+                name: '💎 H1: Plan de Proyecto Aprobado',
+                start: '2026-02-07',
+                end: '2026-02-07',
+                progress: 0,
+                dependencies: 'fase1',
+                custom_class: 'hito'
+            },
+            // FASE 2
+            {
+                id: 'fase2',
+                name: 'FASE 2: PREPARACIÓN DE DATOS Y CONTENIDO',
+                start: '2026-02-10',
+                end: '2026-02-19',
+                progress: 0,
+                dependencies: 'h1',
+                custom_class: 'fase2'
+            },
+            {
+                id: 'h2',
+                name: '💎 H2: Contenido Estructurado',
+                start: '2026-02-19',
+                end: '2026-02-19',
+                progress: 0,
+                dependencies: 'fase2',
+                custom_class: 'hito'
+            },
+            // FASE 3
+            {
+                id: 'fase3',
+                name: 'FASE 3: INTEGRACIÓN META API - WHATSAPP',
+                start: '2026-02-20',
+                end: '2026-02-28',
+                progress: 0,
+                dependencies: 'h2',
+                custom_class: 'fase3'
+            },
+            {
+                id: 'h3',
+                name: '💎 H3: WhatsApp API Verificado',
+                start: '2026-02-28',
+                end: '2026-02-28',
+                progress: 0,
+                dependencies: 'fase3',
+                custom_class: 'hito'
+            },
+            // FASE 4
+            {
+                id: 'fase4',
+                name: 'FASE 4: CONFIGURACIÓN DE CHATWOOT',
+                start: '2026-03-03',
+                end: '2026-03-07',
+                progress: 0,
+                dependencies: 'h3',
+                custom_class: 'fase4'
+            },
+            {
+                id: 'h4',
+                name: '💎 H4: Chatwoot Operativo',
+                start: '2026-03-07',
+                end: '2026-03-07',
+                progress: 0,
+                dependencies: 'fase4',
+                custom_class: 'hito'
+            },
+            // FASE 5
+            {
+                id: 'fase5',
+                name: 'FASE 5: DESARROLLO E INTEGRACIÓN AGENTE IA',
+                start: '2026-03-10',
+                end: '2026-03-21',
+                progress: 0,
+                dependencies: 'h4',
+                custom_class: 'fase5'
+            },
+            {
+                id: 'h5',
+                name: '💎 H5: Agente IA Funcional',
+                start: '2026-03-21',
+                end: '2026-03-21',
+                progress: 0,
+                dependencies: 'fase5',
+                custom_class: 'hito'
+            },
+            // FASE 6
+            {
+                id: 'fase6',
+                name: 'FASE 6: INTEGRACIÓN CON ZOHO CRM',
+                start: '2026-03-24',
+                end: '2026-03-28',
+                progress: 0,
+                dependencies: 'h5',
+                custom_class: 'fase6'
+            },
+            {
+                id: 'h6',
+                name: '💎 H6: Zoho CRM Integrado',
+                start: '2026-03-28',
+                end: '2026-03-28',
+                progress: 0,
+                dependencies: 'fase6',
+                custom_class: 'hito'
+            },
+            // FASE 7
+            {
+                id: 'fase7',
+                name: 'FASE 7: PRUEBAS Y CONTROL DE CALIDAD',
+                start: '2026-03-31',
+                end: '2026-04-04',
+                progress: 0,
+                dependencies: 'h6',
+                custom_class: 'fase7'
+            },
+            {
+                id: 'h7',
+                name: '💎 H7: Sistema Validado',
+                start: '2026-04-04',
+                end: '2026-04-04',
+                progress: 0,
+                dependencies: 'fase7',
+                custom_class: 'hito'
+            },
+            // FASE 8
+            {
+                id: 'fase8',
+                name: 'FASE 8: CAPACITACIÓN Y DOCUMENTACIÓN',
+                start: '2026-04-07',
+                end: '2026-04-08',
+                progress: 0,
+                dependencies: 'h7',
+                custom_class: 'fase8'
+            },
+            {
+                id: 'h8',
+                name: '💎 H8: Equipo Capacitado',
+                start: '2026-04-08',
+                end: '2026-04-08',
+                progress: 0,
+                dependencies: 'fase8',
+                custom_class: 'hito'
+            },
+            // FASE 9
+            {
+                id: 'fase9',
+                name: 'FASE 9: DESPLIEGUE Y PUESTA EN PRODUCCIÓN',
+                start: '2026-04-09',
+                end: '2026-04-09',
+                progress: 0,
+                dependencies: 'h8',
+                custom_class: 'fase9'
+            },
+            {
+                id: 'h9',
+                name: '💎 H9: GO-LIVE PRODUCCIÓN',
+                start: '2026-04-09',
+                end: '2026-04-09',
+                progress: 0,
+                dependencies: 'fase9',
+                custom_class: 'hito'
+            }
+        ];
+
+        const gantt = new Gantt("#gantt", tasks, {
+            view_mode: 'Month',
+            date_format: 'DD/MM/YYYY',
+            language: 'es',
+            custom_popup_html: function(task) {
+                return `
+                    <div class="details-container">
+                        <h5>${task.name}</h5>
+                        <p>Inicio: ${task._start.toLocaleDateString('es-ES')}</p>
+                        <p>Fin: ${task._end.toLocaleDateString('es-ES')}</p>
+                        <p>Duración: ${task.duration} día(s)</p>
+                    </div>
+                `;
+            }
+        });
+
+        // Estilos personalizados para las barras
+        const style = document.createElement('style');
+        style.textContent = `
+            .gantt .bar.fase1 { fill: #667eea !important; }
+            .gantt .bar.fase2 { fill: #48bb78 !important; }
+            .gantt .bar.fase3 { fill: #ed8936 !important; }
+            .gantt .bar.fase4 { fill: #9f7aea !important; }
+            .gantt .bar.fase5 { fill: #f56565 !important; }
+            .gantt .bar.fase6 { fill: #38b2ac !important; }
+            .gantt .bar.fase7 { fill: #ecc94b !important; }
+            .gantt .bar.fase8 { fill: #4299e1 !important; }
+            .gantt .bar.fase9 { fill: #ed64a6 !important; }
+            .gantt .bar.hito { fill: #ffd700 !important; }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
