@@ -959,11 +959,19 @@
             function updateStats() {
                 const totalTasks = tasks.filter(t => !t.isPhase && !t.isMilestone).length;
                 const completed = tasks.filter(t => !t.isPhase && !t.isMilestone && t.status === 'completed').length;
-                const percent = Math.round((completed / totalTasks) * 100);
+                const percent = totalTasks > 0 ? Math.round((completed / totalTasks) * 100) : 0;
 
-                document.getElementById('totalTasks').textContent = totalTasks;
-                document.getElementById('completedTasks').textContent = completed;
-                document.getElementById('progressPercent').textContent = percent + '%';
+                console.log('📊 Actualizando stats:', { totalTasks, completed, percent });
+
+                const totalTasksEl = document.getElementById('totalTasks');
+                const completedTasksEl = document.getElementById('completedTasks');
+                const progressPercentEl = document.getElementById('progressPercent');
+
+                if (totalTasksEl) totalTasksEl.textContent = totalTasks;
+                if (completedTasksEl) completedTasksEl.textContent = completed;
+                if (progressPercentEl) progressPercentEl.textContent = percent + '%';
+
+                console.log('✅ Stats actualizados en DOM');
             }
 
             // Mostrar notificación
