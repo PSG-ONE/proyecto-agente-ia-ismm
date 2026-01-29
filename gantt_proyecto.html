@@ -814,7 +814,7 @@
                             ${task.name}
                         </div>
                         <div>
-                            ${task.isPhase || task.isMilestone ? '' : `
+                            ${task.isPhase ? '' : `
                                 <span class="status-badge ${statusClass}" onclick="toggleStatus(${index})">
                                     ${statusIcon} ${statusText}
                                 </span>
@@ -822,26 +822,26 @@
                         </div>
                         <div>${task.duration}</div>
                         <div>
-                            ${task.isPhase || task.isMilestone ? task.assignee : `
+                            ${task.isPhase ? task.assignee : `
                                 <input type="text" class="editable-input" value="${task.assignee}" 
                                     onchange="changeAssignee(${index}, this.value)"
                                     placeholder="Nombre">
                             `}
                         </div>
                         <div>
-                            ${task.isPhase || task.isMilestone ? '' : `
+                            ${task.isPhase ? '' : `
                                 <input type="date" class="editable-date" value="${task.start}" 
                                     onchange="changeDate(${index}, 'start', this.value)">
                             `}
                         </div>
                         <div>
-                            ${task.isPhase || task.isMilestone ? '' : `
+                            ${task.isPhase ? '' : `
                                 <input type="date" class="editable-date" value="${task.end}" 
                                     onchange="changeDate(${index}, 'end', this.value)">
                             `}
                         </div>
                         <div class="action-buttons">
-                            ${task.isPhase || task.isMilestone ? '' : `
+                            ${task.isPhase ? '' : `
                                 <button class="action-btn" onclick="editTask(${index})" title="Editar">✏️</button>
                                 <button class="action-btn delete" onclick="deleteTask(${index})" title="Eliminar">🗑️</button>
                             `}
@@ -1014,6 +1014,42 @@
                     updateStats();
                     showNotification('🔄 Progreso reseteado');
                 }
+            }
+
+            // Cambiar estado de tarea
+            function toggleStatus(index) {
+                const task = tasks[index];
+
+                // Ciclar entre estados: pending -> progress -> completed -> pending
+                if (task.status === 'pending') {
+                    task.status = 'progress';
+                } else if (task.status === 'progress') {
+                    task.status = 'completed';
+                } else {
+                    task.status = 'pending';
+                }
+
+                saveData();
+                renderGantt();
+                updateStats(); // ← ACTUALIZAR DASHBOARD
+
+                const statusText = task.status === 'pending' ? 'Pendiente' : task.status === 'progress' ? 'En progreso' : 'Completado';
+                showNotification(`✅ Estado actualizado: ${statusText}`);
+            }
+
+            // Cambiar asignado
+            function changeAssignee(index, value) {
+                tasks[index].assignee = value;
+                saveData();
+                showNotification(`👤 Asignado actualizado: ${tasks[index].name}`);
+            }
+
+            // Cambiar fecha
+            function changeDate(index, field, value) {
+                tasks[index][field] = value;
+                saveData();
+                renderGantt();
+                showNotification(`📅 Fecha actualizada: ${tasks[index].name}`);
             }
 
             // Agregar nueva tarea
