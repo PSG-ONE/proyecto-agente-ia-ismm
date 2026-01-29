@@ -751,6 +751,38 @@
                 return days;
             }
 
+            // Guardar datos en localStorage
+            function saveData() {
+                try {
+                    localStorage.setItem('gantt-tasks', JSON.stringify(tasks));
+                    console.log('💾 Datos guardados en localStorage');
+                } catch (error) {
+                    console.error('❌ Error al guardar:', error);
+                }
+            }
+
+            // Cargar datos guardados
+            function loadSavedData() {
+                try {
+                    const saved = localStorage.getItem('gantt-tasks');
+                    if (saved) {
+                        const loadedTasks = JSON.parse(saved);
+                        // Actualizar solo el estado y asignado de las tareas existentes
+                        loadedTasks.forEach((savedTask, index) => {
+                            if (tasks[index]) {
+                                tasks[index].status = savedTask.status || 'pending';
+                                tasks[index].assignee = savedTask.assignee || tasks[index].assignee;
+                                tasks[index].start = savedTask.start || tasks[index].start;
+                                tasks[index].end = savedTask.end || tasks[index].end;
+                            }
+                        });
+                        console.log('✅ Datos cargados desde localStorage');
+                    }
+                } catch (error) {
+                    console.error('❌ Error al cargar:', error);
+                }
+            }
+
             // Renderizar Gantt
             function renderGantt() {
                 const days = generateTimeline();
